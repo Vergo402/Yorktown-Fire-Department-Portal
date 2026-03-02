@@ -314,6 +314,16 @@
   .btn-archive:hover { background: rgba(16,185,129,0.1); border-color: var(--green); }
 
   .footer { background: var(--ash); border-top: 1px solid var(--steel); text-align: center; padding: 18px; font-size: 0.72rem; color: var(--steel); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* PROFILE */
+  .profile-card { background: var(--ash); border: 1px solid var(--steel); border-radius: 14px; padding: 32px; max-width: 600px; }
+  .profile-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--fire); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.6rem; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+  .profile-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .profile-divider { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fog); border-top: 1px solid var(--steel); padding-top: 20px; margin-bottom: 16px; }
+  .profile-divider span { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--mist); font-family: 'Barlow', sans-serif; }
+  .btn-save-profile { background: var(--fire); border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 28px; border-radius: 8px; cursor: pointer; margin-top: 20px; transition: background 0.2s; }
+  .btn-save-profile:hover { background: var(--fire-dark); }
+  @media (max-width: 600px) { .profile-fields { grid-template-columns: 1fr; } .profile-card { padding: 20px 16px; } }
 </style>
 </head>
 <body>
@@ -372,6 +382,7 @@
       <button class="nav-tab" onclick="showView('dashboard')" id="tab-dashboard">Dashboard</button>
       <button class="nav-tab" onclick="showView('archive')" id="tab-archive">Archive</button>
       <button class="nav-tab" onclick="showView('users')" id="tab-users" style="display:none">Users</button>
+      <button class="nav-tab" onclick="showView('profile')" id="tab-profile">Profile</button>
     </nav>
     <div class="header-right">
       <div class="user-pill"><div class="role-dot" id="role-dot"></div><span id="session-label">—</span></div>
@@ -385,6 +396,7 @@
   <button class="mobile-nav-btn" onclick="showView('dashboard')"><span class="mob-icon">📊</span>Dashboard</button>
   <button class="mobile-nav-btn" onclick="showView('archive')"><span class="mob-icon">🗃️</span>Archive</button>
   <button class="mobile-nav-btn" onclick="showView('users')" id="mob-users" style="display:none"><span class="mob-icon">👥</span>Users</button>
+  <button class="mobile-nav-btn" onclick="showView('profile')" id="mob-profile"><span class="mob-icon">👤</span>Profile</button>
 </nav>
 
 <main class="main" id="app-main" style="display:none">
@@ -604,6 +616,32 @@
       <div class="field"><label>Department</label><select id="nu-dept"><option value="Yorktown Heights FD">Yorktown Heights FD</option><option value="Lake Mohegan FD">Lake Mohegan FD</option></select></div>
     </div>
     <button class="btn-add-user" onclick="addUser()">Add User</button>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="view-profile" style="display:none">
+  <div class="section-header"><h2>My Profile</h2><p>Update your account information.</p></div>
+  <div class="profile-card">
+    <div class="profile-avatar" id="profile-avatar-display"></div>
+    <div class="profile-fields">
+      <div class="field"><label>Full Name</label><input type="text" id="prof-name" placeholder="Your full name"></div>
+      <div class="field"><label>Email Address</label><input type="email" id="prof-email" placeholder="your@email.com"></div>
+      <div class="field"><label>Department</label>
+        <select id="prof-dept" style="background:var(--smoke);border:1.5px solid var(--steel);border-radius:8px;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;padding:12px 14px;outline:none;width:100%;appearance:none;">
+          <option value="Yorktown Heights FD">Yorktown Heights FD</option>
+          <option value="Lake Mohegan FD">Lake Mohegan FD</option>
+        </select>
+      </div>
+      <div class="field"><label>Username</label><input type="text" id="prof-username" disabled style="opacity:0.45;cursor:not-allowed"><p style="color:var(--mist);font-size:0.75rem;margin-top:4px">Username cannot be changed.</p></div>
+    </div>
+    <div class="profile-divider">Change Password <span>(leave blank to keep current password)</span></div>
+    <div class="profile-fields">
+      <div class="field"><label>New Password</label><input type="password" id="prof-pw" placeholder="Min 8 chars, 1 upper, 1 number, 1 symbol"></div>
+      <div class="field"><label>Confirm New Password</label><input type="password" id="prof-pw2" placeholder="Repeat new password"></div>
+    </div>
+    <div id="profile-msg" style="display:none;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-top:8px"></div>
+    <button class="btn-save-profile" onclick="saveProfile()">Save Changes</button>
   </div>
 </div>
 
@@ -942,13 +980,15 @@ function showApp() {
 
 // === NAV ===
 function showView(v) {
-  ['submit','dashboard','archive','users'].forEach(id => { const el=document.getElementById('view-'+id); if(el) el.style.display = id===v?'block':'none'; });
+  ['submit','dashboard','archive','users','profile'].forEach(id => { const el=document.getElementById('view-'+id); if(el) el.style.display = id===v?'block':'none'; });
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   const at = document.getElementById('tab-'+v); if(at) at.classList.add('active');
-  document.querySelectorAll('.mobile-nav-btn').forEach((t,i) => t.classList.toggle('active',['submit','dashboard','archive','users'][i]===v));
+  document.querySelectorAll('.mobile-nav-btn').forEach(t => t.classList.remove('active'));
+  const mob = document.getElementById('mob-'+v); if(mob) mob.classList.add('active');
   if(v==='dashboard') loadAndRenderDashboard();
   if(v==='archive') loadAndRenderArchive();
   if(v==='users') renderUsers();
+  if(v==='profile') loadProfile();
 }
 
 // === FORMS ===
@@ -1356,6 +1396,65 @@ function removeUser(username) {
   if(!confirm(`Remove user "${username}"? This cannot be undone.`)) return;
   saveUsers(getUsers().filter(u=>u.username!==username));
   renderUsers();
+}
+
+// ===================================================
+// PROFILE
+// ===================================================
+function loadProfile() {
+  const u = USERS_CACHE.find(u => u.username === SESSION.username) || {};
+  document.getElementById('prof-name').value     = u.fullName || SESSION.fullName || '';
+  document.getElementById('prof-email').value    = u.email    || '';
+  document.getElementById('prof-username').value = SESSION.username;
+  document.getElementById('prof-pw').value       = '';
+  document.getElementById('prof-pw2').value      = '';
+  const dept = document.getElementById('prof-dept');
+  if (dept) dept.value = u.dept || SESSION.dept || '';
+  const initials = (u.fullName || SESSION.fullName || '?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('profile-avatar-display').textContent = initials;
+  document.getElementById('profile-msg').style.display = 'none';
+}
+
+async function saveProfile() {
+  const fullName = document.getElementById('prof-name').value.trim();
+  const email    = document.getElementById('prof-email').value.trim();
+  const dept     = document.getElementById('prof-dept').value;
+  const pw       = document.getElementById('prof-pw').value;
+  const pw2      = document.getElementById('prof-pw2').value;
+  const msg      = document.getElementById('profile-msg');
+
+  const showMsg = (text, ok) => {
+    msg.textContent = text;
+    msg.style.cssText = 'display:block;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-top:8px;border:1px solid ' + (ok ? 'rgba(16,185,129,0.3)' : 'rgba(232,50,26,0.3)') + ';background:' + (ok ? 'rgba(16,185,129,0.15)' : 'rgba(232,50,26,0.15)') + ';color:' + (ok ? 'var(--green)' : 'var(--fire)') + ';';
+  };
+
+  if (!fullName) { showMsg('Full name is required.', false); return; }
+
+  const updates = { fullName, email, dept };
+
+  if (pw || pw2) {
+    if (pw !== pw2) { showMsg('Passwords do not match.', false); return; }
+    const pe = pwStrength(pw); if (pe) { showMsg(pe, false); return; }
+    updates.pwHash = await sha256(pw);
+  }
+
+  showLoading('Saving profile...');
+  const ok = await userUpdate(SESSION.username, updates);
+  hideLoading();
+
+  if (!ok) { showMsg('Failed to save. Please try again.', false); return; }
+
+  SESSION.fullName = fullName;
+  SESSION.dept = dept;
+  sessionStorage.setItem('fp_sess', JSON.stringify(SESSION));
+  document.getElementById('session-label').textContent = SESSION.fullName + ' (' + SESSION.username + ')';
+  ['insp-sub','viol-sub','knox-sub'].forEach(id => { const el=document.getElementById(id); if(el) el.value=SESSION.fullName; });
+  const idx = USERS_CACHE.findIndex(u => u.username === SESSION.username);
+  if (idx >= 0) USERS_CACHE[idx] = { ...USERS_CACHE[idx], ...updates };
+  document.getElementById('profile-avatar-display').textContent = fullName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('prof-pw').value  = '';
+  document.getElementById('prof-pw2').value = '';
+  showMsg('Profile saved successfully!', true);
 }
 
 // ===================================================
