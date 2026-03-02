@@ -304,6 +304,13 @@
   .btn-deny:hover { background:rgba(232,50,26,0.1); }
   .no-pending { color:var(--mist); font-size:0.85rem; font-style:italic; }
 
+
+  .other-input-wrap { display:none; margin-top:10px; }
+  .other-input-wrap.show { display:block; }
+  .other-input-wrap input { background:var(--smoke); border:1.5px solid var(--steel); border-radius:8px; color:var(--white); font-family:'Barlow',sans-serif; font-size:0.92rem; padding:10px 13px; outline:none; transition:border-color 0.2s; width:100%; }
+  .other-input-wrap input:focus { border-color:var(--fire); box-shadow:0 0 0 3px rgba(232,50,26,0.1); }
+  .other-input-wrap input::placeholder { color:var(--steel); }
+
   .footer { background: var(--ash); border-top: 1px solid var(--steel); text-align: center; padding: 18px; font-size: 0.72rem; color: var(--steel); letter-spacing: 0.06em; text-transform: uppercase; }
 </style>
 </head>
@@ -465,7 +472,10 @@
             <label class="multi-check-item"><input type="checkbox" name="vt" value="Hoarding / Storage Hazard"><span class="check-box"></span><span class="check-label">Hoarding / Storage Hazard</span></label>
             <label class="multi-check-item"><input type="checkbox" name="vt" value="Knox Box Issue"><span class="check-box"></span><span class="check-label">Knox Box Issue</span></label>
             <label class="multi-check-item"><input type="checkbox" name="vt" value="Construction Without Permit"><span class="check-box"></span><span class="check-label">Construction Without Permit</span></label>
-            <label class="multi-check-item"><input type="checkbox" name="vt" value="Other"><span class="check-box"></span><span class="check-label">Other</span></label>
+            <label class="multi-check-item"><input type="checkbox" name="vt" value="Other" onclick="handleOtherCheck(this)"><span class="check-box"></span><span class="check-label">Other</span></label>
+          </div>
+          <div class="other-input-wrap" id="viol-other-wrap">
+            <input type="text" id="viol-other-input" placeholder="Please describe the violation type...">
           </div>
         </div>
         <div class="field"><label>Date Observed <span class="req">*</span></label><input type="date" name="observed_date" required></div>
@@ -502,11 +512,14 @@
     <form id="f-knox" onsubmit="submitForm(event,'knox')">
       <div class="form-grid">
         <div class="field field-full"><label>Request Type <span class="req">*</span></label>
-          <div class="radio-group">
-            <label class="radio-option"><input type="radio" name="knox_type" value="New Installation - CO Request" required><span class="radio-dot"></span>New Installation - CO Request</label>
-            <label class="radio-option"><input type="radio" name="knox_type" value="FD Requests Key Change"><span class="radio-dot"></span>FD Requests Key Change</label>
-            <label class="radio-option"><input type="radio" name="knox_type" value="Box Removal"><span class="radio-dot"></span>Box Removal</label>
-            <label class="radio-option"><input type="radio" name="knox_type" value="Malfunction / Repair"><span class="radio-dot"></span>Malfunction / Repair</label>
+          <div class="radio-group" id="knox-radio-group">
+            <label class="radio-option"><input type="radio" name="knox_type" value="No Knox Box" required onclick="handleOtherRadio(this,'knox')"><span class="radio-dot"></span>No Knox Box</label>
+            <label class="radio-option"><input type="radio" name="knox_type" value="Property Key Change" onclick="handleOtherRadio(this,'knox')"><span class="radio-dot"></span>Property Key Change</label>
+            <label class="radio-option"><input type="radio" name="knox_type" value="Box Malfunction / Repair" onclick="handleOtherRadio(this,'knox')"><span class="radio-dot"></span>Box Malfunction / Repair</label>
+            <label class="radio-option"><input type="radio" name="knox_type" value="Other" onclick="handleOtherRadio(this,'knox')"><span class="radio-dot"></span>Other</label>
+          </div>
+          <div class="other-input-wrap" id="knox-other-wrap">
+            <input type="text" id="knox-other-input" placeholder="Please describe the Knox Box issue..." >
           </div>
         </div>
         <div class="field field-full"><label>Property Address <span class="req">*</span></label><input type="text" name="address" placeholder="123 Main St, Yorktown Heights, NY 10598" required></div>
@@ -804,7 +817,22 @@ async function submitForm(e, type) {
   const fd = new FormData(form);
   const data = {};
   for (const [k,v] of fd.entries()) { if(k!=='vt') data[k]=v; }
-  if (type === 'violation') data.violation_type = [...form.querySelectorAll('input[name="vt"]:checked')].map(c=>c.value).join(', ');
+
+  // Merge "Other" free-text into the type fields
+  if (type === 'knox') {
+    const otherInput = document.getElementById('knox-other-input');
+    if (data.knox_type === 'Other' && otherInput && otherInput.value.trim()) {
+      data.knox_type = 'Other: ' + otherInput.value.trim();
+    }
+  }
+  if (type === 'violation') {
+    const types = [...form.querySelectorAll('input[name="vt"]:checked')].map(c => c.value);
+    const otherInput = document.getElementById('viol-other-input');
+    const merged = types.map(t => t === 'Other' && otherInput && otherInput.value.trim() ? 'Other: ' + otherInput.value.trim() : t);
+    data.violation_type = merged.join(', ');
+  } else {
+    if (type === 'violation') data.violation_type = [...form.querySelectorAll('input[name="vt"]:checked')].map(c=>c.value).join(', ');
+  }
 
   data.type=type; data.department=selectedDept; data.timestamp=new Date().toISOString();
   data.submittedByUser=SESSION.username; data.submittedByName=SESSION.fullName;
@@ -847,6 +875,13 @@ function genRef(type, count) {
 function resetForm(type) {
   document.getElementById('f-'+type).reset();
   if(type==='violation'){document.querySelectorAll('#violation-types input').forEach(c=>c.checked=false);document.querySelectorAll('.severity-btn').forEach(b=>b.classList.remove('active'));document.getElementById('sev-violation').value='';}
+  // Hide and clear Other inputs
+  ['knox','viol'].forEach(k => {
+    const wrap = document.getElementById(k+'-other-wrap');
+    const inp = document.getElementById(k+'-other-input');
+    if(wrap){wrap.classList.remove('show');}
+    if(inp){inp.value='';inp.required=false;}
+  });
   const sm={'inspection':'insp-sub','violation':'viol-sub','knox':'knox-sub'};
   const sf=document.getElementById(sm[type]); if(sf) sf.value=SESSION.fullName;
 }
@@ -1009,13 +1044,9 @@ function saveStatus() {
     t.changeLog.push({user:SESSION.username, time:new Date().toISOString(), desc:commentEl.value.trim(), isComment:true});
   }
 
-  if(pendingStatus==='completed') {
-    t.archived=true;
-    t.changeLog.push({user:SESSION.username, time:new Date().toISOString(), desc:'Ticket completed and moved to archive.'});
-  }
+
   subs[idx]=t; saveSubs(subs);
   closeModal(); updateDashboard();
-  if(t.archived) updateArchive();
 }
 
 function addComment() {
@@ -1209,6 +1240,38 @@ async function sendSubmissionEmail(data) {
     console.log('Notification email sent.');
   } catch (err) {
     console.warn('EmailJS error (submission was still saved):', err);
+  }
+}
+
+
+// === OTHER FIELD HANDLERS ===
+function handleOtherRadio(radio, formKey) {
+  const wrap = document.getElementById(formKey + '-other-wrap');
+  const input = document.getElementById(formKey + '-other-input');
+  if (!wrap || !input) return;
+  if (radio.value === 'Other') {
+    wrap.classList.add('show');
+    input.required = true;
+    input.focus();
+  } else {
+    wrap.classList.remove('show');
+    input.required = false;
+    input.value = '';
+  }
+}
+
+function handleOtherCheck(checkbox) {
+  const wrap = document.getElementById('viol-other-wrap');
+  const input = document.getElementById('viol-other-input');
+  if (!wrap || !input) return;
+  if (checkbox.checked) {
+    wrap.classList.add('show');
+    input.required = true;
+    input.focus();
+  } else {
+    wrap.classList.remove('show');
+    input.required = false;
+    input.value = '';
   }
 }
 
