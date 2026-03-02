@@ -981,9 +981,9 @@ function openTicket(id) {
   // Status section
   // Show delete button for admins on non-archived tickets
   const deleteBtn = document.getElementById('modal-delete-btn');
-  if (deleteBtn) deleteBtn.style.display = (isAdmin && !isLocked) ? '' : 'none';
+  if (deleteBtn) deleteBtn.style.display = isAdmin ? '' : 'none';
 
-  const statusSection = isAdmin && !isLocked ? `
+  const statusSection = isAdmin ? `
     <div class="status-section">
       <h4>Workflow Status</h4>
       <div class="status-opts">
@@ -999,7 +999,7 @@ function openTicket(id) {
   const logHtml=buildLogHtml(t);
 
   document.getElementById('modal-body').innerHTML=`
-    ${isLocked?'<div class="locked-banner">🔒 This ticket is completed and archived. Read-only.</div>':''}
+    ${isLocked?'<div class="locked-banner" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:10px 14px;font-size:0.82rem;color:var(--green);margin-bottom:18px;">🗃️ This ticket is archived.</div>':''}
     <div class="modal-meta">
       <span class="type-badge ${t.type}">${typeFullLabels[t.type]}</span>
       <span class="status-badge ${STATUS_CLASS[t.status]}" id="modal-status-badge">${STATUS_LABELS[t.status]}</span>
@@ -1010,13 +1010,12 @@ function openTicket(id) {
     <div class="change-log">
       <h4>Change Log</h4>
       ${logHtml}
-      ${!isLocked ? `
       <div class="comment-box" style="margin-top:14px">
         <textarea id="comment-input" placeholder="Add a comment or note to this ticket..."></textarea>
         <div class="comment-actions">
           <button class="btn-add-comment" onclick="addComment()">Add Comment</button>
         </div>
-      </div>` : ''}
+      </div>
     </div>
   `;
   document.getElementById('ticket-modal').classList.add('show');
@@ -1092,7 +1091,8 @@ function deleteTicket() {
   const subs=getSubs();
   const t=subs.find(s=>s.id===openTicketId);
   if(!t) return;
-  if(!confirm(`Permanently delete ticket ${t.ref}? This cannot be undone.`)) return;
+  const archiveNote = t.archived ? '\n\nThis ticket is archived.' : '';
+  if(!confirm(`Permanently delete ticket ${t.ref}?${archiveNote}\n\nThis cannot be undone.`)) return;
   const updated=subs.filter(s=>s.id!==openTicketId);
   saveSubs(updated);
   closeModal();
