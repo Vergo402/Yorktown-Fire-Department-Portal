@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -17,310 +18,309 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Barlow', sans-serif; background: var(--coal); color: var(--light); min-height: 100vh; overflow-x: hidden; }
 
-  /* LOGIN */
-  .login-screen { position: fixed; inset: 0; background: var(--coal); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-  .login-screen.hidden { display: none; }
-  .login-box { background: var(--ash); border: 1px solid var(--steel); border-radius: 16px; padding: 48px 40px; width: 100%; max-width: 420px; box-shadow: 0 24px 64px rgba(0,0,0,0.5); }
-  .login-logo { text-align: center; margin-bottom: 32px; }
-  .login-logo .icon { font-size: 2.5rem; display: block; margin-bottom: 10px; }
-  .login-logo h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
-  .login-logo p { font-size: 0.8rem; color: var(--mist); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
-  .login-field { margin-bottom: 16px; }
-  .login-field label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fog); margin-bottom: 6px; }
-  .login-field input { width: 100%; background: var(--smoke); border: 1.5px solid var(--steel); border-radius: 8px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 1rem; padding: 12px 14px; outline: none; transition: border-color 0.2s; }
-  .login-field input:focus { border-color: var(--fire); }
-  .login-btn { width: 100%; background: var(--fire); border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 14px; border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
-  .login-btn:hover { background: var(--fire-dark); }
-  .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .login-error { background: rgba(232,50,26,0.12); border: 1px solid rgba(232,50,26,0.3); border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; color: var(--fire); margin-bottom: 16px; display: none; }
-  .login-error.show { display: block; }
-  .lockout-msg { background: rgba(232,50,26,0.06); border: 1px solid rgba(232,50,26,0.15); border-radius: 8px; padding: 12px 14px; font-size: 0.82rem; color: var(--fog); margin-top: 12px; text-align: center; display: none; }
-  .lockout-msg.show { display: block; }
+/* LOGIN */
+.login-screen { position: fixed; inset: 0; background: var(–coal); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.login-screen.hidden { display: none; }
+.login-box { background: var(–ash); border: 1px solid var(–steel); border-radius: 16px; padding: 48px 40px; width: 100%; max-width: 420px; box-shadow: 0 24px 64px rgba(0,0,0,0.5); }
+.login-logo { text-align: center; margin-bottom: 32px; }
+.login-logo .icon { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+.login-logo h1 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.login-logo p { font-size: 0.8rem; color: var(–mist); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+.login-field { margin-bottom: 16px; }
+.login-field label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(–fog); margin-bottom: 6px; }
+.login-field input { width: 100%; background: var(–smoke); border: 1.5px solid var(–steel); border-radius: 8px; color: var(–white); font-family: ‘Barlow’, sans-serif; font-size: 1rem; padding: 12px 14px; outline: none; transition: border-color 0.2s; }
+.login-field input:focus { border-color: var(–fire); }
+.login-btn { width: 100%; background: var(–fire); border: none; color: #fff; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 14px; border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+.login-btn:hover { background: var(–fire-dark); }
+.login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.login-error { background: rgba(232,50,26,0.12); border: 1px solid rgba(232,50,26,0.3); border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; color: var(–fire); margin-bottom: 16px; display: none; }
+.login-error.show { display: block; }
+.lockout-msg { background: rgba(232,50,26,0.06); border: 1px solid rgba(232,50,26,0.15); border-radius: 8px; padding: 12px 14px; font-size: 0.82rem; color: var(–fog); margin-top: 12px; text-align: center; display: none; }
+.lockout-msg.show { display: block; }
 
-  /* HEADER */
-  .header { background: var(--ash); border-bottom: 3px solid var(--fire); position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 24px rgba(232,50,26,0.2); }
-  .header-inner { max-width: 1300px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .header-brand { display: flex; align-items: center; gap: 12px; }
-  .header-icon { width: 38px; height: 38px; background: var(--fire); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-  .header-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.1; }
-  .header-title span { display: block; font-weight: 400; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--mist); }
-  .header-right { display: flex; align-items: center; gap: 10px; }
-  .user-pill { background: var(--smoke); border: 1px solid var(--steel); border-radius: 20px; padding: 5px 14px; font-size: 0.78rem; color: var(--fog); display: flex; align-items: center; gap: 6px; }
-  .role-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mist); }
-  .role-dot.admin { background: var(--fire); }
-  .btn-logout { background: none; border: 1px solid var(--steel); color: var(--mist); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-  .btn-logout:hover { border-color: var(--fire); color: var(--fire); }
-  .nav-tabs { display: flex; gap: 3px; }
-  .nav-tab { background: none; border: none; color: var(--mist); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-  .nav-tab:hover { background: var(--smoke); color: var(--light); }
-  .nav-tab.active { background: var(--fire); color: #fff; }
+/* HEADER */
+.header { background: var(–ash); border-bottom: 3px solid var(–fire); position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 24px rgba(232,50,26,0.2); }
+.header-inner { max-width: 1300px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.header-icon { width: 38px; height: 38px; background: var(–fire); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.header-title { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.1; }
+.header-title span { display: block; font-weight: 400; font-size: 0.65rem; letter-spacing: 0.12em; color: var(–mist); }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.user-pill { background: var(–smoke); border: 1px solid var(–steel); border-radius: 20px; padding: 5px 14px; font-size: 0.78rem; color: var(–fog); display: flex; align-items: center; gap: 6px; }
+.role-dot { width: 7px; height: 7px; border-radius: 50%; background: var(–mist); }
+.role-dot.admin { background: var(–fire); }
+.btn-logout { background: none; border: 1px solid var(–steel); color: var(–mist); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.btn-logout:hover { border-color: var(–fire); color: var(–fire); }
+.nav-tabs { display: flex; gap: 3px; }
+.nav-tab { background: none; border: none; color: var(–mist); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.nav-tab:hover { background: var(–smoke); color: var(–light); }
+.nav-tab.active { background: var(–fire); color: #fff; }
 
-  /* MAIN */
-  .main { max-width: 1300px; margin: 0 auto; padding: 32px 24px 80px; }
+/* MAIN */
+.main { max-width: 1300px; margin: 0 auto; padding: 32px 24px 80px; }
 
-  /* HERO */
-  .hero { text-align: center; padding: 40px 0 32px; position: relative; }
-  .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 500px; height: 180px; background: radial-gradient(ellipse, rgba(232,50,26,0.1) 0%, transparent 70%); pointer-events: none; }
-  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(1.8rem,4vw,3rem); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1; margin-bottom: 10px; }
-  .hero h1 em { font-style: normal; color: var(--fire); }
-  .hero p { color: var(--mist); font-size: 0.95rem; max-width: 480px; margin: 0 auto 28px; line-height: 1.6; }
-  .dept-label { color: var(--mist); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; display: block; }
-  .dept-selector { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-  .dept-btn { background: var(--smoke); border: 2px solid var(--steel); color: var(--fog); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 22px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-  .dept-btn:hover { border-color: var(--fire); color: var(--light); }
-  .dept-btn.active { background: var(--fire); border-color: var(--fire); color: #fff; }
-  .dept-btn:disabled { opacity: 0.5; cursor: default; }
+/* HERO */
+.hero { text-align: center; padding: 40px 0 32px; position: relative; }
+.hero::before { content: ‘’; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 500px; height: 180px; background: radial-gradient(ellipse, rgba(232,50,26,0.1) 0%, transparent 70%); pointer-events: none; }
+.hero h1 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: clamp(1.8rem,4vw,3rem); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1; margin-bottom: 10px; }
+.hero h1 em { font-style: normal; color: var(–fire); }
+.hero p { color: var(–mist); font-size: 0.95rem; max-width: 480px; margin: 0 auto 28px; line-height: 1.6; }
+.dept-label { color: var(–mist); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; display: block; }
+.dept-selector { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.dept-btn { background: var(–smoke); border: 2px solid var(–steel); color: var(–fog); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 22px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.dept-btn:hover { border-color: var(–fire); color: var(–light); }
+.dept-btn.active { background: var(–fire); border-color: var(–fire); color: #fff; }
+.dept-btn:disabled { opacity: 0.5; cursor: default; }
 
-  /* SECTION TITLE */
-  .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--steel); }
+/* SECTION TITLE */
+.section-title { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+.section-title::after { content: ‘’; flex: 1; height: 1px; background: var(–steel); }
 
-  /* FORM TYPE CARDS */
-  .form-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px; }
-  @media (max-width: 640px) { .form-type-grid { grid-template-columns: 1fr; } }
-  .form-type-card { background: var(--ash); border: 2px solid var(--steel); border-radius: 12px; padding: 22px 18px; cursor: pointer; transition: all 0.25s; }
-  .form-type-card:hover { transform: translateY(-2px); }
-  .form-type-card.active.type-inspection { border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue), 0 8px 24px rgba(59,130,246,0.15); }
-  .form-type-card.active.type-violation { border-color: var(--fire); box-shadow: 0 0 0 1px var(--fire), 0 8px 24px rgba(232,50,26,0.15); }
-  .form-type-card.active.type-knox { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 8px 24px rgba(245,158,11,0.15); }
-  .card-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
-  .card-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 5px; }
-  .card-desc { font-size: 0.8rem; color: var(--mist); line-height: 1.5; }
+/* FORM TYPE CARDS */
+.form-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px; }
+@media (max-width: 640px) { .form-type-grid { grid-template-columns: 1fr; } }
+.form-type-card { background: var(–ash); border: 2px solid var(–steel); border-radius: 12px; padding: 22px 18px; cursor: pointer; transition: all 0.25s; }
+.form-type-card:hover { transform: translateY(-2px); }
+.form-type-card.active.type-inspection { border-color: var(–blue); box-shadow: 0 0 0 1px var(–blue), 0 8px 24px rgba(59,130,246,0.15); }
+.form-type-card.active.type-violation { border-color: var(–fire); box-shadow: 0 0 0 1px var(–fire), 0 8px 24px rgba(232,50,26,0.15); }
+.form-type-card.active.type-knox { border-color: var(–gold); box-shadow: 0 0 0 1px var(–gold), 0 8px 24px rgba(245,158,11,0.15); }
+.card-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
+.card-title { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 5px; }
+.card-desc { font-size: 0.8rem; color: var(–mist); line-height: 1.5; }
 
-  /* FORM PANEL */
-  .form-panel { background: var(--ash); border: 1px solid var(--steel); border-radius: 14px; padding: 32px; display: none; animation: slideIn 0.3s ease; }
-  .form-panel.active { display: block; }
-  @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .form-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; padding-bottom: 18px; border-bottom: 1px solid var(--steel); }
-  .form-header-icon { width: 44px; height: 44px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
-  .fhi-blue { background: rgba(59,130,246,0.15); } .fhi-red { background: rgba(232,50,26,0.15); } .fhi-gold { background: rgba(245,158,11,0.15); }
-  .form-header h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 0.04em; }
-  .form-header p { font-size: 0.82rem; color: var(--mist); margin-top: 3px; }
-  .dept-badge { margin-left: auto; background: var(--fire); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; display: none; }
+/* FORM PANEL */
+.form-panel { background: var(–ash); border: 1px solid var(–steel); border-radius: 14px; padding: 32px; display: none; animation: slideIn 0.3s ease; }
+.form-panel.active { display: block; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.form-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; padding-bottom: 18px; border-bottom: 1px solid var(–steel); }
+.form-header-icon { width: 44px; height: 44px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+.fhi-blue { background: rgba(59,130,246,0.15); } .fhi-red { background: rgba(232,50,26,0.15); } .fhi-gold { background: rgba(245,158,11,0.15); }
+.form-header h2 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.form-header p { font-size: 0.82rem; color: var(–mist); margin-top: 3px; }
+.dept-badge { margin-left: auto; background: var(–fire); color: #fff; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; display: none; }
 
-  /* FORM FIELDS */
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
-  .field-full { grid-column: 1 / -1; }
-  .field { display: flex; flex-direction: column; gap: 5px; }
-  .field label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fog); }
-  .field label .req { color: var(--fire); margin-left: 2px; }
-  .field input, .field select, .field textarea { background: var(--smoke); border: 1.5px solid var(--steel); border-radius: 8px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.92rem; padding: 10px 13px; outline: none; transition: border-color 0.2s; width: 100%; appearance: none; }
-  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--fire); box-shadow: 0 0 0 3px rgba(232,50,26,0.1); }
-  .field input::placeholder, .field textarea::placeholder { color: var(--steel); }
-  .field select option { background: var(--smoke); }
-  .field textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
-  .field input.error { border-color: var(--fire) !important; }
+/* FORM FIELDS */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+.field-full { grid-column: 1 / -1; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(–fog); }
+.field label .req { color: var(–fire); margin-left: 2px; }
+.field input, .field select, .field textarea { background: var(–smoke); border: 1.5px solid var(–steel); border-radius: 8px; color: var(–white); font-family: ‘Barlow’, sans-serif; font-size: 0.92rem; padding: 10px 13px; outline: none; transition: border-color 0.2s; width: 100%; appearance: none; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(–fire); box-shadow: 0 0 0 3px rgba(232,50,26,0.1); }
+.field input::placeholder, .field textarea::placeholder { color: var(–steel); }
+.field select option { background: var(–smoke); }
+.field textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+.field input.error { border-color: var(–fire) !important; }
 
-  /* Multi-select */
-  .multi-check-group { background: var(--smoke); border: 1.5px solid var(--steel); border-radius: 8px; padding: 10px 13px; max-height: 210px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
-  .multi-check-item { display: flex; align-items: center; gap: 9px; padding: 4px 2px; cursor: pointer; }
-  .multi-check-item input[type="checkbox"] { display: none; }
-  .check-box { width: 16px; height: 16px; border: 2px solid var(--steel); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-  .multi-check-item input:checked ~ .check-box { background: var(--fire); border-color: var(--fire); }
-  .multi-check-item input:checked ~ .check-box::after { content: '✓'; color: #fff; font-size: 0.7rem; font-weight: 700; }
-  .check-label { font-size: 0.87rem; color: var(--fog); }
-  .multi-check-item:has(input:checked) .check-label { color: var(--white); }
+/* Multi-select */
+.multi-check-group { background: var(–smoke); border: 1.5px solid var(–steel); border-radius: 8px; padding: 10px 13px; max-height: 210px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
+.multi-check-item { display: flex; align-items: center; gap: 9px; padding: 4px 2px; cursor: pointer; }
+.multi-check-item input[type=“checkbox”] { display: none; }
+.check-box { width: 16px; height: 16px; border: 2px solid var(–steel); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.multi-check-item input:checked ~ .check-box { background: var(–fire); border-color: var(–fire); }
+.multi-check-item input:checked ~ .check-box::after { content: ‘✓’; color: #fff; font-size: 0.7rem; font-weight: 700; }
+.check-label { font-size: 0.87rem; color: var(–fog); }
+.multi-check-item:has(input:checked) .check-label { color: var(–white); }
 
-  /* Radio */
-  .radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
-  .radio-option { display: flex; align-items: center; gap: 7px; background: var(--smoke); border: 1.5px solid var(--steel); border-radius: 8px; padding: 9px 14px; cursor: pointer; transition: all 0.2s; font-size: 0.87rem; }
-  .radio-option input[type="radio"] { display: none; }
-  .radio-option:has(input:checked) { border-color: var(--fire); background: rgba(232,50,26,0.08); color: var(--white); }
-  .radio-dot { width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(--steel); transition: all 0.2s; flex-shrink: 0; }
-  .radio-option:has(input:checked) .radio-dot { border-color: var(--fire); background: var(--fire); }
+/* Radio */
+.radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.radio-option { display: flex; align-items: center; gap: 7px; background: var(–smoke); border: 1.5px solid var(–steel); border-radius: 8px; padding: 9px 14px; cursor: pointer; transition: all 0.2s; font-size: 0.87rem; }
+.radio-option input[type=“radio”] { display: none; }
+.radio-option:has(input:checked) { border-color: var(–fire); background: rgba(232,50,26,0.08); color: var(–white); }
+.radio-dot { width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(–steel); transition: all 0.2s; flex-shrink: 0; }
+.radio-option:has(input:checked) .radio-dot { border-color: var(–fire); background: var(–fire); }
 
-  /* Severity */
-  .severity-group { display: flex; gap: 8px; flex-wrap: wrap; }
-  .severity-btn { padding: 7px 16px; border-radius: 6px; border: 1.5px solid var(--steel); background: var(--smoke); color: var(--fog); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
-  .severity-btn[data-sev="low"]:hover,.severity-btn[data-sev="low"].active { border-color: var(--green); background: rgba(16,185,129,0.1); color: var(--green); }
-  .severity-btn[data-sev="medium"]:hover,.severity-btn[data-sev="medium"].active { border-color: var(--gold); background: rgba(245,158,11,0.1); color: var(--gold); }
-  .severity-btn[data-sev="high"]:hover,.severity-btn[data-sev="high"].active { border-color: var(--orange); background: rgba(249,115,22,0.1); color: var(--orange); }
-  .severity-btn[data-sev="critical"]:hover,.severity-btn[data-sev="critical"].active { border-color: var(--fire); background: rgba(232,50,26,0.1); color: var(--fire); }
+/* Severity */
+.severity-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.severity-btn { padding: 7px 16px; border-radius: 6px; border: 1.5px solid var(–steel); background: var(–smoke); color: var(–fog); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+.severity-btn[data-sev=“low”]:hover,.severity-btn[data-sev=“low”].active { border-color: var(–green); background: rgba(16,185,129,0.1); color: var(–green); }
+.severity-btn[data-sev=“medium”]:hover,.severity-btn[data-sev=“medium”].active { border-color: var(–gold); background: rgba(245,158,11,0.1); color: var(–gold); }
+.severity-btn[data-sev=“high”]:hover,.severity-btn[data-sev=“high”].active { border-color: var(–orange); background: rgba(249,115,22,0.1); color: var(–orange); }
+.severity-btn[data-sev=“critical”]:hover,.severity-btn[data-sev=“critical”].active { border-color: var(–fire); background: rgba(232,50,26,0.1); color: var(–fire); }
 
-  /* Form actions */
-  .form-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--steel); }
-  .btn-reset { background: none; border: 1.5px solid var(--steel); color: var(--mist); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.87rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 11px 22px; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-  .btn-reset:hover { border-color: var(--mist); color: var(--light); }
-  .btn-submit { background: var(--fire); border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.98rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 11px 28px; border-radius: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 7px; }
-  .btn-submit:hover { background: var(--fire-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,50,26,0.3); }
+/* Form actions */
+.form-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(–steel); }
+.btn-reset { background: none; border: 1.5px solid var(–steel); color: var(–mist); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 0.87rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 11px 22px; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.btn-reset:hover { border-color: var(–mist); color: var(–light); }
+.btn-submit { background: var(–fire); border: none; color: #fff; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.98rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 11px 28px; border-radius: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 7px; }
+.btn-submit:hover { background: var(–fire-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,50,26,0.3); }
 
-  /* DASHBOARD */
-  .dash-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; }
-  @media (max-width: 900px) { .dash-stats { grid-template-columns: repeat(3, 1fr); } }
-  .stat-card { background: var(--ash); border: 1px solid var(--steel); border-radius: 10px; padding: 18px; }
-  .stat-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist); margin-bottom: 7px; }
-  .stat-value { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 2rem; line-height: 1; }
-  .sv-white{color:var(--white)} .sv-blue{color:var(--blue)} .sv-gold{color:var(--gold)} .sv-green{color:var(--green)}
+/* DASHBOARD */
+.dash-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; }
+@media (max-width: 900px) { .dash-stats { grid-template-columns: repeat(3, 1fr); } }
+.stat-card { background: var(–ash); border: 1px solid var(–steel); border-radius: 10px; padding: 18px; }
+.stat-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(–mist); margin-bottom: 7px; }
+.stat-value { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 2rem; line-height: 1; }
+.sv-white{color:var(–white)} .sv-blue{color:var(–blue)} .sv-gold{color:var(–gold)} .sv-green{color:var(–green)}
 
-  .dash-controls { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
-  .dash-filters { display: flex; gap: 6px; flex-wrap: wrap; }
-  .filter-btn { background: var(--smoke); border: 1.5px solid var(--steel); color: var(--fog); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 13px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-  .filter-btn:hover { background: var(--steel); color: var(--white); }
-  .filter-btn.active { background: var(--fire); border-color: var(--fire); color: #fff; }
-  .btn-export { background: var(--smoke); border: 1.5px solid var(--steel); color: var(--fog); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 16px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-  .btn-export:hover { border-color: var(--green); color: var(--green); }
+.dash-controls { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.dash-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-btn { background: var(–smoke); border: 1.5px solid var(–steel); color: var(–fog); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 13px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.filter-btn:hover { background: var(–steel); color: var(–white); }
+.filter-btn.active { background: var(–fire); border-color: var(–fire); color: #fff; }
+.btn-export { background: var(–smoke); border: 1.5px solid var(–steel); color: var(–fog); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 16px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.btn-export:hover { border-color: var(–green); color: var(–green); }
 
-  .table-wrap { background: var(--ash); border: 1px solid var(--steel); border-radius: 12px; overflow: hidden; overflow-x: auto; }
-  .records-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-  .records-table th { text-align: left; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist); padding: 10px 14px; border-bottom: 1px solid var(--steel); }
-  .records-table td { padding: 12px 14px; border-bottom: 1px solid rgba(61,66,73,0.4); vertical-align: middle; }
-  .records-table tr:hover td { background: rgba(255,255,255,0.025); cursor: pointer; }
-  .records-table tr:last-child td { border-bottom: none; }
-  .empty-state { text-align: center; padding: 50px 20px; color: var(--mist); }
-  .empty-state .ei { font-size: 2rem; margin-bottom: 10px; opacity: 0.4; }
+.table-wrap { background: var(–ash); border: 1px solid var(–steel); border-radius: 12px; overflow: hidden; overflow-x: auto; }
+.records-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.records-table th { text-align: left; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(–mist); padding: 10px 14px; border-bottom: 1px solid var(–steel); }
+.records-table td { padding: 12px 14px; border-bottom: 1px solid rgba(61,66,73,0.4); vertical-align: middle; }
+.records-table tr:hover td { background: rgba(255,255,255,0.025); cursor: pointer; }
+.records-table tr:last-child td { border-bottom: none; }
+.empty-state { text-align: center; padding: 50px 20px; color: var(–mist); }
+.empty-state .ei { font-size: 2rem; margin-bottom: 10px; opacity: 0.4; }
 
-  .type-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; }
-  .type-badge.inspection { background: rgba(59,130,246,0.15); color: var(--blue); }
-  .type-badge.violation { background: rgba(232,50,26,0.15); color: var(--fire); }
-  .type-badge.knox { background: rgba(245,158,11,0.15); color: var(--gold); }
+.type-badge { display: inline-block; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; }
+.type-badge.inspection { background: rgba(59,130,246,0.15); color: var(–blue); }
+.type-badge.violation { background: rgba(232,50,26,0.15); color: var(–fire); }
+.type-badge.knox { background: rgba(245,158,11,0.15); color: var(–gold); }
 
-  .status-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.07em; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; white-space: nowrap; }
-  .s-submitted { background: rgba(59,130,246,0.15); color: var(--blue); }
-  .s-under_review { background: rgba(245,158,11,0.15); color: var(--gold); }
-  .s-enforcement { background: rgba(249,115,22,0.15); color: var(--orange); }
-  .s-completed { background: rgba(16,185,129,0.15); color: var(--green); }
+.status-badge { display: inline-block; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.07em; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; white-space: nowrap; }
+.s-submitted { background: rgba(59,130,246,0.15); color: var(–blue); }
+.s-under_review { background: rgba(245,158,11,0.15); color: var(–gold); }
+.s-enforcement { background: rgba(249,115,22,0.15); color: var(–orange); }
+.s-completed { background: rgba(16,185,129,0.15); color: var(–green); }
 
-  /* TICKET MODAL */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 500; align-items: flex-start; justify-content: center; padding: 24px 16px; overflow-y: auto; }
-  .modal-overlay.show { display: flex; }
-  .modal-box { background: var(--ash); border: 1px solid var(--steel); border-radius: 16px; width: 100%; max-width: 780px; animation: popIn 0.25s ease; margin: auto; }
-  @keyframes popIn { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
-  .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid var(--steel); gap: 12px; }
-  .modal-header h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.04em; }
-  .modal-close { background: none; border: 1px solid var(--steel); color: var(--mist); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; flex-shrink: 0; }
-  .modal-close:hover { border-color: var(--fire); color: var(--fire); }
-  .modal-body { padding: 26px 28px; }
-  .modal-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
-  .modal-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
-  @media (max-width: 560px) { .modal-fields { grid-template-columns: 1fr; } }
-  .mf { display: flex; flex-direction: column; gap: 3px; }
-  .mf.full { grid-column: 1 / -1; }
-  .mf label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mist); }
-  .mf p { font-size: 0.88rem; color: var(--light); background: var(--smoke); border-radius: 6px; padding: 8px 11px; min-height: 34px; line-height: 1.5; }
+/* TICKET MODAL */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 500; align-items: flex-start; justify-content: center; padding: 24px 16px; overflow-y: auto; }
+.modal-overlay.show { display: flex; }
+.modal-box { background: var(–ash); border: 1px solid var(–steel); border-radius: 16px; width: 100%; max-width: 780px; animation: popIn 0.25s ease; margin: auto; }
+@keyframes popIn { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid var(–steel); gap: 12px; }
+.modal-header h3 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.modal-close { background: none; border: 1px solid var(–steel); color: var(–mist); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; flex-shrink: 0; }
+.modal-close:hover { border-color: var(–fire); color: var(–fire); }
+.modal-body { padding: 26px 28px; }
+.modal-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+.modal-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+@media (max-width: 560px) { .modal-fields { grid-template-columns: 1fr; } }
+.mf { display: flex; flex-direction: column; gap: 3px; }
+.mf.full { grid-column: 1 / -1; }
+.mf label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(–mist); }
+.mf p { font-size: 0.88rem; color: var(–light); background: var(–smoke); border-radius: 6px; padding: 8px 11px; min-height: 34px; line-height: 1.5; }
 
-  /* Status section */
-  .status-section { background: var(--smoke); border: 1px solid var(--steel); border-radius: 10px; padding: 18px 20px; margin-bottom: 22px; }
-  .status-section h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fog); margin-bottom: 12px; }
-  .status-opts { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-  .status-opt { padding: 7px 13px; border-radius: 6px; border: 1.5px solid var(--steel); background: var(--ash); color: var(--fog); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
-  .status-opt.cur-submitted { border-color: var(--blue); background: rgba(59,130,246,0.1); color: var(--blue); }
-  .status-opt.cur-under_review { border-color: var(--gold); background: rgba(245,158,11,0.1); color: var(--gold); }
-  .status-opt.cur-enforcement { border-color: var(--orange); background: rgba(249,115,22,0.1); color: var(--orange); }
-  .status-opt.cur-completed { border-color: var(--green); background: rgba(16,185,129,0.1); color: var(--green); }
-  .btn-save-status { background: var(--fire); border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 18px; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
-  .btn-save-status:hover { background: var(--fire-dark); }
+/* Status section */
+.status-section { background: var(–smoke); border: 1px solid var(–steel); border-radius: 10px; padding: 18px 20px; margin-bottom: 22px; }
+.status-section h4 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(–fog); margin-bottom: 12px; }
+.status-opts { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.status-opt { padding: 7px 13px; border-radius: 6px; border: 1.5px solid var(–steel); background: var(–ash); color: var(–fog); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+.status-opt.cur-submitted { border-color: var(–blue); background: rgba(59,130,246,0.1); color: var(–blue); }
+.status-opt.cur-under_review { border-color: var(–gold); background: rgba(245,158,11,0.1); color: var(–gold); }
+.status-opt.cur-enforcement { border-color: var(–orange); background: rgba(249,115,22,0.1); color: var(–orange); }
+.status-opt.cur-completed { border-color: var(–green); background: rgba(16,185,129,0.1); color: var(–green); }
+.btn-save-status { background: var(–fire); border: none; color: #fff; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 18px; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+.btn-save-status:hover { background: var(–fire-dark); }
 
-  /* Change log */
-  .change-log { margin-top: 20px; }
-  .change-log h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fog); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-  .change-log h4::after { content: ''; flex: 1; height: 1px; background: var(--steel); }
-  .log-entry { display: grid; grid-template-columns: auto auto 1fr; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(61,66,73,0.4); font-size: 0.8rem; }
-  .log-entry:last-child { border-bottom: none; }
-  .log-time { color: var(--mist); white-space: nowrap; }
-  .log-user { color: var(--fog); font-weight: 600; white-space: nowrap; }
-  .log-desc { color: var(--light); }
-  .log-empty { color: var(--mist); font-size: 0.82rem; font-style: italic; }
-  .locked-banner { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: var(--green); margin-bottom: 18px; }
+/* Change log */
+.change-log { margin-top: 20px; }
+.change-log h4 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(–fog); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.change-log h4::after { content: ‘’; flex: 1; height: 1px; background: var(–steel); }
+.log-entry { display: grid; grid-template-columns: auto auto 1fr; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(61,66,73,0.4); font-size: 0.8rem; }
+.log-entry:last-child { border-bottom: none; }
+.log-time { color: var(–mist); white-space: nowrap; }
+.log-user { color: var(–fog); font-weight: 600; white-space: nowrap; }
+.log-desc { color: var(–light); }
+.log-empty { color: var(–mist); font-size: 0.82rem; font-style: italic; }
+.locked-banner { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: var(–green); margin-bottom: 18px; }
 
-  /* SUCCESS */
-  .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 600; align-items: center; justify-content: center; }
-  .success-overlay.show { display: flex; }
-  .success-modal { background: var(--ash); border: 1px solid var(--steel); border-radius: 16px; padding: 44px 36px; text-align: center; max-width: 400px; width: 90%; animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1); }
-  .success-icon { font-size: 3rem; margin-bottom: 14px; }
-  .success-modal h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.7rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
-  .success-modal p { color: var(--mist); font-size: 0.9rem; line-height: 1.6; }
-  .success-ref { background: var(--smoke); border-radius: 8px; padding: 9px 14px; font-family: monospace; font-size: 0.82rem; color: var(--fire); margin: 14px 0; }
-  .btn-done { background: var(--green); border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 11px 28px; border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-top: 6px; }
-  .btn-done:hover { background: #059669; }
+/* SUCCESS */
+.success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 600; align-items: center; justify-content: center; }
+.success-overlay.show { display: flex; }
+.success-modal { background: var(–ash); border: 1px solid var(–steel); border-radius: 16px; padding: 44px 36px; text-align: center; max-width: 400px; width: 90%; animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.success-icon { font-size: 3rem; margin-bottom: 14px; }
+.success-modal h3 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 800; font-size: 1.7rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+.success-modal p { color: var(–mist); font-size: 0.9rem; line-height: 1.6; }
+.success-ref { background: var(–smoke); border-radius: 8px; padding: 9px 14px; font-family: monospace; font-size: 0.82rem; color: var(–fire); margin: 14px 0; }
+.btn-done { background: var(–green); border: none; color: #fff; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 11px 28px; border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-top: 6px; }
+.btn-done:hover { background: #059669; }
 
-  /* USERS */
-  .users-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 14px; margin-bottom: 28px; }
-  .user-card { background: var(--ash); border: 1px solid var(--steel); border-radius: 10px; padding: 18px 20px; }
-  .user-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-  .user-card h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  .role-badge { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; }
-  .role-badge.admin { background: rgba(232,50,26,0.15); color: var(--fire); }
-  .role-badge.user { background: rgba(107,114,128,0.2); color: var(--fog); }
-  .user-card p { font-size: 0.82rem; color: var(--mist); margin-bottom: 12px; }
-  .user-card-actions { display: flex; gap: 7px; }
-  .btn-sm { flex: 1; background: var(--smoke); border: 1px solid var(--steel); color: var(--fog); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 7px; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: center; }
-  .btn-sm:hover { border-color: var(--gold); color: var(--gold); }
-  .btn-sm.danger:hover { border-color: var(--fire); color: var(--fire); }
-  .add-user-form { background: var(--ash); border: 1px solid var(--steel); border-radius: 12px; padding: 24px; }
-  .add-user-form h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold); margin-bottom: 16px; }
-  .add-user-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
-  @media (max-width: 600px) { .add-user-grid { grid-template-columns: 1fr; } }
-  .btn-add-user { background: var(--gold); border: none; color: var(--coal); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 22px; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-  .btn-add-user:hover { background: #D97706; }
+/* USERS */
+.users-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 14px; margin-bottom: 28px; }
+.user-card { background: var(–ash); border: 1px solid var(–steel); border-radius: 10px; padding: 18px 20px; }
+.user-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.user-card h4 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.role-badge { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; }
+.role-badge.admin { background: rgba(232,50,26,0.15); color: var(–fire); }
+.role-badge.user { background: rgba(107,114,128,0.2); color: var(–fog); }
+.user-card p { font-size: 0.82rem; color: var(–mist); margin-bottom: 12px; }
+.user-card-actions { display: flex; gap: 7px; }
+.btn-sm { flex: 1; background: var(–smoke); border: 1px solid var(–steel); color: var(–fog); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 7px; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.btn-sm:hover { border-color: var(–gold); color: var(–gold); }
+.btn-sm.danger:hover { border-color: var(–fire); color: var(–fire); }
+.add-user-form { background: var(–ash); border: 1px solid var(–steel); border-radius: 12px; padding: 24px; }
+.add-user-form h3 { font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(–gold); margin-bottom: 16px; }
+.add-user-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+@media (max-width: 600px) { .add-user-grid { grid-template-columns: 1fr; } }
+.btn-add-user { background: var(–gold); border: none; color: var(–coal); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 22px; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.btn-add-user:hover { background: #D97706; }
 
-  /* MOBILE */
-  @media (max-width: 768px) {
-    .form-panel { padding: 20px 16px; } .main { padding: 20px 14px 80px; }
-    .nav-tabs { display: none; }
-    .mobile-nav { display: flex; gap: 0; border-top: 1px solid var(--steel); position: fixed; bottom: 0; left: 0; right: 0; background: var(--ash); z-index: 100; }
-    .mobile-nav-btn { flex: 1; background: none; border: none; color: var(--mist); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 9px 4px 13px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: color 0.2s; }
-    .mobile-nav-btn .mob-icon { font-size: 1.1rem; }
-    .mobile-nav-btn.active { color: var(--fire); }
-    body { padding-bottom: 60px; }
-  }
-  .mobile-nav { display: none; }
+/* MOBILE */
+.mobile-nav { display: none; }
+@media (max-width: 768px) {
+.form-panel { padding: 20px 16px; } .main { padding: 20px 14px 80px; }
+.nav-tabs { display: none; }
+.mobile-nav { display: flex; gap: 0; border-top: 1px solid var(–steel); position: fixed; bottom: 0; left: 0; right: 0; background: var(–ash); z-index: 100; }
+.mobile-nav-btn { flex: 1; background: none; border: none; color: var(–mist); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 9px 4px 13px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: color 0.2s; }
+.mobile-nav-btn .mob-icon { font-size: 1.1rem; }
+.mobile-nav-btn.active { color: var(–fire); }
+body { padding-bottom: 60px; }
+}
 
-  .btn-delete { background: none; border: 1px solid rgba(232,50,26,0.4); color: var(--fire); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-  .btn-delete:hover { background: rgba(232,50,26,0.1); border-color: var(--fire); }
-  .comment-box { margin-top: 14px; }
-  .comment-box textarea { width: 100%; background: var(--smoke); border: 1.5px solid var(--steel); border-radius: 8px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.88rem; padding: 10px 13px; outline: none; resize: vertical; min-height: 72px; transition: border-color 0.2s; }
-  .comment-box textarea:focus { border-color: var(--blue); }
-  .comment-box textarea::placeholder { color: var(--steel); }
-  .comment-actions { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
-  .btn-add-comment { background: var(--blue); border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
-  .btn-add-comment:hover { background: #2563EB; }
-  .log-comment { background: rgba(59,130,246,0.06); border-left: 3px solid var(--blue); padding-left: 10px; }
-  .log-comment .log-desc { color: var(--fog); font-style: italic; }
+.btn-delete { background: none; border: 1px solid rgba(232,50,26,0.4); color: var(–fire); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.btn-delete:hover { background: rgba(232,50,26,0.1); border-color: var(–fire); }
+.comment-box { margin-top: 14px; }
+.comment-box textarea { width: 100%; background: var(–smoke); border: 1.5px solid var(–steel); border-radius: 8px; color: var(–white); font-family: ‘Barlow’, sans-serif; font-size: 0.88rem; padding: 10px 13px; outline: none; resize: vertical; min-height: 72px; transition: border-color 0.2s; }
+.comment-box textarea:focus { border-color: var(–blue); }
+.comment-box textarea::placeholder { color: var(–steel); }
+.comment-actions { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
+.btn-add-comment { background: var(–blue); border: none; color: #fff; font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+.btn-add-comment:hover { background: #2563EB; }
+.log-comment { background: rgba(59,130,246,0.06); border-left: 3px solid var(–blue); padding-left: 10px; }
+.log-comment .log-desc { color: var(–fog); font-style: italic; }
 
+/* REQUEST ACCESS */
+.login-switch { text-align:center; margin-top:18px; font-size:0.82rem; color:var(–mist); }
+.login-switch button { background:none; border:none; color:var(–fog); font-size:0.82rem; cursor:pointer; text-decoration:underline; padding:0; }
+.login-switch button:hover { color:var(–white); }
+.request-panel { display:none; }
+.request-panel.show { display:block; }
+.login-panel { display:block; }
+.login-panel.hide { display:none; }
+.login-success { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:8px; padding:14px; font-size:0.85rem; color:var(–green); text-align:center; display:none; }
+.login-success.show { display:block; }
+/* PENDING APPROVALS */
+.pending-section { background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.25); border-radius:12px; padding:22px; margin-bottom:28px; }
+.pending-section h3 { font-family:‘Barlow Condensed’,sans-serif; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:0.06em; color:var(–gold); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.pending-badge { background:var(–gold); color:var(–coal); font-size:0.7rem; font-weight:800; padding:2px 7px; border-radius:10px; }
+.pending-card { background:var(–ash); border:1px solid var(–steel); border-radius:8px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
+.pending-card:last-child { margin-bottom:0; }
+.pending-info h4 { font-family:‘Barlow Condensed’,sans-serif; font-weight:700; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.04em; }
+.pending-info p { font-size:0.8rem; color:var(–mist); margin-top:2px; }
+.pending-actions { display:flex; gap:7px; flex-shrink:0; }
+.btn-approve { background:var(–green); border:none; color:#fff; font-family:‘Barlow Condensed’,sans-serif; font-weight:700; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; padding:7px 14px; border-radius:6px; cursor:pointer; transition:background 0.2s; }
+.btn-approve:hover { background:#059669; }
+.btn-deny { background:none; border:1px solid rgba(232,50,26,0.4); color:var(–fire); font-family:‘Barlow Condensed’,sans-serif; font-weight:700; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; padding:7px 14px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+.btn-deny:hover { background:rgba(232,50,26,0.1); }
+.no-pending { color:var(–mist); font-size:0.85rem; font-style:italic; }
 
-  /* REQUEST ACCESS */
-  .login-switch { text-align:center; margin-top:18px; font-size:0.82rem; color:var(--mist); }
-  .login-switch button { background:none; border:none; color:var(--fog); font-size:0.82rem; cursor:pointer; text-decoration:underline; padding:0; }
-  .login-switch button:hover { color:var(--white); }
-  .request-panel { display:none; }
-  .request-panel.show { display:block; }
-  .login-panel { display:block; }
-  .login-panel.hide { display:none; }
-  .login-success { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:8px; padding:14px; font-size:0.85rem; color:var(--green); text-align:center; display:none; }
-  .login-success.show { display:block; }
-  /* PENDING APPROVALS */
-  .pending-section { background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.25); border-radius:12px; padding:22px; margin-bottom:28px; }
-  .pending-section h3 { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
-  .pending-badge { background:var(--gold); color:var(--coal); font-size:0.7rem; font-weight:800; padding:2px 7px; border-radius:10px; }
-  .pending-card { background:var(--ash); border:1px solid var(--steel); border-radius:8px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
-  .pending-card:last-child { margin-bottom:0; }
-  .pending-info h4 { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.04em; }
-  .pending-info p { font-size:0.8rem; color:var(--mist); margin-top:2px; }
-  .pending-actions { display:flex; gap:7px; flex-shrink:0; }
-  .btn-approve { background:var(--green); border:none; color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; padding:7px 14px; border-radius:6px; cursor:pointer; transition:background 0.2s; }
-  .btn-approve:hover { background:#059669; }
-  .btn-deny { background:none; border:1px solid rgba(232,50,26,0.4); color:var(--fire); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; padding:7px 14px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
-  .btn-deny:hover { background:rgba(232,50,26,0.1); }
-  .no-pending { color:var(--mist); font-size:0.85rem; font-style:italic; }
+.other-input-wrap { display:none; margin-top:10px; }
+.other-input-wrap.show { display:block; }
+.other-input-wrap input { background:var(–smoke); border:1.5px solid var(–steel); border-radius:8px; color:var(–white); font-family:‘Barlow’,sans-serif; font-size:0.92rem; padding:10px 13px; outline:none; transition:border-color 0.2s; width:100%; }
+.other-input-wrap input:focus { border-color:var(–fire); box-shadow:0 0 0 3px rgba(232,50,26,0.1); }
+.other-input-wrap input::placeholder { color:var(–steel); }
 
+.btn-archive { background: none; border: 1px solid rgba(16,185,129,0.4); color: var(–green); font-family: ‘Barlow Condensed’, sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.btn-archive:hover { background: rgba(16,185,129,0.1); border-color: var(–green); }
 
-  .other-input-wrap { display:none; margin-top:10px; }
-  .other-input-wrap.show { display:block; }
-  .other-input-wrap input { background:var(--smoke); border:1.5px solid var(--steel); border-radius:8px; color:var(--white); font-family:'Barlow',sans-serif; font-size:0.92rem; padding:10px 13px; outline:none; transition:border-color 0.2s; width:100%; }
-  .other-input-wrap input:focus { border-color:var(--fire); box-shadow:0 0 0 3px rgba(232,50,26,0.1); }
-  .other-input-wrap input::placeholder { color:var(--steel); }
-
-
-  .btn-archive { background: none; border: 1px solid rgba(16,185,129,0.4); color: var(--green); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-  .btn-archive:hover { background: rgba(16,185,129,0.1); border-color: var(--green); }
-
-  .footer { background: var(--ash); border-top: 1px solid var(--steel); text-align: center; padding: 18px; font-size: 0.72rem; color: var(--steel); letter-spacing: 0.06em; text-transform: uppercase; }
+.footer { background: var(–ash); border-top: 1px solid var(–steel); text-align: center; padding: 18px; font-size: 0.72rem; color: var(–steel); letter-spacing: 0.06em; text-transform: uppercase; }
 </style>
+
 </head>
 <body>
 
 <!-- LOGIN -->
+
 <div class="login-screen" id="login-screen">
   <div class="login-box">
     <div class="login-logo">
@@ -329,40 +329,44 @@
       <p>Town of Yorktown &mdash; Secure Access</p>
     </div>
 
-    <!-- SIGN IN PANEL -->
-    <div class="login-panel" id="login-panel">
-      <div class="login-error" id="login-error"></div>
-      <div class="login-field"><label>Username</label><input type="text" id="lu" autocomplete="username" spellcheck="false" placeholder="Enter username"></div>
-      <div class="login-field"><label>Password</label><input type="password" id="lp" autocomplete="current-password" placeholder="Enter password"></div>
-      <button class="login-btn" id="login-btn" onclick="doLogin()">Sign In</button>
-      <div class="lockout-msg" id="lockout-msg"></div>
-      <div class="login-switch">Don't have an account? <button onclick="showRequestPanel()">Request Access</button></div>
-    </div>
+```
+<!-- SIGN IN PANEL -->
+<div class="login-panel" id="login-panel">
+  <div class="login-error" id="login-error"></div>
+  <div class="login-field"><label>Username</label><input type="text" id="lu" autocomplete="username" spellcheck="false" placeholder="Enter username"></div>
+  <div class="login-field"><label>Password</label><input type="password" id="lp" autocomplete="current-password" placeholder="Enter password"></div>
+  <button class="login-btn" id="login-btn" onclick="doLogin()">Sign In</button>
+  <div class="lockout-msg" id="lockout-msg"></div>
+  <div class="login-switch">Don't have an account? <button onclick="showRequestPanel()">Request Access</button></div>
+</div>
 
-    <!-- REQUEST ACCESS PANEL -->
-    <div class="request-panel" id="request-panel">
-      <div class="login-success" id="request-success">
-        Your request has been submitted. An administrator will review it shortly. You will be able to log in once approved.
-      </div>
-      <div id="request-form-wrap">
-        <div class="login-error" id="request-error"></div>
-        <div class="login-field"><label>Full Name <span style="color:var(--fire)">*</span></label><input type="text" id="ra-name" placeholder="FF. Jane Doe"></div>
-        <div class="login-field"><label>Requested Username <span style="color:var(--fire)">*</span></label><input type="text" id="ra-user" placeholder="e.g. yhfd3" spellcheck="false"></div>
-        <div class="login-field"><label>Password <span style="color:var(--fire)">*</span></label><input type="password" id="ra-pw" placeholder="Min 8 chars, 1 upper, 1 number, 1 symbol"></div>
-        <div class="login-field"><label>Department <span style="color:var(--fire)">*</span></label>
-          <select id="ra-dept" style="background:var(--smoke);border:1.5px solid var(--steel);border-radius:8px;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;padding:12px 14px;outline:none;width:100%;appearance:none;">
-            <option value="Yorktown Heights FD">Yorktown Heights FD</option>
-            <option value="Lake Mohegan FD">Lake Mohegan FD</option>
-          </select>
-        </div>
-        <button class="login-btn" onclick="submitAccessRequest()">Submit Request</button>
-      </div>
-      <div class="login-switch" style="margin-top:14px"><button onclick="showLoginPanel()">Back to Sign In</button></div>
+<!-- REQUEST ACCESS PANEL -->
+<div class="request-panel" id="request-panel">
+  <div class="login-success" id="request-success">
+    Your request has been submitted. An administrator will review it shortly. You will be able to log in once approved.
+  </div>
+  <div id="request-form-wrap">
+    <div class="login-error" id="request-error"></div>
+    <div class="login-field"><label>Full Name <span style="color:var(--fire)">*</span></label><input type="text" id="ra-name" placeholder="FF. Jane Doe"></div>
+    <div class="login-field"><label>Requested Username <span style="color:var(--fire)">*</span></label><input type="text" id="ra-user" placeholder="e.g. yhfd3" spellcheck="false"></div>
+    <div class="login-field"><label>Password <span style="color:var(--fire)">*</span></label><input type="password" id="ra-pw" placeholder="Min 8 chars, 1 upper, 1 number, 1 symbol"></div>
+    <div class="login-field"><label>Department <span style="color:var(--fire)">*</span></label>
+      <select id="ra-dept" style="background:var(--smoke);border:1.5px solid var(--steel);border-radius:8px;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;padding:12px 14px;outline:none;width:100%;appearance:none;">
+        <option value="Yorktown Heights FD">Yorktown Heights FD</option>
+        <option value="Lake Mohegan FD">Lake Mohegan FD</option>
+      </select>
     </div>
+    <button class="login-btn" onclick="submitAccessRequest()">Submit Request</button>
+  </div>
+  <div class="login-switch" style="margin-top:14px"><button onclick="showLoginPanel()">Back to Sign In</button></div>
+</div>
+```
+
   </div>
 </div>
 
 <!-- HEADER -->
+
 <header class="header" id="app-header" style="display:none">
   <div class="header-inner">
     <div class="header-brand">
@@ -392,6 +396,7 @@
 <main class="main" id="app-main" style="display:none">
 
 <!-- SUBMIT -->
+
 <div id="view-submit">
   <div class="hero">
     <h1>Submit a <em>Request</em></h1>
@@ -422,6 +427,7 @@
   </div>
 
   <!-- INSPECTION FORM -->
+
   <div id="form-inspection" class="form-panel">
     <div class="form-header">
       <div class="form-header-icon fhi-blue">🏢</div>
@@ -451,6 +457,7 @@
   </div>
 
   <!-- VIOLATION FORM -->
+
   <div id="form-violation" class="form-panel">
     <div class="form-header">
       <div class="form-header-icon fhi-red">⚠️</div>
@@ -507,6 +514,7 @@
   </div>
 
   <!-- KNOX FORM -->
+
   <div id="form-knox" class="form-panel">
     <div class="form-header">
       <div class="form-header-icon fhi-gold">🔑</div>
@@ -547,6 +555,7 @@
 </div>
 
 <!-- DASHBOARD -->
+
 <div id="view-dashboard" style="display:none">
   <div class="section-title">Submission Dashboard</div>
   <div class="dash-stats">
@@ -577,6 +586,7 @@
 </div>
 
 <!-- ARCHIVE -->
+
 <div id="view-archive" style="display:none">
   <div class="section-title">Completed Archive</div>
   <p style="color:var(--mist);font-size:0.85rem;margin-bottom:20px;">Completed tickets are locked and archived here. Read-only.</p>
@@ -589,6 +599,7 @@
 </div>
 
 <!-- USERS -->
+
 <div id="view-users" style="display:none">
   <div class="section-title">User Management</div>
   <div class="pending-section" id="pending-section" style="display:none">
@@ -612,6 +623,7 @@
 </main>
 
 <!-- TICKET MODAL -->
+
 <div class="modal-overlay" id="ticket-modal">
   <div class="modal-box">
     <div class="modal-header">
@@ -627,6 +639,7 @@
 </div>
 
 <!-- SUCCESS -->
+
 <div class="success-overlay" id="success-overlay">
   <div class="success-modal">
     <div class="success-icon" id="si">✅</div>
@@ -794,562 +807,515 @@ function showLoading(msg = 'Loading...') {
     el.style.cssText = 'position:fixed;inset:0;background:rgba(17,18,20,0.7);backdrop-filter:blur(3px);z-index:800;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;';
     el.innerHTML = '<div style="width:36px;height:36px;border:3px solid var(--steel);border-top-color:var(--fire);border-radius:50%;animation:spin 0.8s linear infinite"></div><p style="color:var(--fog);font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase">' + msg + '</p>';
     document.head.insertAdjacentHTML('beforeend', '<style>@keyframes spin{to{transform:rotate(360deg)}}</style>');
-    document.body.appendChild(el);
-  } else {
-    el.querySelector('p').textContent = msg;
-    el.style.display = 'flex';
-  }
+
+```
+document.body.appendChild(el);
+```
+
+} else {
+el.querySelector(‘p’).textContent = msg;
+el.style.display = ‘flex’;
+}
 }
 function hideLoading() {
-  const el = document.getElementById('loading-overlay');
-  if (el) el.style.display = 'none';
+const el = document.getElementById(‘loading-overlay’);
+if (el) el.style.display = ‘none’;
 }
 
-const STATUS_LABELS = {submitted:'Submitted', under_review:'Under Review', enforcement:'Enforcement Underway', completed:'Completed'};
-const STATUS_CLASS = {submitted:'s-submitted', under_review:'s-under_review', enforcement:'s-enforcement', completed:'s-completed'};
-const TYPE_LABELS = {inspection:'Inspection', violation:'Violation', knox:'Knox Box'};
+const STATUS_LABELS = {submitted:‘Submitted’, under_review:‘Under Review’, enforcement:‘Enforcement Underway’, completed:‘Completed’};
+const STATUS_CLASS = {submitted:‘s-submitted’, under_review:‘s-under_review’, enforcement:‘s-enforcement’, completed:‘s-completed’};
+const TYPE_LABELS = {inspection:‘Inspection’, violation:‘Violation’, knox:‘Knox Box’};
 
 // === INIT ===
 async function init() {
-  // Check for existing valid session (skip Sheets call if already logged in)
-  const saved = sessionStorage.getItem('fp_sess');
-  if (saved) {
-    try {
-      const s = JSON.parse(saved);
-      const exp = await sha256(s.username + s.lt + 'fp_tok');
-      if (s.token === exp && Date.now() - s.la < 1800000) {
-        SESSION = s;
-        usersGetAll(); // load cache in background for admin functions
-        showApp();
-        return;
-      }
-    } catch(e) {}
-    sessionStorage.removeItem('fp_sess');
-  }
-  // Wire up keyboard shortcuts — login happens on demand via doLogin()
-  document.getElementById('lu').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('lp').focus(); });
-  document.getElementById('lp').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-  document.getElementById('ra-pw').addEventListener('keydown', e => { if(e.key==='Enter') submitAccessRequest(); });
+// Check for existing valid session (skip Sheets call if already logged in)
+const saved = sessionStorage.getItem(‘fp_sess’);
+if (saved) {
+try {
+const s = JSON.parse(saved);
+const exp = await sha256(s.username + s.lt + ‘fp_tok’);
+if (s.token === exp && Date.now() - s.la < 1800000) {
+SESSION = s;
+usersGetAll(); // load cache in background for admin functions
+showApp();
+return;
+}
+} catch(e) {}
+sessionStorage.removeItem(‘fp_sess’);
+}
+// Wire up keyboard shortcuts — login happens on demand via doLogin()
+document.getElementById(‘lu’).addEventListener(‘keydown’, e => { if(e.key===‘Enter’) document.getElementById(‘lp’).focus(); });
+document.getElementById(‘lp’).addEventListener(‘keydown’, e => { if(e.key===‘Enter’) doLogin(); });
+document.getElementById(‘ra-pw’).addEventListener(‘keydown’, e => { if(e.key===‘Enter’) submitAccessRequest(); });
 }
 
 // === LOGIN ===
 async function doLogin() {
-  const username = document.getElementById('lu').value.trim().toLowerCase();
-  const password = document.getElementById('lp').value;
-  const errEl = document.getElementById('login-error');
-  const lockEl = document.getElementById('lockout-msg');
-  const btn = document.getElementById('login-btn');
-  errEl.classList.remove('show'); lockEl.textContent = '';
+const username = document.getElementById(‘lu’).value.trim().toLowerCase();
+const password = document.getElementById(‘lp’).value;
+const errEl = document.getElementById(‘login-error’);
+const lockEl = document.getElementById(‘lockout-msg’);
+const btn = document.getElementById(‘login-btn’);
+errEl.classList.remove(‘show’); lockEl.textContent = ‘’;
 
-  const locks = getLocks();
-  const lk = locks[username];
-  if (lk && lk.until > Date.now()) {
-    const m = Math.ceil((lk.until - Date.now()) / 60000);
-    lockEl.textContent = `Account locked. Try again in ${m} minute${m!==1?'s':''}.`;
-    return;
-  }
-  if (!username || !password) { errEl.textContent = 'Please enter username and password.'; errEl.classList.add('show'); return; }
+const locks = getLocks();
+const lk = locks[username];
+if (lk && lk.until > Date.now()) {
+const m = Math.ceil((lk.until - Date.now()) / 60000);
+lockEl.textContent = `Account locked. Try again in ${m} minute${m!==1?'s':''}.`;
+return;
+}
+if (!username || !password) { errEl.textContent = ‘Please enter username and password.’; errEl.classList.add(‘show’); return; }
 
-  btn.disabled = true; btn.textContent = 'Signing in...';
+btn.disabled = true; btn.textContent = ‘Signing in…’;
 
-  // Fetch users from Sheets with timeout protection
-  let fetchOk = false;
-  try {
-    await Promise.race([
-      usersGetAll().then(() => { fetchOk = true; }),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 12000))
-    ]);
-  } catch(e) {
-    errEl.textContent = 'Could not reach server. Check your internet connection and try again.';
-    errEl.classList.add('show');
-    btn.disabled = false; btn.textContent = 'Sign In';
-    return;
-  }
-
-  // Bootstrap admin if Users sheet is empty (first-time setup)
-  if (USERS_CACHE.length === 0) {
-    btn.textContent = 'First-time setup...';
-    try {
-      const adminHash = await sha256(DEFAULTS[0].pw);
-      await userCreate({ username: DEFAULTS[0].username, fullName: DEFAULTS[0].fullName, role: 'admin', dept: DEFAULTS[0].dept, pwHash: adminHash });
-      await usersGetAll();
-    } catch(e) {
-      errEl.textContent = 'Setup failed. Please check Apps Script deployment.';
-      errEl.classList.add('show');
-      btn.disabled = false; btn.textContent = 'Sign In';
-      return;
-    }
-  }
-
-  const hash = await sha256(password);
-  const user = USERS_CACHE.find(u => u.username === username);
-
-  console.log('Login debug | users in cache:', USERS_CACHE.length, '| user found:', !!user, '| hash match:', user ? user.pwHash === hash : 'n/a');
-
-  if (!user || user.pwHash !== hash) {
-    if (!locks[username]) locks[username] = {count:0, until:0};
-    locks[username].count++;
-    if (locks[username].count >= 5) {
-      locks[username].until = Date.now() + 900000;
-      locks[username].count = 0;
-      lockEl.textContent = 'Too many failed attempts. Locked for 15 minutes.';
-    }
-    saveLocks(locks);
-    errEl.textContent = 'Invalid username or password.'; errEl.classList.add('show');
-    btn.disabled = false; btn.textContent = 'Sign In';
-    document.getElementById('lp').value = ''; return;
-  }
-
-  if (locks[username]) { delete locks[username]; saveLocks(locks); }
-  const lt = Date.now().toString();
-  const token = await sha256(username + lt + 'fp_tok');
-  SESSION = {username: user.username, fullName: user.fullName, role: user.role, dept: user.dept, lt, token, la: Date.now()};
-  sessionStorage.setItem('fp_sess', JSON.stringify(SESSION));
-  showApp();
+// Fetch users from Sheets with timeout protection
+let fetchOk = false;
+try {
+await Promise.race([
+usersGetAll().then(() => { fetchOk = true; }),
+new Promise((_, reject) => setTimeout(() => reject(new Error(‘timeout’)), 12000))
+]);
+} catch(e) {
+errEl.textContent = ‘Could not reach server. Check your internet connection and try again.’;
+errEl.classList.add(‘show’);
+btn.disabled = false; btn.textContent = ‘Sign In’;
+return;
 }
 
-document.addEventListener('click', () => { if(SESSION){ SESSION.la=Date.now(); sessionStorage.setItem('fp_sess',JSON.stringify(SESSION)); }});
+// Bootstrap admin if Users sheet is empty (first-time setup)
+if (USERS_CACHE.length === 0) {
+btn.textContent = ‘First-time setup…’;
+try {
+const adminHash = await sha256(DEFAULTS[0].pw);
+await userCreate({ username: DEFAULTS[0].username, fullName: DEFAULTS[0].fullName, role: ‘admin’, dept: DEFAULTS[0].dept, pwHash: adminHash });
+await usersGetAll();
+} catch(e) {
+errEl.textContent = ‘Setup failed. Please check Apps Script deployment.’;
+errEl.classList.add(‘show’);
+btn.disabled = false; btn.textContent = ‘Sign In’;
+return;
+}
+}
+
+const hash = await sha256(password);
+const user = USERS_CACHE.find(u => u.username === username);
+
+console.log(‘Login debug | users in cache:’, USERS_CACHE.length, ‘| user found:’, !!user, ‘| hash match:’, user ? user.pwHash === hash : ‘n/a’);
+
+if (!user || user.pwHash !== hash) {
+if (!locks[username]) locks[username] = {count:0, until:0};
+locks[username].count++;
+if (locks[username].count >= 5) {
+locks[username].until = Date.now() + 900000;
+locks[username].count = 0;
+lockEl.textContent = ‘Too many failed attempts. Locked for 15 minutes.’;
+}
+saveLocks(locks);
+errEl.textContent = ‘Invalid username or password.’; errEl.classList.add(‘show’);
+btn.disabled = false; btn.textContent = ‘Sign In’;
+document.getElementById(‘lp’).value = ‘’; return;
+}
+
+if (locks[username]) { delete locks[username]; saveLocks(locks); }
+const lt = Date.now().toString();
+const token = await sha256(username + lt + ‘fp_tok’);
+SESSION = {username: user.username, fullName: user.fullName, role: user.role, dept: user.dept, lt, token, la: Date.now()};
+sessionStorage.setItem(‘fp_sess’, JSON.stringify(SESSION));
+showApp();
+}
+
+document.addEventListener(‘click’, () => { if(SESSION){ SESSION.la=Date.now(); sessionStorage.setItem(‘fp_sess’,JSON.stringify(SESSION)); }});
 setInterval(() => { if(SESSION && Date.now()-SESSION.la > 1800000) doLogout(); }, 60000);
 
-function doLogout() { SESSION=null; sessionStorage.removeItem('fp_sess'); location.reload(); }
+function doLogout() { SESSION=null; sessionStorage.removeItem(‘fp_sess’); location.reload(); }
 
 // === APP ===
 function showApp() {
-  ['app-header','app-main','app-footer','mobile-nav'].forEach(id => document.getElementById(id).style.display='');
-  document.getElementById('login-screen').classList.add('hidden');
-  document.getElementById('session-label').textContent = SESSION.fullName + ' (' + SESSION.username + ')';
-  document.getElementById('role-dot').className = 'role-dot' + (SESSION.role==='admin'?' admin':'');
-  if (SESSION.role === 'admin') {
-    document.getElementById('tab-users').style.display = '';
-    document.getElementById('mob-users').style.display = '';
-  }
-  if (SESSION.role !== 'admin') {
-    document.querySelectorAll('.dept-btn').forEach(b => {
-      b.disabled = true;
-      if (b.dataset.dept === SESSION.dept) { b.classList.add('active'); selectedDept = SESSION.dept; }
-    });
-    document.querySelectorAll('.dept-badge').forEach(b => { b.textContent = SESSION.dept; b.style.display = 'block'; });
-  }
-  ['insp-sub','viol-sub','knox-sub'].forEach(id => { const el=document.getElementById(id); if(el) el.value=SESSION.fullName; });
-  showView('submit');
+[‘app-header’,‘app-main’,‘app-footer’,‘mobile-nav’].forEach(id => document.getElementById(id).style.display=’’);
+document.getElementById(‘login-screen’).classList.add(‘hidden’);
+document.getElementById(‘session-label’).textContent = SESSION.fullName + ’ (’ + SESSION.username + ‘)’;
+document.getElementById(‘role-dot’).className = ‘role-dot’ + (SESSION.role===‘admin’?’ admin’:’’);
+if (SESSION.role === ‘admin’) {
+document.getElementById(‘tab-users’).style.display = ‘’;
+document.getElementById(‘mob-users’).style.display = ‘’;
+}
+if (SESSION.role !== ‘admin’) {
+document.querySelectorAll(’.dept-btn’).forEach(b => {
+b.disabled = true;
+if (b.dataset.dept === SESSION.dept) { b.classList.add(‘active’); selectedDept = SESSION.dept; }
+});
+document.querySelectorAll(’.dept-badge’).forEach(b => { b.textContent = SESSION.dept; b.style.display = ‘block’; });
+}
+[‘insp-sub’,‘viol-sub’,‘knox-sub’].forEach(id => { const el=document.getElementById(id); if(el) el.value=SESSION.fullName; });
+showView(‘submit’);
 }
 
 // === NAV ===
 function showView(v) {
-  ['submit','dashboard','archive','users'].forEach(id => { const el=document.getElementById('view-'+id); if(el) el.style.display = id===v?'block':'none'; });
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  const at = document.getElementById('tab-'+v); if(at) at.classList.add('active');
-  document.querySelectorAll('.mobile-nav-btn').forEach((t,i) => t.classList.toggle('active',['submit','dashboard','archive','users'][i]===v));
-  if(v==='dashboard') loadAndRenderDashboard();
-  if(v==='archive') loadAndRenderArchive();
-  if(v==='users') renderUsers();
+[‘submit’,‘dashboard’,‘archive’,‘users’].forEach(id => { const el=document.getElementById(‘view-’+id); if(el) el.style.display = id===v?‘block’:‘none’; });
+document.querySelectorAll(’.nav-tab’).forEach(t => t.classList.remove(‘active’));
+const at = document.getElementById(‘tab-’+v); if(at) at.classList.add(‘active’);
+document.querySelectorAll(’.mobile-nav-btn’).forEach((t,i) => t.classList.toggle(‘active’,[‘submit’,‘dashboard’,‘archive’,‘users’][i]===v));
+if(v===‘dashboard’) loadAndRenderDashboard();
+if(v===‘archive’) loadAndRenderArchive();
+if(v===‘users’) renderUsers();
 }
 
 // === FORMS ===
 function selectDept(btn, dept) {
-  selectedDept = dept;
-  document.querySelectorAll('.dept-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.dept-badge').forEach(b => { b.textContent = dept; b.style.display='block'; });
+selectedDept = dept;
+document.querySelectorAll(’.dept-btn’).forEach(b => b.classList.remove(‘active’));
+btn.classList.add(‘active’);
+document.querySelectorAll(’.dept-badge’).forEach(b => { b.textContent = dept; b.style.display=‘block’; });
 }
 function selectFormType(type) {
-  if (!selectedDept) { alert('Please select your department first.'); return; }
-  document.querySelectorAll('.form-type-card').forEach(c => c.classList.remove('active'));
-  document.querySelector('.type-'+type).classList.add('active');
-  document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('form-'+type).classList.add('active');
-  document.getElementById('form-'+type).scrollIntoView({behavior:'smooth',block:'start'});
+if (!selectedDept) { alert(‘Please select your department first.’); return; }
+document.querySelectorAll(’.form-type-card’).forEach(c => c.classList.remove(‘active’));
+document.querySelector(’.type-’+type).classList.add(‘active’);
+document.querySelectorAll(’.form-panel’).forEach(p => p.classList.remove(‘active’));
+document.getElementById(‘form-’+type).classList.add(‘active’);
+document.getElementById(‘form-’+type).scrollIntoView({behavior:‘smooth’,block:‘start’});
 }
 function setSev(btn, type) {
-  btn.closest('.severity-group').querySelectorAll('.severity-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('sev-'+type).value = btn.dataset.sev;
+btn.closest(’.severity-group’).querySelectorAll(’.severity-btn’).forEach(b => b.classList.remove(‘active’));
+btn.classList.add(‘active’);
+document.getElementById(‘sev-’+type).value = btn.dataset.sev;
 }
 
 async function submitForm(e, type) {
-  e.preventDefault();
-  const form = e.target;
-  if (!validateForm(form)) return;
-  if (type === 'violation') {
-    const checked = [...form.querySelectorAll('input[name="vt"]:checked')].map(c => c.value);
-    if (!checked.length) { alert('Please select at least one violation type.'); return; }
-  }
-  const fd = new FormData(form);
-  const data = {};
-  for (const [k,v] of fd.entries()) { if(k!=='vt') data[k]=v; }
+e.preventDefault();
+const form = e.target;
+if (!validateForm(form)) return;
+if (type === ‘violation’) {
+const checked = […form.querySelectorAll(‘input[name=“vt”]:checked’)].map(c => c.value);
+if (!checked.length) { alert(‘Please select at least one violation type.’); return; }
+}
+const fd = new FormData(form);
+const data = {};
+for (const [k,v] of fd.entries()) { if(k!==‘vt’) data[k]=v; }
 
-  // Merge "Other" free-text into the type fields
-  if (type === 'knox') {
-    const otherInput = document.getElementById('knox-other-input');
-    if (data.knox_type === 'Other' && otherInput && otherInput.value.trim()) {
-      data.knox_type = 'Other: ' + otherInput.value.trim();
-    }
-  }
-  if (type === 'violation') {
-    const types = [...form.querySelectorAll('input[name="vt"]:checked')].map(c => c.value);
-    const otherInput = document.getElementById('viol-other-input');
-    const merged = types.map(t => t === 'Other' && otherInput && otherInput.value.trim() ? 'Other: ' + otherInput.value.trim() : t);
-    data.violation_type = merged.join(', ');
-  } else {
-    if (type === 'violation') data.violation_type = [...form.querySelectorAll('input[name="vt"]:checked')].map(c=>c.value).join(', ');
-  }
+// Merge “Other” free-text into the type fields
+if (type === ‘knox’) {
+const otherInput = document.getElementById(‘knox-other-input’);
+if (data.knox_type === ‘Other’ && otherInput && otherInput.value.trim()) {
+data.knox_type = ’Other: ’ + otherInput.value.trim();
+}
+}
+if (type === ‘violation’) {
+const types = […form.querySelectorAll(‘input[name=“vt”]:checked’)].map(c => c.value);
+const otherInput = document.getElementById(‘viol-other-input’);
+const merged = types.map(t => t === ‘Other’ && otherInput && otherInput.value.trim() ? ‘Other: ’ + otherInput.value.trim() : t);
+data.violation_type = merged.join(’, ‘);
+} else {
+if (type === ‘violation’) data.violation_type = […form.querySelectorAll(‘input[name=“vt”]:checked’)].map(c=>c.value).join(’, ’);
+}
 
-  data.type=type; data.department=selectedDept; data.timestamp=new Date().toISOString();
-  data.submittedByUser=SESSION.username; data.submittedByName=SESSION.fullName;
-  data.status='submitted'; data.archived=false;
-  data.changeLog=[{user:SESSION.username, time:new Date().toISOString(), desc:'Ticket submitted by '+SESSION.fullName}];
+data.type=type; data.department=selectedDept; data.timestamp=new Date().toISOString();
+data.submittedByUser=SESSION.username; data.submittedByName=SESSION.fullName;
+data.status=‘submitted’; data.archived=false;
+data.changeLog=[{user:SESSION.username, time:new Date().toISOString(), desc:’Ticket submitted by ’+SESSION.fullName}];
 
-  showLoading('Submitting...');
-  const saved = await sheetsCreate(data);
-  hideLoading();
+showLoading(‘Submitting…’);
+const saved = await sheetsCreate(data);
+hideLoading();
 
-  if (!saved) {
-    alert('Submission failed — could not reach the server. Please check your connection and try again.');
-    return;
-  }
+if (!saved) {
+alert(‘Submission failed — could not reach the server. Please check your connection and try again.’);
+return;
+}
 
-  // Send notification email (silently, non-blocking)
-  sendSubmissionEmail(saved);
+// Send notification email (silently, non-blocking)
+sendSubmissionEmail(saved);
 
-  const icons={inspection:'🏢',violation:'⚠️',knox:'🔑'};
-  const titles={inspection:'Inspection Requested!',violation:'Violation Filed!',knox:'Knox Request Submitted!'};
-  document.getElementById('si').textContent=icons[type];
-  document.getElementById('st').textContent=titles[type];
-  document.getElementById('sm').textContent='Your submission is now being tracked.';
-  document.getElementById('sr').textContent='Reference: '+saved.ref;
-  document.getElementById('success-overlay').classList.add('show');
+const icons={inspection:‘🏢’,violation:‘⚠️’,knox:‘🔑’};
+const titles={inspection:‘Inspection Requested!’,violation:‘Violation Filed!’,knox:‘Knox Request Submitted!’};
+document.getElementById(‘si’).textContent=icons[type];
+document.getElementById(‘st’).textContent=titles[type];
+document.getElementById(‘sm’).textContent=‘Your submission is now being tracked.’;
+document.getElementById(‘sr’).textContent=’Reference: ’+saved.ref;
+document.getElementById(‘success-overlay’).classList.add(‘show’);
 
-  form.reset();
-  document.querySelectorAll('.severity-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.dept-badge').forEach(b=>{b.textContent=selectedDept;b.style.display='block';});
-  const sm={'inspection':'insp-sub','violation':'viol-sub','knox':'knox-sub'};
-  const sf=document.getElementById(sm[type]); if(sf) sf.value=SESSION.fullName;
+form.reset();
+document.querySelectorAll(’.severity-btn’).forEach(b=>b.classList.remove(‘active’));
+document.querySelectorAll(’.dept-badge’).forEach(b=>{b.textContent=selectedDept;b.style.display=‘block’;});
+const sm={‘inspection’:‘insp-sub’,‘violation’:‘viol-sub’,‘knox’:‘knox-sub’};
+const sf=document.getElementById(sm[type]); if(sf) sf.value=SESSION.fullName;
 }
 
 function validateForm(form) {
-  let ok=true;
-  form.querySelectorAll('[required]').forEach(f => { if(!f.value.trim()){f.classList.add('error');ok=false;setTimeout(()=>f.classList.remove('error'),3000);}});
-  return ok;
+let ok=true;
+form.querySelectorAll(’[required]’).forEach(f => { if(!f.value.trim()){f.classList.add(‘error’);ok=false;setTimeout(()=>f.classList.remove(‘error’),3000);}});
+return ok;
 }
 function resetForm(type) {
-  document.getElementById('f-'+type).reset();
-  if(type==='violation'){document.querySelectorAll('#violation-types input').forEach(c=>c.checked=false);document.querySelectorAll('.severity-btn').forEach(b=>b.classList.remove('active'));document.getElementById('sev-violation').value='';}
-  // Hide and clear Other inputs
-  ['knox','viol'].forEach(k => {
-    const wrap = document.getElementById(k+'-other-wrap');
-    const inp = document.getElementById(k+'-other-input');
-    if(wrap){wrap.classList.remove('show');}
-    if(inp){inp.value='';inp.required=false;}
-  });
-  const sm={'inspection':'insp-sub','violation':'viol-sub','knox':'knox-sub'};
-  const sf=document.getElementById(sm[type]); if(sf) sf.value=SESSION.fullName;
+document.getElementById(‘f-’+type).reset();
+if(type===‘violation’){document.querySelectorAll(’#violation-types input’).forEach(c=>c.checked=false);document.querySelectorAll(’.severity-btn’).forEach(b=>b.classList.remove(‘active’));document.getElementById(‘sev-violation’).value=’’;}
+// Hide and clear Other inputs
+[‘knox’,‘viol’].forEach(k => {
+const wrap = document.getElementById(k+’-other-wrap’);
+const inp = document.getElementById(k+’-other-input’);
+if(wrap){wrap.classList.remove(‘show’);}
+if(inp){inp.value=’’;inp.required=false;}
+});
+const sm={‘inspection’:‘insp-sub’,‘violation’:‘viol-sub’,‘knox’:‘knox-sub’};
+const sf=document.getElementById(sm[type]); if(sf) sf.value=SESSION.fullName;
 }
-function closeSuccess(){document.getElementById('success-overlay').classList.remove('show');}
+function closeSuccess(){document.getElementById(‘success-overlay’).classList.remove(‘show’);}
 
 // === DASHBOARD ===
 async function loadAndRenderDashboard() {
-  showLoading('Loading dashboard...');
-  await sheetsGetAll();
-  hideLoading();
-  updateDashboard();
+showLoading(‘Loading dashboard…’);
+await sheetsGetAll();
+hideLoading();
+updateDashboard();
 }
 
 function updateDashboard() {
-  const allSubs = SUBS_CACHE;
-  const subs = allSubs.filter(s=>!s.archived);
-  const archived = allSubs.filter(s=>s.archived);
-  const vis = SESSION.role==='admin' ? subs : subs.filter(s=>s.department===SESSION.dept || s.submittedByUser===SESSION.username);
-  const visArchived = SESSION.role==='admin' ? archived : archived.filter(s=>s.department===SESSION.dept || s.submittedByUser===SESSION.username);
-  const c={submitted:0,under_review:0,enforcement:0};
-  vis.forEach(s=>{if(c[s.status]!==undefined)c[s.status]++;});
-  document.getElementById('st-total').textContent=vis.length;
-  document.getElementById('st-submitted').textContent=c.submitted;
-  document.getElementById('st-review').textContent=c.under_review;
-  document.getElementById('st-enforcement').textContent=c.enforcement;
-  document.getElementById('st-completed').textContent=visArchived.length;
-  renderTable(currentFilter, vis);
+const allSubs = SUBS_CACHE;
+const subs = allSubs.filter(s=>!s.archived);
+const archived = allSubs.filter(s=>s.archived);
+const vis = SESSION.role===‘admin’ ? subs : subs.filter(s=>s.department===SESSION.dept || s.submittedByUser===SESSION.username);
+const visArchived = SESSION.role===‘admin’ ? archived : archived.filter(s=>s.department===SESSION.dept || s.submittedByUser===SESSION.username);
+const c={submitted:0,under_review:0,enforcement:0};
+vis.forEach(s=>{if(c[s.status]!==undefined)c[s.status]++;});
+document.getElementById(‘st-total’).textContent=vis.length;
+document.getElementById(‘st-submitted’).textContent=c.submitted;
+document.getElementById(‘st-review’).textContent=c.under_review;
+document.getElementById(‘st-enforcement’).textContent=c.enforcement;
+document.getElementById(‘st-completed’).textContent=visArchived.length;
+renderTable(currentFilter, vis);
 }
 function filterDash(filter, btn) {
-  currentFilter=filter;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const subs=SUBS_CACHE.filter(s=>!s.archived);
-  const vis=SESSION.role==='admin'?subs:subs.filter(s=>s.department===SESSION.dept||s.submittedByUser===SESSION.username);
-  renderTable(filter,vis);
+currentFilter=filter;
+document.querySelectorAll(’.filter-btn’).forEach(b=>b.classList.remove(‘active’));
+btn.classList.add(‘active’);
+const subs=SUBS_CACHE.filter(s=>!s.archived);
+const vis=SESSION.role===‘admin’?subs:subs.filter(s=>s.department===SESSION.dept||s.submittedByUser===SESSION.username);
+renderTable(filter,vis);
 }
 function renderTable(filter, data) {
-  const body=document.getElementById('records-body');
-  let rows=[...data].reverse();
-  if(filter!=='all'){
-    if(['inspection','violation','knox'].includes(filter)) rows=rows.filter(s=>s.type===filter);
-    else rows=rows.filter(s=>s.status===filter);
-  }
-  if(!rows.length){body.innerHTML='<tr><td colspan="7"><div class="empty-state"><div class="ei">📋</div><p>No submissions found.</p></div></td></tr>';return;}
-  body.innerHTML=rows.map(s=>{
-    const dt=new Date(s.timestamp).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    const canClick=SESSION.role==='admin'||s.submittedByUser===SESSION.username;
-    return `<tr ${canClick?`onclick="openTicket('${s.id}')"`:''}>
-      <td><code style="font-size:0.78rem;color:var(--fire)">${s.ref||'—'}</code></td>
-      <td><span class="type-badge ${s.type}">${TYPE_LABELS[s.type]||s.type}</span></td>
-      <td style="color:var(--fog);font-size:0.82rem">${s.department||'—'}</td>
-      <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.82rem">${s.address||'—'}</td>
-      <td style="font-size:0.82rem">${s.submittedByName||s.submitted_by||'—'}</td>
-      <td style="color:var(--mist);font-size:0.78rem;white-space:nowrap">${dt}</td>
-      <td><span class="status-badge ${STATUS_CLASS[s.status]}">${STATUS_LABELS[s.status]||s.status}</span></td>
-    </tr>`;
-  }).join('');
+const body=document.getElementById(‘records-body’);
+let rows=[…data].reverse();
+if(filter!==‘all’){
+if([‘inspection’,‘violation’,‘knox’].includes(filter)) rows=rows.filter(s=>s.type===filter);
+else rows=rows.filter(s=>s.status===filter);
+}
+if(!rows.length){body.innerHTML=’<tr><td colspan="7"><div class="empty-state"><div class="ei">📋</div><p>No submissions found.</p></div></td></tr>’;return;}
+body.innerHTML=rows.map(s=>{
+const dt=new Date(s.timestamp).toLocaleDateString(‘en-US’,{month:‘short’,day:‘numeric’,year:‘numeric’});
+const canClick=SESSION.role===‘admin’||s.submittedByUser===SESSION.username;
+return `<tr ${canClick?`onclick=“openTicket(’${s.id}’)”`:''}> <td><code style="font-size:0.78rem;color:var(--fire)">${s.ref||'—'}</code></td> <td><span class="type-badge ${s.type}">${TYPE_LABELS[s.type]||s.type}</span></td> <td style="color:var(--fog);font-size:0.82rem">${s.department||'—'}</td> <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.82rem">${s.address||'—'}</td> <td style="font-size:0.82rem">${s.submittedByName||s.submitted_by||'—'}</td> <td style="color:var(--mist);font-size:0.78rem;white-space:nowrap">${dt}</td> <td><span class="status-badge ${STATUS_CLASS[s.status]}">${STATUS_LABELS[s.status]||s.status}</span></td> </tr>`;
+}).join(’’);
 }
 
 // === ARCHIVE ===
 async function loadAndRenderArchive() {
-  showLoading('Loading archive...');
-  await sheetsGetAll();
-  hideLoading();
-  updateArchive();
+showLoading(‘Loading archive…’);
+await sheetsGetAll();
+hideLoading();
+updateArchive();
 }
 
 function updateArchive() {
-  const subs=SUBS_CACHE.filter(s=>s.archived);
-  const vis=SESSION.role==='admin'?subs:subs.filter(s=>s.department===SESSION.dept||s.submittedByUser===SESSION.username);
-  const body=document.getElementById('archive-body');
-  if(!vis.length){body.innerHTML='<tr><td colspan="6"><div class="empty-state"><div class="ei">🗃️</div><p>No archived tickets yet.</p></div></td></tr>';return;}
-  body.innerHTML=[...vis].reverse().map(s=>{
-    const cl=s.changeLog||[];
-    const ce=cl.filter(l=>l.desc&&l.desc.includes('Completed')).pop();
-    const cd=ce?new Date(ce.time).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
-    const canClick=SESSION.role==='admin'||s.submittedByUser===SESSION.username;
-    return `<tr ${canClick?`onclick="openTicket('${s.id}')"`:''}>
-      <td><code style="font-size:0.78rem;color:var(--green)">${s.ref||'—'}</code></td>
-      <td><span class="type-badge ${s.type}">${TYPE_LABELS[s.type]||s.type}</span></td>
-      <td style="color:var(--fog);font-size:0.82rem">${s.department||'—'}</td>
-      <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.82rem">${s.address||'—'}</td>
-      <td style="font-size:0.82rem">${s.submittedByName||'—'}</td>
-      <td style="color:var(--mist);font-size:0.78rem">${cd}</td>
-    </tr>`;
-  }).join('');
+const subs=SUBS_CACHE.filter(s=>s.archived);
+const vis=SESSION.role===‘admin’?subs:subs.filter(s=>s.department===SESSION.dept||s.submittedByUser===SESSION.username);
+const body=document.getElementById(‘archive-body’);
+if(!vis.length){body.innerHTML=’<tr><td colspan="6"><div class="empty-state"><div class="ei">🗃️</div><p>No archived tickets yet.</p></div></td></tr>’;return;}
+body.innerHTML=[…vis].reverse().map(s=>{
+const cl=s.changeLog||[];
+const ce=cl.filter(l=>l.desc&&l.desc.includes(‘Completed’)).pop();
+const cd=ce?new Date(ce.time).toLocaleDateString(‘en-US’,{month:‘short’,day:‘numeric’,year:‘numeric’}):’—’;
+const canClick=SESSION.role===‘admin’||s.submittedByUser===SESSION.username;
+return `<tr ${canClick?`onclick=“openTicket(’${s.id}’)”`:''}> <td><code style="font-size:0.78rem;color:var(--green)">${s.ref||'—'}</code></td> <td><span class="type-badge ${s.type}">${TYPE_LABELS[s.type]||s.type}</span></td> <td style="color:var(--fog);font-size:0.82rem">${s.department||'—'}</td> <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.82rem">${s.address||'—'}</td> <td style="font-size:0.82rem">${s.submittedByName||'—'}</td> <td style="color:var(--mist);font-size:0.78rem">${cd}</td> </tr>`;
+}).join(’’);
 }
 
 // === TICKET MODAL ===
 function openTicket(id) {
-  const subs=SUBS_CACHE;
-  const t=subs.find(s=>s.id===id);
-  if(!t) return;
-  const canView=SESSION.role==='admin'||t.submittedByUser===SESSION.username;
-  if(!canView) return;
-  openTicketId=id; pendingStatus=t.status;
+const subs=SUBS_CACHE;
+const t=subs.find(s=>s.id===id);
+if(!t) return;
+const canView=SESSION.role===‘admin’||t.submittedByUser===SESSION.username;
+if(!canView) return;
+openTicketId=id; pendingStatus=t.status;
 
-  const typeFullLabels={inspection:'Building Inspection with FD Walkthrough',violation:'Code Violation',knox:'Knox Box Issues'};
-  document.getElementById('modal-title').textContent=typeFullLabels[t.type]+' — '+t.ref;
+const typeFullLabels={inspection:‘Building Inspection with FD Walkthrough’,violation:‘Code Violation’,knox:‘Knox Box Issues’};
+document.getElementById(‘modal-title’).textContent=typeFullLabels[t.type]+’ — ’+t.ref;
 
-  const isAdmin=SESSION.role==='admin', isLocked=t.archived;
+const isAdmin=SESSION.role===‘admin’, isLocked=t.archived;
 
-  // Build fields
-  const f=(label,val)=>val?`<div class="mf"><label>${label}</label><p>${val}</p></div>`:'';
-  const ff=(label,val)=>val?`<div class="mf full"><label>${label}</label><p>${val}</p></div>`:'';
-  let fields = f('Reference #',t.ref)+f('Department',t.department)+f('Submitted By',t.submittedByName||t.submitted_by)+f('Date Submitted',new Date(t.timestamp).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}))+ff('Property Address',t.address)+f('Property Name',t.property_name);
-  if(t.type==='inspection'){fields+=f('Contact Name',t.contact_name)+f('Contact Phone',t.contact_phone)+f('Contact Email',t.contact_email)+f('Preferred Date',t.pref_date)+f('Preferred Time',t.pref_time)+f('Alternate Date',t.alt_date)+ff('Notes',t.notes);}
-  else if(t.type==='violation'){fields+=ff('Violation Type(s)',t.violation_type)+f('Date Observed',t.observed_date)+f('Time Observed',t.observed_time)+f('Severity',t.severity?t.severity.toUpperCase():'')+f('Contact Phone',t.contact_phone)+f('Contact Email',t.contact_email)+ff('Description',t.description)+ff('Immediate Action Taken',t.action_taken);}
-  else if(t.type==='knox'){fields+=f('Request Type',t.knox_type)+f('Box Location',t.box_location)+f('Emergency Contact',t.owner_name)+f('Contact Phone',t.owner_phone)+f('Contact Email',t.owner_email)+f('Preferred Service Date',t.pref_date)+ff('Keys / Access Items',t.key_list)+ff('Notes',t.notes)+f('Requesting Officer',t.submitted_by||t.submittedByName)+f('Officer Contact',t.officer_contact);}
+// Build fields
+const f=(label,val)=>val?`<div class="mf"><label>${label}</label><p>${val}</p></div>`:’’;
+const ff=(label,val)=>val?`<div class="mf full"><label>${label}</label><p>${val}</p></div>`:’’;
+let fields = f(‘Reference #’,t.ref)+f(‘Department’,t.department)+f(‘Submitted By’,t.submittedByName||t.submitted_by)+f(‘Date Submitted’,new Date(t.timestamp).toLocaleDateString(‘en-US’,{month:‘long’,day:‘numeric’,year:‘numeric’}))+ff(‘Property Address’,t.address)+f(‘Property Name’,t.property_name);
+if(t.type===‘inspection’){fields+=f(‘Contact Name’,t.contact_name)+f(‘Contact Phone’,t.contact_phone)+f(‘Contact Email’,t.contact_email)+f(‘Preferred Date’,t.pref_date)+f(‘Preferred Time’,t.pref_time)+f(‘Alternate Date’,t.alt_date)+ff(‘Notes’,t.notes);}
+else if(t.type===‘violation’){fields+=ff(‘Violation Type(s)’,t.violation_type)+f(‘Date Observed’,t.observed_date)+f(‘Time Observed’,t.observed_time)+f(‘Severity’,t.severity?t.severity.toUpperCase():’’)+f(‘Contact Phone’,t.contact_phone)+f(‘Contact Email’,t.contact_email)+ff(‘Description’,t.description)+ff(‘Immediate Action Taken’,t.action_taken);}
+else if(t.type===‘knox’){fields+=f(‘Request Type’,t.knox_type)+f(‘Box Location’,t.box_location)+f(‘Emergency Contact’,t.owner_name)+f(‘Contact Phone’,t.owner_phone)+f(‘Contact Email’,t.owner_email)+f(‘Preferred Service Date’,t.pref_date)+ff(‘Keys / Access Items’,t.key_list)+ff(‘Notes’,t.notes)+f(‘Requesting Officer’,t.submitted_by||t.submittedByName)+f(‘Officer Contact’,t.officer_contact);}
 
-  // Status section
-  // Show delete button for admins on non-archived tickets
-  const deleteBtn = document.getElementById('modal-delete-btn');
-  if (deleteBtn) deleteBtn.style.display = isAdmin ? '' : 'none';
-  const archiveBtn = document.getElementById('modal-archive-btn');
-  if (archiveBtn) archiveBtn.style.display = (isAdmin && !isLocked && t.status === 'completed') ? '' : 'none';
+// Status section
+// Show delete button for admins on non-archived tickets
+const deleteBtn = document.getElementById(‘modal-delete-btn’);
+if (deleteBtn) deleteBtn.style.display = isAdmin ? ‘’ : ‘none’;
+const archiveBtn = document.getElementById(‘modal-archive-btn’);
+if (archiveBtn) archiveBtn.style.display = (isAdmin && !isLocked && t.status === ‘completed’) ? ‘’ : ‘none’;
 
-  const statusSection = isAdmin ? `
-    <div class="status-section">
-      <h4>Workflow Status</h4>
-      <div class="status-opts">
-        ${Object.entries(STATUS_LABELS).map(([k,v])=>`<button class="status-opt ${t.status===k?'cur-'+k:''}" data-s="${k}" onclick="pickStatus('${k}',this)">${v}</button>`).join('')}
-      </div>
-      <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
-        <button class="btn-save-status" onclick="saveStatus()">Save Status Change</button>
-      </div>
-    </div>
-  ` : `<div style="margin-bottom:18px"><span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--mist)">Status: </span><span class="status-badge ${STATUS_CLASS[t.status]}">${STATUS_LABELS[t.status]}</span></div>`;
+const statusSection = isAdmin ? ` <div class="status-section"> <h4>Workflow Status</h4> <div class="status-opts"> ${Object.entries(STATUS_LABELS).map(([k,v])=>`<button class="status-opt ${t.status===k?'cur-'+k:''}" data-s="${k}" onclick="pickStatus('${k}',this)">${v}</button>`).join('')} </div> <div style="display:flex;gap:8px;margin-top:8px;align-items:center"> <button class="btn-save-status" onclick="saveStatus()">Save Status Change</button> </div> </div> ` : `<div style="margin-bottom:18px"><span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--mist)">Status: </span><span class="status-badge ${STATUS_CLASS[t.status]}">${STATUS_LABELS[t.status]}</span></div>`;
 
-  // Log
-  const logHtml=buildLogHtml(t);
+// Log
+const logHtml=buildLogHtml(t);
 
-  document.getElementById('modal-body').innerHTML=`
-    ${isLocked?'<div class="locked-banner" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:10px 14px;font-size:0.82rem;color:var(--green);margin-bottom:18px;">🗃️ This ticket is archived.</div>':''}
-    <div class="modal-meta">
-      <span class="type-badge ${t.type}">${typeFullLabels[t.type]}</span>
-      <span class="status-badge ${STATUS_CLASS[t.status]}" id="modal-status-badge">${STATUS_LABELS[t.status]}</span>
-      <span style="color:var(--mist);font-size:0.78rem;margin-left:auto">${new Date(t.timestamp).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'})}</span>
-    </div>
-    <div class="modal-fields">${fields}</div>
-    ${statusSection}
-    <div class="change-log">
-      <h4>Change Log</h4>
-      ${logHtml}
-      <div class="comment-box" style="margin-top:14px">
-        <textarea id="comment-input" placeholder="Add a comment or note to this ticket..."></textarea>
-        <div class="comment-actions">
-          <button class="btn-add-comment" onclick="addComment()">Add Comment</button>
-        </div>
-      </div>
-    </div>
-  `;
-  document.getElementById('ticket-modal').classList.add('show');
+document.getElementById(‘modal-body’).innerHTML=`${isLocked?'<div class="locked-banner" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:10px 14px;font-size:0.82rem;color:var(--green);margin-bottom:18px;">🗃️ This ticket is archived.</div>':''} <div class="modal-meta"> <span class="type-badge ${t.type}">${typeFullLabels[t.type]}</span> <span class="status-badge ${STATUS_CLASS[t.status]}" id="modal-status-badge">${STATUS_LABELS[t.status]}</span> <span style="color:var(--mist);font-size:0.78rem;margin-left:auto">${new Date(t.timestamp).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'})}</span> </div> <div class="modal-fields">${fields}</div> ${statusSection} <div class="change-log"> <h4>Change Log</h4> ${logHtml} <div class="comment-box" style="margin-top:14px"> <textarea id="comment-input" placeholder="Add a comment or note to this ticket..."></textarea> <div class="comment-actions"> <button class="btn-add-comment" onclick="addComment()">Add Comment</button> </div> </div> </div>`;
+document.getElementById(‘ticket-modal’).classList.add(‘show’);
 }
 
 function pickStatus(status, btn) {
-  pendingStatus=status;
-  document.querySelectorAll('.status-opt').forEach(b=>{b.className='status-opt';});
-  btn.classList.add('cur-'+status);
+pendingStatus=status;
+document.querySelectorAll(’.status-opt’).forEach(b=>{b.className=‘status-opt’;});
+btn.classList.add(‘cur-’+status);
 }
 async function saveStatus() {
-  if(!openTicketId||!pendingStatus) return;
-  const t=SUBS_CACHE.find(s=>s.id===openTicketId);
-  if(!t) return;
-  const old=t.status;
-  if(old===pendingStatus) return;
+if(!openTicketId||!pendingStatus) return;
+const t=SUBS_CACHE.find(s=>s.id===openTicketId);
+if(!t) return;
+const old=t.status;
+if(old===pendingStatus) return;
 
-  const updatedLog = [...(t.changeLog||[])];
-  updatedLog.push({user:SESSION.username, time:new Date().toISOString(), desc:`Status changed from "${STATUS_LABELS[old]}" to "${STATUS_LABELS[pendingStatus]}"`});
+const updatedLog = […(t.changeLog||[])];
+updatedLog.push({user:SESSION.username, time:new Date().toISOString(), desc:`Status changed from "${STATUS_LABELS[old]}" to "${STATUS_LABELS[pendingStatus]}"`});
 
-  const commentEl=document.getElementById('comment-input');
-  if(commentEl && commentEl.value.trim()) {
-    updatedLog.push({user:SESSION.username, time:new Date().toISOString(), desc:commentEl.value.trim(), isComment:true});
-  }
+const commentEl=document.getElementById(‘comment-input’);
+if(commentEl && commentEl.value.trim()) {
+updatedLog.push({user:SESSION.username, time:new Date().toISOString(), desc:commentEl.value.trim(), isComment:true});
+}
 
-  showLoading('Saving...');
-  const updated = await sheetsUpdate(t.id, { status: pendingStatus, changeLog: updatedLog });
-  hideLoading();
-  if (!updated) { alert('Failed to save — please try again.'); return; }
-  closeModal(); updateDashboard();
+showLoading(‘Saving…’);
+const updated = await sheetsUpdate(t.id, { status: pendingStatus, changeLog: updatedLog });
+hideLoading();
+if (!updated) { alert(‘Failed to save — please try again.’); return; }
+closeModal(); updateDashboard();
 }
 
 async function addComment() {
-  if(!openTicketId) return;
-  const commentEl=document.getElementById('comment-input');
-  const text=commentEl?commentEl.value.trim():'';
-  if(!text) { commentEl.style.borderColor='var(--fire)'; setTimeout(()=>commentEl.style.borderColor='',2000); return; }
+if(!openTicketId) return;
+const commentEl=document.getElementById(‘comment-input’);
+const text=commentEl?commentEl.value.trim():’’;
+if(!text) { commentEl.style.borderColor=‘var(–fire)’; setTimeout(()=>commentEl.style.borderColor=’’,2000); return; }
 
-  const t=SUBS_CACHE.find(s=>s.id===openTicketId);
-  if(!t) return;
-  const updatedLog = [...(t.changeLog||[]), {user:SESSION.username, time:new Date().toISOString(), desc:text, isComment:true}];
+const t=SUBS_CACHE.find(s=>s.id===openTicketId);
+if(!t) return;
+const updatedLog = […(t.changeLog||[]), {user:SESSION.username, time:new Date().toISOString(), desc:text, isComment:true}];
 
-  showLoading('Saving comment...');
-  const updated = await sheetsUpdate(t.id, { changeLog: updatedLog });
-  hideLoading();
-  if (!updated) { alert('Failed to save comment.'); return; }
+showLoading(‘Saving comment…’);
+const updated = await sheetsUpdate(t.id, { changeLog: updatedLog });
+hideLoading();
+if (!updated) { alert(‘Failed to save comment.’); return; }
 
-  // Refresh log in place
-  const logHtml=buildLogHtml(updated);
-  const logSection=document.querySelector('.change-log');
-  if(logSection) {
-    const h4=logSection.querySelector('h4');
-    const commentBox=logSection.querySelector('.comment-box');
-    [...logSection.children].forEach(c=>{ if(c!==h4&&c!==commentBox) c.remove(); });
-    const tmp=document.createElement('div');
-    tmp.innerHTML=logHtml;
-    [...tmp.children].forEach(c=>logSection.insertBefore(c,commentBox||null));
-  }
-  commentEl.value='';
+// Refresh log in place
+const logHtml=buildLogHtml(updated);
+const logSection=document.querySelector(’.change-log’);
+if(logSection) {
+const h4=logSection.querySelector(‘h4’);
+const commentBox=logSection.querySelector(’.comment-box’);
+[…logSection.children].forEach(c=>{ if(c!==h4&&c!==commentBox) c.remove(); });
+const tmp=document.createElement(‘div’);
+tmp.innerHTML=logHtml;
+[…tmp.children].forEach(c=>logSection.insertBefore(c,commentBox||null));
+}
+commentEl.value=’’;
 }
 
 function buildLogHtml(t) {
-  if(!t.changeLog||!t.changeLog.length) return '<p class="log-empty">No changes logged yet.</p>';
-  return t.changeLog.map(l=>`<div class="log-entry${l.isComment?' log-comment':''}">
-    <span class="log-time">${new Date(l.time).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'})}</span>
-    <span class="log-user">${l.user}</span>
-    <span class="log-desc">${l.isComment?'💬 '+l.desc:l.desc}</span>
+if(!t.changeLog||!t.changeLog.length) return ‘<p class="log-empty">No changes logged yet.</p>’;
+return t.changeLog.map(l=>`<div class="log-entry${l.isComment?' log-comment':''}">
+<span class="log-time">${new Date(l.time).toLocaleString(‘en-US’,{month:‘short’,day:‘numeric’,year:‘numeric’,hour:‘numeric’,minute:‘2-digit’})}</span>
+<span class="log-user">${l.user}</span>
+<span class="log-desc">${l.isComment?’💬 ’+l.desc:l.desc}</span>
+
   </div>`).join('');
 }
 
 async function archiveTicket() {
-  if(!openTicketId) return;
-  const t=SUBS_CACHE.find(s=>s.id===openTicketId);
-  if(!t) return;
-  if(!confirm('Move this ticket to the Archive? It will be locked and read-only.')) return;
-  const updatedLog = [...(t.changeLog||[]), {user:SESSION.username, time:new Date().toISOString(), desc:'Ticket archived by '+SESSION.username+'.'}];
-  showLoading('Archiving...');
-  const updated = await sheetsUpdate(t.id, { archived: true, changeLog: updatedLog });
-  hideLoading();
-  if (!updated) { alert('Failed to archive ticket.'); return; }
-  closeModal();
-  updateDashboard();
-  updateArchive();
+if(!openTicketId) return;
+const t=SUBS_CACHE.find(s=>s.id===openTicketId);
+if(!t) return;
+if(!confirm(‘Move this ticket to the Archive? It will be locked and read-only.’)) return;
+const updatedLog = […(t.changeLog||[]), {user:SESSION.username, time:new Date().toISOString(), desc:‘Ticket archived by ‘+SESSION.username+’.’}];
+showLoading(‘Archiving…’);
+const updated = await sheetsUpdate(t.id, { archived: true, changeLog: updatedLog });
+hideLoading();
+if (!updated) { alert(‘Failed to archive ticket.’); return; }
+closeModal();
+updateDashboard();
+updateArchive();
 }
 
 async function deleteTicket() {
-  if(!openTicketId) return;
-  const t=SUBS_CACHE.find(s=>s.id===openTicketId);
-  if(!t) return;
-  const archiveNote = t.archived ? '\n\nThis ticket is archived.' : '';
-  if(!confirm(`Permanently delete ticket ${t.ref}?${archiveNote}\n\nThis cannot be undone.`)) return;
-  showLoading('Deleting...');
-  const ok = await sheetsDelete(t.id);
-  hideLoading();
-  if (!ok) { alert('Failed to delete ticket.'); return; }
-  closeModal();
-  updateDashboard();
-  updateArchive();
+if(!openTicketId) return;
+const t=SUBS_CACHE.find(s=>s.id===openTicketId);
+if(!t) return;
+const archiveNote = t.archived ? ‘\n\nThis ticket is archived.’ : ‘’;
+if(!confirm(`Permanently delete ticket ${t.ref}?${archiveNote}\n\nThis cannot be undone.`)) return;
+showLoading(‘Deleting…’);
+const ok = await sheetsDelete(t.id);
+hideLoading();
+if (!ok) { alert(‘Failed to delete ticket.’); return; }
+closeModal();
+updateDashboard();
+updateArchive();
 }
-function closeModal() { document.getElementById('ticket-modal').classList.remove('show'); openTicketId=null; pendingStatus=null; }
-document.getElementById('ticket-modal').addEventListener('click', function(e){if(e.target===this)closeModal();});
+function closeModal() { document.getElementById(‘ticket-modal’).classList.remove(‘show’); openTicketId=null; pendingStatus=null; }
+document.getElementById(‘ticket-modal’).addEventListener(‘click’, function(e){if(e.target===this)closeModal();});
 
 // === EXPORT ===
 function exportCSV() {
-  const subs=SUBS_CACHE.filter(s=>!s.archived);
-  const vis=SESSION.role==='admin'?subs:subs.filter(s=>s.department===SESSION.dept||s.submittedByUser===SESSION.username);
-  if(!vis.length){alert('No active submissions to export.');return;}
-  const hdrs=['Ref','Type','Department','Address','Property','Submitted By','Date','Status','Violation Types','Severity','Notes'];
-  const rows=vis.map(s=>[s.ref,s.type,s.department,s.address,s.property_name,s.submittedByName||s.submitted_by,s.timestamp?new Date(s.timestamp).toLocaleDateString():'',s.status,s.violation_type||'',s.severity||'',s.notes||s.description||''].map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(','));
-  const blob=new Blob([[hdrs.join(','),...rows].join('\n')],{type:'text/csv'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='fire-inspector-'+new Date().toISOString().split('T')[0]+'.csv'; a.click();
+const subs=SUBS_CACHE.filter(s=>!s.archived);
+const vis=SESSION.role===‘admin’?subs:subs.filter(s=>s.department===SESSION.dept||s.submittedByUser===SESSION.username);
+if(!vis.length){alert(‘No active submissions to export.’);return;}
+const hdrs=[‘Ref’,‘Type’,‘Department’,‘Address’,‘Property’,‘Submitted By’,‘Date’,‘Status’,‘Violation Types’,‘Severity’,‘Notes’];
+const rows=vis.map(s=>[s.ref,s.type,s.department,s.address,s.property_name,s.submittedByName||s.submitted_by,s.timestamp?new Date(s.timestamp).toLocaleDateString():’’,s.status,s.violation_type||’’,s.severity||’’,s.notes||s.description||’’].map(v=>’”’+String(v||’’).replace(/”/g,’””’)+’”’).join(’,’));
+const blob=new Blob([[hdrs.join(’,’),…rows].join(’\n’)],{type:‘text/csv’});
+const a=document.createElement(‘a’); a.href=URL.createObjectURL(blob); a.download=‘fire-inspector-’+new Date().toISOString().split(‘T’)[0]+’.csv’; a.click();
 }
 
 // === USERS ===
 async function renderUsers() {
-  showLoading('Loading users...');
-  await usersGetAll();
-  hideLoading();
-  renderPending();
-  document.getElementById('users-grid').innerHTML=USERS_CACHE.map(u=>`
-    <div class="user-card">
-      <div class="user-card-top"><h4>${u.fullName}</h4><span class="role-badge ${u.role}">${u.role}</span></div>
-      <p>@${u.username} &mdash; ${u.dept}</p>
-      <div class="user-card-actions">
-        <button class="btn-sm" onclick="resetPw('${u.username}')">Reset PW</button>
-        ${u.username!==SESSION.username?`<button class="btn-sm danger" onclick="removeUser('${u.username}')">Remove</button>`:''}
-      </div>
-    </div>`).join('');
+showLoading(‘Loading users…’);
+await usersGetAll();
+hideLoading();
+renderPending();
+document.getElementById(‘users-grid’).innerHTML=USERS_CACHE.map(u=>` <div class="user-card"> <div class="user-card-top"><h4>${u.fullName}</h4><span class="role-badge ${u.role}">${u.role}</span></div> <p>@${u.username} &mdash; ${u.dept}</p> <div class="user-card-actions"> <button class="btn-sm" onclick="resetPw('${u.username}')">Reset PW</button> ${u.username!==SESSION.username?`<button class="btn-sm danger" onclick="removeUser('${u.username}')">Remove</button>`:''} </div> </div>`).join(’’);
 }
 async function addUser() {
-  const username=document.getElementById('nu-user').value.trim().toLowerCase();
-  const fullName=document.getElementById('nu-name').value.trim();
-  const pw=document.getElementById('nu-pw').value;
-  const role=document.getElementById('nu-role').value;
-  const dept=document.getElementById('nu-dept').value;
-  if(!username||!fullName||!pw){alert('Please fill in all required fields.');return;}
-  const pe=pwStrength(pw); if(pe){alert(pe);return;}
-  if(USERS_CACHE.find(u=>u.username===username)){alert('Username already exists.');return;}
-  showLoading('Adding user...');
-  const ok = await userCreate({username, fullName, role, dept, pwHash: await sha256(pw)});
-  hideLoading();
-  if(!ok){alert('Failed to add user.');return;}
-  renderUsers();
-  ['nu-user','nu-name','nu-pw'].forEach(id=>document.getElementById(id).value='');
+const username=document.getElementById(‘nu-user’).value.trim().toLowerCase();
+const fullName=document.getElementById(‘nu-name’).value.trim();
+const pw=document.getElementById(‘nu-pw’).value;
+const role=document.getElementById(‘nu-role’).value;
+const dept=document.getElementById(‘nu-dept’).value;
+if(!username||!fullName||!pw){alert(‘Please fill in all required fields.’);return;}
+const pe=pwStrength(pw); if(pe){alert(pe);return;}
+if(USERS_CACHE.find(u=>u.username===username)){alert(‘Username already exists.’);return;}
+showLoading(‘Adding user…’);
+const ok = await userCreate({username, fullName, role, dept, pwHash: await sha256(pw)});
+hideLoading();
+if(!ok){alert(‘Failed to add user.’);return;}
+renderUsers();
+[‘nu-user’,‘nu-name’,‘nu-pw’].forEach(id=>document.getElementById(id).value=’’);
 }
 async function resetPw(username) {
-  const pw=prompt(`Set new password for ${username}:\n(Min 8 chars, 1 uppercase, 1 number, 1 special char)`);
-  if(!pw) return;
-  const pe=pwStrength(pw); if(pe){alert(pe);return;}
-  showLoading('Updating password...');
-  const ok = await userUpdate(username, { pwHash: await sha256(pw) });
-  hideLoading();
-  if(ok){ alert(`Password updated for ${username}.`); }
-  else { alert('Failed to update password.'); }
+const pw=prompt(`Set new password for ${username}:\n(Min 8 chars, 1 uppercase, 1 number, 1 special char)`);
+if(!pw) return;
+const pe=pwStrength(pw); if(pe){alert(pe);return;}
+showLoading(‘Updating password…’);
+const ok = await userUpdate(username, { pwHash: await sha256(pw) });
+hideLoading();
+if(ok){ alert(`Password updated for ${username}.`); }
+else { alert(‘Failed to update password.’); }
 }
 function removeUser(username) {
-  if(!confirm(`Remove user "${username}"? This cannot be undone.`)) return;
-  saveUsers(getUsers().filter(u=>u.username!==username));
-  renderUsers();
+if(!confirm(`Remove user "${username}"? This cannot be undone.`)) return;
+saveUsers(getUsers().filter(u=>u.username!==username));
+renderUsers();
 }
 
 // ===================================================
@@ -1357,209 +1323,195 @@ function removeUser(username) {
 // Fill in your keys from emailjs.com to enable emails.
 // ===================================================
 const EMAILJS_CONFIG = {
-  publicKey:      'sKwiCAKKNZTCW6SuQ',
-  serviceId:      'service_urx6h07',
-  templateId:     'template_cg5oxeo',
-  inspectorEmail: 'alexander.vergo@gmail.com',
+publicKey:      ‘sKwiCAKKNZTCW6SuQ’,
+serviceId:      ‘service_urx6h07’,
+templateId:     ‘template_cg5oxeo’,
+inspectorEmail: ‘alexander.vergo@gmail.com’,
 };
 
-if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
-  emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+if (EMAILJS_CONFIG.publicKey !== ‘YOUR_PUBLIC_KEY’) {
+emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
 }
 
 async function sendSubmissionEmail(data) {
-  if (EMAILJS_CONFIG.publicKey === 'YOUR_PUBLIC_KEY') {
-    console.log('EmailJS not configured — skipping email.');
-    return;
-  }
-  const typeLabels = {
-    inspection: 'Building Inspection with FD Walkthrough',
-    violation: 'Code Violation',
-    knox: 'Knox Box Issues'
-  };
-  const typeName = typeLabels[data.type] || data.type;
-  const submittedAt = new Date(data.timestamp).toLocaleString('en-US', {
-    month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit'
-  });
+if (EMAILJS_CONFIG.publicKey === ‘YOUR_PUBLIC_KEY’) {
+console.log(‘EmailJS not configured — skipping email.’);
+return;
+}
+const typeLabels = {
+inspection: ‘Building Inspection with FD Walkthrough’,
+violation: ‘Code Violation’,
+knox: ‘Knox Box Issues’
+};
+const typeName = typeLabels[data.type] || data.type;
+const submittedAt = new Date(data.timestamp).toLocaleString(‘en-US’, {
+month: ‘long’, day: ‘numeric’, year: ‘numeric’, hour: ‘numeric’, minute: ‘2-digit’
+});
 
-  let details = '';
-  details += 'Reference #: ' + data.ref + '\n';
-  details += 'Type: ' + typeName + '\n';
-  details += 'Department: ' + data.department + '\n';
-  details += 'Submitted By: ' + data.submittedByName + ' (@' + data.submittedByUser + ')\n';
-  details += 'Date/Time: ' + submittedAt + '\n\n';
-  details += 'Property Address: ' + (data.address || '—') + '\n';
-  if (data.property_name) details += 'Property Name: ' + data.property_name + '\n';
+let details = ‘’;
+details += ’Reference #: ’ + data.ref + ‘\n’;
+details += ’Type: ’ + typeName + ‘\n’;
+details += ’Department: ’ + data.department + ‘\n’;
+details += ‘Submitted By: ’ + data.submittedByName + ’ (@’ + data.submittedByUser + ‘)\n’;
+details += ’Date/Time: ’ + submittedAt + ‘\n\n’;
+details += ’Property Address: ’ + (data.address || ‘—’) + ‘\n’;
+if (data.property_name) details += ’Property Name: ’ + data.property_name + ‘\n’;
 
-  if (data.type === 'inspection') {
-    if (data.contact_name)  details += 'Contact: ' + data.contact_name + '\n';
-    if (data.contact_phone) details += 'Phone: ' + data.contact_phone + '\n';
-    if (data.contact_email) details += 'Email: ' + data.contact_email + '\n';
-    if (data.pref_date)     details += 'Preferred Date: ' + data.pref_date + '\n';
-    if (data.pref_time)     details += 'Preferred Time: ' + data.pref_time + '\n';
-    if (data.alt_date)      details += 'Alternate Date: ' + data.alt_date + '\n';
-    if (data.notes)         details += '\nNotes:\n' + data.notes + '\n';
-  } else if (data.type === 'violation') {
-    if (data.violation_type) details += 'Violation Type(s): ' + data.violation_type + '\n';
-    if (data.severity)       details += 'Severity: ' + data.severity.toUpperCase() + '\n';
-    if (data.observed_date)  details += 'Date Observed: ' + data.observed_date + '\n';
-    if (data.observed_time)  details += 'Time Observed: ' + data.observed_time + '\n';
-    if (data.owner)          details += 'Owner / Responsible Party: ' + data.owner + '\n';
-    if (data.contact_phone)  details += 'Contact Phone: ' + data.contact_phone + '\n';
-    if (data.contact_email)  details += 'Contact Email: ' + data.contact_email + '\n';
-    if (data.description)    details += '\nDescription:\n' + data.description + '\n';
-    if (data.action_taken)   details += '\nImmediate Action Taken:\n' + data.action_taken + '\n';
-  } else if (data.type === 'knox') {
-    if (data.knox_type)    details += 'Request Type: ' + data.knox_type + '\n';
-    if (data.box_location) details += 'Box Location: ' + data.box_location + '\n';
-    if (data.owner_name)   details += 'Emergency Contact: ' + data.owner_name + '\n';
-    if (data.owner_phone)  details += 'Phone: ' + data.owner_phone + '\n';
-    if (data.owner_email)  details += 'Email: ' + data.owner_email + '\n';
-    if (data.pref_date)    details += 'Preferred Service Date: ' + data.pref_date + '\n';
-    if (data.key_list)     details += '\nKeys / Access Items:\n' + data.key_list + '\n';
-    if (data.notes)        details += '\nNotes:\n' + data.notes + '\n';
-  }
-
-  const params = {
-    to_email:        EMAILJS_CONFIG.inspectorEmail,
-    reply_to:        data.contact_email || data.owner_email || '',
-    subject:         '[' + data.ref + '] New ' + typeName + ' — ' + data.department,
-    ref_number:      data.ref,
-    submission_type: typeName,
-    department:      data.department,
-    submitted_by:    data.submittedByName,
-    address:         data.address || '—',
-    submitted_at:    submittedAt,
-    full_details:    details,
-  };
-
-  try {
-    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, params);
-    console.log('Notification email sent.');
-  } catch (err) {
-    console.warn('EmailJS error (submission was still saved):', err);
-  }
+if (data.type === ‘inspection’) {
+if (data.contact_name)  details += ’Contact: ’ + data.contact_name + ‘\n’;
+if (data.contact_phone) details += ’Phone: ’ + data.contact_phone + ‘\n’;
+if (data.contact_email) details += ’Email: ’ + data.contact_email + ‘\n’;
+if (data.pref_date)     details += ’Preferred Date: ’ + data.pref_date + ‘\n’;
+if (data.pref_time)     details += ’Preferred Time: ’ + data.pref_time + ‘\n’;
+if (data.alt_date)      details += ’Alternate Date: ’ + data.alt_date + ‘\n’;
+if (data.notes)         details += ‘\nNotes:\n’ + data.notes + ‘\n’;
+} else if (data.type === ‘violation’) {
+if (data.violation_type) details += ’Violation Type(s): ’ + data.violation_type + ‘\n’;
+if (data.severity)       details += ’Severity: ’ + data.severity.toUpperCase() + ‘\n’;
+if (data.observed_date)  details += ’Date Observed: ’ + data.observed_date + ‘\n’;
+if (data.observed_time)  details += ’Time Observed: ’ + data.observed_time + ‘\n’;
+if (data.owner)          details += ’Owner / Responsible Party: ’ + data.owner + ‘\n’;
+if (data.contact_phone)  details += ’Contact Phone: ’ + data.contact_phone + ‘\n’;
+if (data.contact_email)  details += ’Contact Email: ’ + data.contact_email + ‘\n’;
+if (data.description)    details += ‘\nDescription:\n’ + data.description + ‘\n’;
+if (data.action_taken)   details += ‘\nImmediate Action Taken:\n’ + data.action_taken + ‘\n’;
+} else if (data.type === ‘knox’) {
+if (data.knox_type)    details += ’Request Type: ’ + data.knox_type + ‘\n’;
+if (data.box_location) details += ’Box Location: ’ + data.box_location + ‘\n’;
+if (data.owner_name)   details += ’Emergency Contact: ’ + data.owner_name + ‘\n’;
+if (data.owner_phone)  details += ’Phone: ’ + data.owner_phone + ‘\n’;
+if (data.owner_email)  details += ’Email: ’ + data.owner_email + ‘\n’;
+if (data.pref_date)    details += ’Preferred Service Date: ’ + data.pref_date + ‘\n’;
+if (data.key_list)     details += ‘\nKeys / Access Items:\n’ + data.key_list + ‘\n’;
+if (data.notes)        details += ‘\nNotes:\n’ + data.notes + ‘\n’;
 }
 
+const params = {
+to_email:        EMAILJS_CONFIG.inspectorEmail,
+reply_to:        data.contact_email || data.owner_email || ‘’,
+subject:         ‘[’ + data.ref + ’] New ’ + typeName + ’ — ’ + data.department,
+ref_number:      data.ref,
+submission_type: typeName,
+department:      data.department,
+submitted_by:    data.submittedByName,
+address:         data.address || ‘—’,
+submitted_at:    submittedAt,
+full_details:    details,
+};
+
+try {
+await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, params);
+console.log(‘Notification email sent.’);
+} catch (err) {
+console.warn(‘EmailJS error (submission was still saved):’, err);
+}
+}
 
 // === OTHER FIELD HANDLERS ===
 function handleOtherRadio(radio, formKey) {
-  const wrap = document.getElementById(formKey + '-other-wrap');
-  const input = document.getElementById(formKey + '-other-input');
-  if (!wrap || !input) return;
-  if (radio.value === 'Other') {
-    wrap.classList.add('show');
-    input.required = true;
-    input.focus();
-  } else {
-    wrap.classList.remove('show');
-    input.required = false;
-    input.value = '';
-  }
+const wrap = document.getElementById(formKey + ‘-other-wrap’);
+const input = document.getElementById(formKey + ‘-other-input’);
+if (!wrap || !input) return;
+if (radio.value === ‘Other’) {
+wrap.classList.add(‘show’);
+input.required = true;
+input.focus();
+} else {
+wrap.classList.remove(‘show’);
+input.required = false;
+input.value = ‘’;
+}
 }
 
 function handleOtherCheck(checkbox) {
-  const wrap = document.getElementById('viol-other-wrap');
-  const input = document.getElementById('viol-other-input');
-  if (!wrap || !input) return;
-  if (checkbox.checked) {
-    wrap.classList.add('show');
-    input.required = true;
-    input.focus();
-  } else {
-    wrap.classList.remove('show');
-    input.required = false;
-    input.value = '';
-  }
+const wrap = document.getElementById(‘viol-other-wrap’);
+const input = document.getElementById(‘viol-other-input’);
+if (!wrap || !input) return;
+if (checkbox.checked) {
+wrap.classList.add(‘show’);
+input.required = true;
+input.focus();
+} else {
+wrap.classList.remove(‘show’);
+input.required = false;
+input.value = ‘’;
 }
-
-
+}
 
 // === PENDING REQUESTS ===
 function showRequestPanel() {
-  document.getElementById('login-panel').classList.add('hide');
-  document.getElementById('request-panel').classList.add('show');
-  document.getElementById('login-box-title').textContent = 'Request Access';
+document.getElementById(‘login-panel’).classList.add(‘hide’);
+document.getElementById(‘request-panel’).classList.add(‘show’);
+document.getElementById(‘login-box-title’).textContent = ‘Request Access’;
 }
 function showLoginPanel() {
-  document.getElementById('request-panel').classList.remove('show');
-  document.getElementById('login-panel').classList.remove('hide');
-  document.getElementById('login-box-title').textContent = 'Fire Inspector Portal';
+document.getElementById(‘request-panel’).classList.remove(‘show’);
+document.getElementById(‘login-panel’).classList.remove(‘hide’);
+document.getElementById(‘login-box-title’).textContent = ‘Fire Inspector Portal’;
 }
 
 async function submitAccessRequest() {
-  const name     = document.getElementById('ra-name').value.trim();
-  const username = document.getElementById('ra-user').value.trim().toLowerCase();
-  const pw       = document.getElementById('ra-pw').value;
-  const dept     = document.getElementById('ra-dept').value;
-  const errEl    = document.getElementById('request-error');
-  errEl.classList.remove('show');
+const name     = document.getElementById(‘ra-name’).value.trim();
+const username = document.getElementById(‘ra-user’).value.trim().toLowerCase();
+const pw       = document.getElementById(‘ra-pw’).value;
+const dept     = document.getElementById(‘ra-dept’).value;
+const errEl    = document.getElementById(‘request-error’);
+errEl.classList.remove(‘show’);
 
-  if (!name || !username || !pw) { errEl.textContent='Please fill in all fields.'; errEl.classList.add('show'); return; }
-  const pe = pwStrength(pw); if (pe) { errEl.textContent=pe; errEl.classList.add('show'); return; }
+if (!name || !username || !pw) { errEl.textContent=‘Please fill in all fields.’; errEl.classList.add(‘show’); return; }
+const pe = pwStrength(pw); if (pe) { errEl.textContent=pe; errEl.classList.add(‘show’); return; }
 
-  // Reload from Sheets to check latest usernames
-  showLoading('Checking...');
-  await usersGetAll();
-  hideLoading();
+// Reload from Sheets to check latest usernames
+showLoading(‘Checking…’);
+await usersGetAll();
+hideLoading();
 
-  if (USERS_CACHE.find(u => u.username === username)) { errEl.textContent='That username is already taken.'; errEl.classList.add('show'); return; }
-  if (PENDING_CACHE.find(p => p.username === username)) { errEl.textContent='A request for that username is already pending.'; errEl.classList.add('show'); return; }
+if (USERS_CACHE.find(u => u.username === username)) { errEl.textContent=‘That username is already taken.’; errEl.classList.add(‘show’); return; }
+if (PENDING_CACHE.find(p => p.username === username)) { errEl.textContent=‘A request for that username is already pending.’; errEl.classList.add(‘show’); return; }
 
-  const pwHash = await sha256(pw);
-  showLoading('Submitting request...');
-  const ok = await pendingCreate({ username, fullName: name, dept, pwHash, requestedAt: new Date().toISOString() });
-  hideLoading();
+const pwHash = await sha256(pw);
+showLoading(‘Submitting request…’);
+const ok = await pendingCreate({ username, fullName: name, dept, pwHash, requestedAt: new Date().toISOString() });
+hideLoading();
 
-  if (!ok) { errEl.textContent='Failed to submit request. Please try again.'; errEl.classList.add('show'); return; }
-  document.getElementById('request-form-wrap').style.display = 'none';
-  document.getElementById('request-success').classList.add('show');
+if (!ok) { errEl.textContent=‘Failed to submit request. Please try again.’; errEl.classList.add(‘show’); return; }
+document.getElementById(‘request-form-wrap’).style.display = ‘none’;
+document.getElementById(‘request-success’).classList.add(‘show’);
 }
 
 function renderPending() {
-  const section = document.getElementById('pending-section');
-  const list    = document.getElementById('pending-list');
-  const badge   = document.getElementById('pending-count');
+const section = document.getElementById(‘pending-section’);
+const list    = document.getElementById(‘pending-list’);
+const badge   = document.getElementById(‘pending-count’);
 
-  if (!PENDING_CACHE.length) { section.style.display='none'; return; }
-  section.style.display = '';
-  badge.textContent = PENDING_CACHE.length;
+if (!PENDING_CACHE.length) { section.style.display=‘none’; return; }
+section.style.display = ‘’;
+badge.textContent = PENDING_CACHE.length;
 
-  list.innerHTML = PENDING_CACHE.map((p,i) => `
-    <div class="pending-card">
-      <div class="pending-info">
-        <h4>${p.fullName}</h4>
-        <p>@${p.username} &mdash; ${p.dept} &mdash; Requested ${new Date(p.requestedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</p>
-      </div>
-      <div class="pending-actions">
-        <button class="btn-approve" onclick="approveRequest('${p.username}')">Approve</button>
-        <button class="btn-deny" onclick="denyRequest('${p.username}')">Deny</button>
-      </div>
-    </div>
-  `).join('');
+list.innerHTML = PENDING_CACHE.map((p,i) => `<div class="pending-card"> <div class="pending-info"> <h4>${p.fullName}</h4> <p>@${p.username} &mdash; ${p.dept} &mdash; Requested ${new Date(p.requestedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</p> </div> <div class="pending-actions"> <button class="btn-approve" onclick="approveRequest('${p.username}')">Approve</button> <button class="btn-deny" onclick="denyRequest('${p.username}')">Deny</button> </div> </div>`).join(’’);
 }
 
 async function approveRequest(username) {
-  const req = PENDING_CACHE.find(p => p.username === username);
-  if (!req) return;
-  showLoading('Approving...');
-  const ok = await userCreate({ username: req.username, fullName: req.fullName, role: 'user', dept: req.dept, pwHash: req.pwHash });
-  if (ok) await pendingDelete(req.username);
-  hideLoading();
-  if (!ok) { alert('Failed to approve request.'); return; }
-  renderUsers();
+const req = PENDING_CACHE.find(p => p.username === username);
+if (!req) return;
+showLoading(‘Approving…’);
+const ok = await userCreate({ username: req.username, fullName: req.fullName, role: ‘user’, dept: req.dept, pwHash: req.pwHash });
+if (ok) await pendingDelete(req.username);
+hideLoading();
+if (!ok) { alert(‘Failed to approve request.’); return; }
+renderUsers();
 }
 
 async function denyRequest(username) {
-  if (!confirm('Deny and remove this access request?')) return;
-  showLoading('Removing...');
-  await pendingDelete(username);
-  hideLoading();
-  renderPending();
+if (!confirm(‘Deny and remove this access request?’)) return;
+showLoading(‘Removing…’);
+await pendingDelete(username);
+hideLoading();
+renderPending();
 }
-
 
 init();
 </script>
+
 </body>
 </html>
