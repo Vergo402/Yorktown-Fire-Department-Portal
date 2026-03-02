@@ -676,17 +676,54 @@ let openTicketId = null;
 let pendingStatus = null;
 let SUBS_CACHE = []; // in-memory cache of submissions from Sheets
 
-// User/auth data stays local (per-device by design)
-const getUsers = () => JSON.parse(localStorage.getItem('fp_users') || 'null');
-const saveUsers = u => localStorage.setItem('fp_users', JSON.stringify(u));
+// Lockout tracking stays local (per-device, intentional)
 const getLocks = () => JSON.parse(localStorage.getItem('fp_locks') || '{}');
 const saveLocks = l => localStorage.setItem('fp_locks', JSON.stringify(l));
+
+// User + pending cache (sourced from Sheets)
+let USERS_CACHE = [];
+let PENDING_CACHE = [];
+
+async function usersGetAll() {
+  const res = await sheetsRequest('getUsers');
+  if (res && res.users)   USERS_CACHE   = res.users;
+  if (res && res.pending) PENDING_CACHE = res.pending;
+  return { users: USERS_CACHE, pending: PENDING_CACHE };
+}
+async function userCreate(user) {
+  const res = await sheetsRequest('createUser', { user });
+  if (res && res.ok) USERS_CACHE.push(user);
+  return res && res.ok;
+}
+async function userUpdate(username, updates) {
+  const res = await sheetsRequest('updateUser', { username, updates });
+  if (res && res.ok) {
+    const idx = USERS_CACHE.findIndex(u => u.username === username);
+    if (idx >= 0) USERS_CACHE[idx] = { ...USERS_CACHE[idx], ...updates };
+  }
+  return res && res.ok;
+}
+async function userDelete(username) {
+  const res = await sheetsRequest('deleteUser', { username });
+  if (res && res.ok) USERS_CACHE = USERS_CACHE.filter(u => u.username !== username);
+  return res && res.ok;
+}
+async function pendingCreate(req) {
+  const res = await sheetsRequest('createPending', { req });
+  if (res && res.ok) PENDING_CACHE.push(req);
+  return res && res.ok;
+}
+async function pendingDelete(username) {
+  const res = await sheetsRequest('deletePending', { username });
+  if (res && res.ok) PENDING_CACHE = PENDING_CACHE.filter(p => p.username !== username);
+  return res && res.ok;
+}
 
 // ===================================================
 // GOOGLE SHEETS CONFIG
 // Paste your Apps Script Web App URL here after setup
 // ===================================================
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx9Z-b9HWo7R3WYAT9xDpKV0a09mwUbQVNmPVJxAqK7yXh6YEZ_jBzzuMO0FGQ1nmZm/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzoLw-r4di4D5bjc0KpMQ9LMCL47NMIRCmMT3dp7HbzLU7aJxHMIjYuErT-5wq7wLZp/exec';
 
 async function sheetsRequest(action, payload = {}) {
   if (SHEETS_URL === 'YOUR_APPS_SCRIPT_URL') {
@@ -773,24 +810,30 @@ const TYPE_LABELS = {inspection:'Inspection', violation:'Violation', knox:'Knox 
 
 // === INIT ===
 async function init() {
-  let users = getUsers();
-  // Detect old format (has 'pw' plain text field instead of 'pwHash') and wipe it
-  if (users && users[0] && (users[0].pw || !users[0].pwHash)) {
-    localStorage.removeItem('fp_users');
-    users = null;
-  }
-  if (!users) {
-    users = [];
-    for (const u of DEFAULTS) users.push({username:u.username, fullName:u.fullName, role:u.role, dept:u.dept, pwHash: await sha256(u.pw)});
-    saveUsers(users);
-  }
+  // Check for existing valid session first (avoids unnecessary Sheets call on reload)
   const saved = sessionStorage.getItem('fp_sess');
   if (saved) {
     const s = JSON.parse(saved);
     const exp = await sha256(s.username + s.lt + 'fp_tok');
-    if (s.token === exp && Date.now() - s.la < 1800000) { SESSION = s; showApp(); return; }
+    if (s.token === exp && Date.now() - s.la < 1800000) {
+      SESSION = s;
+      // Still load user cache in background for admin functions
+      usersGetAll();
+      showApp();
+      return;
+    }
     sessionStorage.removeItem('fp_sess');
   }
+  // Pre-load users into cache so login is fast
+  showLoading('Loading...');
+  await usersGetAll();
+  // Bootstrap admin account if no users exist yet
+  if (USERS_CACHE.length === 0) {
+    const adminHash = await sha256(DEFAULTS[0].pw);
+    await userCreate({ username: DEFAULTS[0].username, fullName: DEFAULTS[0].fullName, role: 'admin', dept: DEFAULTS[0].dept, pwHash: adminHash });
+    await usersGetAll();
+  }
+  hideLoading();
   document.getElementById('lu').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('lp').focus(); });
   document.getElementById('lp').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
   document.getElementById('ra-pw').addEventListener('keydown', e => { if(e.key==='Enter') submitAccessRequest(); });
@@ -1235,10 +1278,12 @@ function exportCSV() {
 }
 
 // === USERS ===
-function renderUsers() {
+async function renderUsers() {
+  showLoading('Loading users...');
+  await usersGetAll();
+  hideLoading();
   renderPending();
-  const users=getUsers();
-  document.getElementById('users-grid').innerHTML=users.map(u=>`
+  document.getElementById('users-grid').innerHTML=USERS_CACHE.map(u=>`
     <div class="user-card">
       <div class="user-card-top"><h4>${u.fullName}</h4><span class="role-badge ${u.role}">${u.role}</span></div>
       <p>@${u.username} &mdash; ${u.dept}</p>
@@ -1256,18 +1301,23 @@ async function addUser() {
   const dept=document.getElementById('nu-dept').value;
   if(!username||!fullName||!pw){alert('Please fill in all required fields.');return;}
   const pe=pwStrength(pw); if(pe){alert(pe);return;}
-  const users=getUsers();
-  if(users.find(u=>u.username===username)){alert('Username already exists.');return;}
-  users.push({username, fullName, role, dept, pwHash: await sha256(pw)});
-  saveUsers(users); renderUsers();
+  if(USERS_CACHE.find(u=>u.username===username)){alert('Username already exists.');return;}
+  showLoading('Adding user...');
+  const ok = await userCreate({username, fullName, role, dept, pwHash: await sha256(pw)});
+  hideLoading();
+  if(!ok){alert('Failed to add user.');return;}
+  renderUsers();
   ['nu-user','nu-name','nu-pw'].forEach(id=>document.getElementById(id).value='');
 }
 async function resetPw(username) {
   const pw=prompt(`Set new password for ${username}:\n(Min 8 chars, 1 uppercase, 1 number, 1 special char)`);
   if(!pw) return;
   const pe=pwStrength(pw); if(pe){alert(pe);return;}
-  const users=getUsers(), u=users.find(u=>u.username===username);
-  if(u){u.pwHash=await sha256(pw);saveUsers(users);alert(`Password updated for ${username}.`);}
+  showLoading('Updating password...');
+  const ok = await userUpdate(username, { pwHash: await sha256(pw) });
+  hideLoading();
+  if(ok){ alert(`Password updated for ${username}.`); }
+  else { alert('Failed to update password.'); }
 }
 function removeUser(username) {
   if(!confirm(`Remove user "${username}"? This cannot be undone.`)) return;
@@ -1397,10 +1447,8 @@ function handleOtherCheck(checkbox) {
 }
 
 
-// === PENDING REQUESTS ===
-const getPending = () => JSON.parse(localStorage.getItem('fp_pending') || '[]');
-const savePending = p => localStorage.setItem('fp_pending', JSON.stringify(p));
 
+// === PENDING REQUESTS ===
 function showRequestPanel() {
   document.getElementById('login-panel').classList.add('hide');
   document.getElementById('request-panel').classList.add('show');
@@ -1423,61 +1471,63 @@ async function submitAccessRequest() {
   if (!name || !username || !pw) { errEl.textContent='Please fill in all fields.'; errEl.classList.add('show'); return; }
   const pe = pwStrength(pw); if (pe) { errEl.textContent=pe; errEl.classList.add('show'); return; }
 
-  // Check username not already taken
-  const users = getUsers();
-  if (users.find(u => u.username === username)) { errEl.textContent='That username is already taken. Please choose another.'; errEl.classList.add('show'); return; }
-  const pending = getPending();
-  if (pending.find(p => p.username === username)) { errEl.textContent='A request for that username is already pending.'; errEl.classList.add('show'); return; }
+  // Reload from Sheets to check latest usernames
+  showLoading('Checking...');
+  await usersGetAll();
+  hideLoading();
+
+  if (USERS_CACHE.find(u => u.username === username)) { errEl.textContent='That username is already taken.'; errEl.classList.add('show'); return; }
+  if (PENDING_CACHE.find(p => p.username === username)) { errEl.textContent='A request for that username is already pending.'; errEl.classList.add('show'); return; }
 
   const pwHash = await sha256(pw);
-  pending.push({ username, fullName: name, dept, pwHash, requestedAt: new Date().toISOString() });
-  savePending(pending);
+  showLoading('Submitting request...');
+  const ok = await pendingCreate({ username, fullName: name, dept, pwHash, requestedAt: new Date().toISOString() });
+  hideLoading();
 
+  if (!ok) { errEl.textContent='Failed to submit request. Please try again.'; errEl.classList.add('show'); return; }
   document.getElementById('request-form-wrap').style.display = 'none';
   document.getElementById('request-success').classList.add('show');
 }
 
 function renderPending() {
-  const pending = getPending();
   const section = document.getElementById('pending-section');
   const list    = document.getElementById('pending-list');
   const badge   = document.getElementById('pending-count');
 
-  if (!pending.length) { section.style.display='none'; return; }
+  if (!PENDING_CACHE.length) { section.style.display='none'; return; }
   section.style.display = '';
-  badge.textContent = pending.length;
+  badge.textContent = PENDING_CACHE.length;
 
-  list.innerHTML = pending.map((p,i) => `
+  list.innerHTML = PENDING_CACHE.map((p,i) => `
     <div class="pending-card">
       <div class="pending-info">
         <h4>${p.fullName}</h4>
         <p>@${p.username} &mdash; ${p.dept} &mdash; Requested ${new Date(p.requestedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</p>
       </div>
       <div class="pending-actions">
-        <button class="btn-approve" onclick="approveRequest(${i})">Approve</button>
-        <button class="btn-deny" onclick="denyRequest(${i})">Deny</button>
+        <button class="btn-approve" onclick="approveRequest('${p.username}')">Approve</button>
+        <button class="btn-deny" onclick="denyRequest('${p.username}')">Deny</button>
       </div>
     </div>
   `).join('');
 }
 
-function approveRequest(idx) {
-  const pending = getPending();
-  const req = pending[idx];
+async function approveRequest(username) {
+  const req = PENDING_CACHE.find(p => p.username === username);
   if (!req) return;
-  const users = getUsers();
-  users.push({ username: req.username, fullName: req.fullName, role: 'user', dept: req.dept, pwHash: req.pwHash });
-  saveUsers(users);
-  pending.splice(idx, 1);
-  savePending(pending);
+  showLoading('Approving...');
+  const ok = await userCreate({ username: req.username, fullName: req.fullName, role: 'user', dept: req.dept, pwHash: req.pwHash });
+  if (ok) await pendingDelete(req.username);
+  hideLoading();
+  if (!ok) { alert('Failed to approve request.'); return; }
   renderUsers();
 }
 
-function denyRequest(idx) {
+async function denyRequest(username) {
   if (!confirm('Deny and remove this access request?')) return;
-  const pending = getPending();
-  pending.splice(idx, 1);
-  savePending(pending);
+  showLoading('Removing...');
+  await pendingDelete(username);
+  hideLoading();
   renderPending();
 }
 
