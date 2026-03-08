@@ -34,8 +34,6 @@
   .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .login-error { background: rgba(232,50,26,0.12); border: 1px solid rgba(232,50,26,0.3); border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; color: var(--fire); margin-bottom: 16px; display: none; }
   .login-error.show { display: block; }
-  .lockout-msg { background: rgba(232,50,26,0.06); border: 1px solid rgba(232,50,26,0.15); border-radius: 8px; padding: 12px 14px; font-size: 0.82rem; color: var(--fog); margin-top: 12px; text-align: center; display: none; }
-  .lockout-msg.show { display: block; }
 
   /* HEADER */
   .header { background: var(--ash); border-bottom: 3px solid var(--fire); position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 24px rgba(232,50,26,0.2); }
@@ -221,7 +219,8 @@
   .log-user { color: var(--fog); font-weight: 600; white-space: nowrap; }
   .log-desc { color: var(--light); }
   .log-empty { color: var(--mist); font-size: 0.82rem; font-style: italic; }
-  .locked-banner { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: var(--green); margin-bottom: 18px; }
+  .log-comment { background: rgba(59,130,246,0.06); border-left: 3px solid var(--blue); padding-left: 10px; }
+  .log-comment .log-desc { color: var(--fog); font-style: italic; }
 
   /* SUCCESS */
   .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 600; align-items: center; justify-content: center; }
@@ -264,8 +263,12 @@
     .mobile-nav-btn.active { color: var(--fire); }
     body { padding-bottom: 60px; }
   }
+
   .btn-delete { background: none; border: 1px solid rgba(232,50,26,0.4); color: var(--fire); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
   .btn-delete:hover { background: rgba(232,50,26,0.1); border-color: var(--fire); }
+  .btn-archive { background: none; border: 1px solid rgba(16,185,129,0.4); color: var(--green); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+  .btn-archive:hover { background: rgba(16,185,129,0.1); border-color: var(--green); }
+
   .comment-box { margin-top: 14px; }
   .comment-box textarea { width: 100%; background: var(--smoke); border: 1.5px solid var(--steel); border-radius: 8px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.88rem; padding: 10px 13px; outline: none; resize: vertical; min-height: 72px; transition: border-color 0.2s; }
   .comment-box textarea:focus { border-color: var(--blue); }
@@ -273,9 +276,11 @@
   .comment-actions { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
   .btn-add-comment { background: var(--blue); border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
   .btn-add-comment:hover { background: #2563EB; }
-  .log-comment { background: rgba(59,130,246,0.06); border-left: 3px solid var(--blue); padding-left: 10px; }
-  .log-comment .log-desc { color: var(--fog); font-style: italic; }
 
+  .other-input-wrap { display:none; margin-top:10px; }
+  .other-input-wrap.show { display:block; }
+  .other-input-wrap input { background:var(--smoke); border:1.5px solid var(--steel); border-radius:8px; color:var(--white); font-family:'Barlow',sans-serif; font-size:0.92rem; padding:10px 13px; outline:none; transition:border-color 0.2s; width:100%; }
+  .other-input-wrap input:focus { border-color:var(--fire); }
 
   /* REQUEST ACCESS */
   .login-switch { text-align:center; margin-top:18px; font-size:0.82rem; color:var(--mist); }
@@ -283,16 +288,15 @@
   .login-switch button:hover { color:var(--white); }
   .request-panel { display:none; }
   .request-panel.show { display:block; }
-  .login-panel { display:block; }
   .login-panel.hide { display:none; }
   .login-success { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:8px; padding:14px; font-size:0.85rem; color:var(--green); text-align:center; display:none; }
   .login-success.show { display:block; }
+
   /* PENDING APPROVALS */
   .pending-section { background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.25); border-radius:12px; padding:22px; margin-bottom:28px; }
   .pending-section h3 { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
   .pending-badge { background:var(--gold); color:var(--coal); font-size:0.7rem; font-weight:800; padding:2px 7px; border-radius:10px; }
   .pending-card { background:var(--ash); border:1px solid var(--steel); border-radius:8px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
-  .pending-card:last-child { margin-bottom:0; }
   .pending-info h4 { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.04em; }
   .pending-info p { font-size:0.8rem; color:var(--mist); margin-top:2px; }
   .pending-actions { display:flex; gap:7px; flex-shrink:0; }
@@ -300,18 +304,6 @@
   .btn-approve:hover { background:#059669; }
   .btn-deny { background:none; border:1px solid rgba(232,50,26,0.4); color:var(--fire); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; padding:7px 14px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
   .btn-deny:hover { background:rgba(232,50,26,0.1); }
-  .no-pending { color:var(--mist); font-size:0.85rem; font-style:italic; }
-
-
-  .other-input-wrap { display:none; margin-top:10px; }
-  .other-input-wrap.show { display:block; }
-  .other-input-wrap input { background:var(--smoke); border:1.5px solid var(--steel); border-radius:8px; color:var(--white); font-family:'Barlow',sans-serif; font-size:0.92rem; padding:10px 13px; outline:none; transition:border-color 0.2s; width:100%; }
-  .other-input-wrap input:focus { border-color:var(--fire); box-shadow:0 0 0 3px rgba(232,50,26,0.1); }
-  .other-input-wrap input::placeholder { color:var(--steel); }
-
-
-  .btn-archive { background: none; border: 1px solid rgba(16,185,129,0.4); color: var(--green); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-  .btn-archive:hover { background: rgba(16,185,129,0.1); border-color: var(--green); }
 
   .footer { background: var(--ash); border-top: 1px solid var(--steel); text-align: center; padding: 18px; font-size: 0.72rem; color: var(--steel); letter-spacing: 0.06em; text-transform: uppercase; }
 
@@ -324,9 +316,74 @@
   .btn-save-profile { background: var(--fire); border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 28px; border-radius: 8px; cursor: pointer; margin-top: 20px; transition: background 0.2s; }
   .btn-save-profile:hover { background: var(--fire-dark); }
   @media (max-width: 600px) { .profile-fields { grid-template-columns: 1fr; } .profile-card { padding: 20px 16px; } }
+
+  /* SYNC INDICATOR */
+  .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 </style>
 </head>
 <body>
+
+<!-- ═══════════════════════════════════════════════
+  FIREBASE SDK  (modular v10)
+  Replace the firebaseConfig below with your own
+  from: Firebase Console → Project Settings → Your apps → Web app
+══════════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp }                                      from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getFirestore, collection, doc, setDoc, getDoc,
+         getDocs, deleteDoc, onSnapshot, query, orderBy,
+         serverTimestamp, writeBatch, updateDoc, addDoc,
+         where }                                              from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { getAuth, signInWithEmailAndPassword,
+         createUserWithEmailAndPassword, signOut,
+         onAuthStateChanged, updatePassword,
+         EmailAuthProvider, reauthenticateWithCredential }    from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+// ── YOUR FIREBASE CONFIG ─────────────────────────────────────
+// Replace with your own config from Firebase Console
+const firebaseConfig = {
+  apiKey:            "AIzaSyD4Kcn31Kw556k28LcGftmWrsZfEfcdoGQ",
+  authDomain:        "ytown-portal.firebaseapp.com",
+  projectId:         "ytown-portal",
+  storageBucket:     "ytown-portal.firebasestorage.app",
+  messagingSenderId: "273902415102",
+  appId:             "1:273902415102:web:e8426ae3b7e9b88ae2c9af",
+  measurementId:     "G-FB530R4P8B"
+};
+// ─────────────────────────────────────────────────────────────
+
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+
+// Expose to global scope for the rest of the app
+window._db   = db;
+window._auth = auth;
+window._FB   = { collection, doc, setDoc, getDoc, getDocs, deleteDoc,
+                 onSnapshot, query, orderBy, serverTimestamp, writeBatch,
+                 updateDoc, addDoc, where };
+window._signIn      = (email, pw) => signInWithEmailAndPassword(auth, email, pw);
+window._createUser  = (email, pw) => createUserWithEmailAndPassword(auth, email, pw);
+window._signOut     = ()          => signOut(auth);
+window._updatePw    = (pw)        => updatePassword(auth.currentUser, pw);
+window._reauth      = (email, pw) => reauthenticateWithCredential(
+  auth.currentUser, EmailAuthProvider.credential(email, pw)
+);
+
+// Auth state listener → triggers init
+onAuthStateChanged(auth, user => {
+  if (user) {
+    window._uid = user.uid;
+    window._userEmail = user.email;
+    if (typeof window._onAuthReady === 'function') window._onAuthReady(user);
+  } else {
+    window._uid = null;
+    window._userEmail = null;
+    if (typeof window._onSignOut === 'function') window._onSignOut();
+  }
+});
+</script>
 
 <!-- LOGIN -->
 <div class="login-screen" id="login-screen">
@@ -340,10 +397,9 @@
     <!-- SIGN IN PANEL -->
     <div class="login-panel" id="login-panel">
       <div class="login-error" id="login-error"></div>
-      <div class="login-field"><label>Username</label><input type="text" id="lu" autocomplete="username" spellcheck="false" placeholder="Enter username"></div>
+      <div class="login-field"><label>Email</label><input type="email" id="lu" autocomplete="email" spellcheck="false" placeholder="your@email.com"></div>
       <div class="login-field"><label>Password</label><input type="password" id="lp" autocomplete="current-password" placeholder="Enter password"></div>
       <button class="login-btn" id="login-btn" onclick="doLogin()">Sign In</button>
-      <div class="lockout-msg" id="lockout-msg"></div>
       <div class="login-switch">Don't have an account? <button onclick="showRequestPanel()">Request Access</button></div>
     </div>
 
@@ -355,7 +411,8 @@
       <div id="request-form-wrap">
         <div class="login-error" id="request-error"></div>
         <div class="login-field"><label>Full Name <span style="color:var(--fire)">*</span></label><input type="text" id="ra-name" placeholder="FF. Jane Doe"></div>
-        <div class="login-field"><label>Requested Username <span style="color:var(--fire)">*</span></label><input type="text" id="ra-user" placeholder="e.g. yhfd3" spellcheck="false"></div>
+        <div class="login-field"><label>Email Address <span style="color:var(--fire)">*</span></label><input type="email" id="ra-email" placeholder="your@email.com"></div>
+        <div class="login-field"><label>Requested Username / Handle <span style="color:var(--fire)">*</span></label><input type="text" id="ra-user" placeholder="e.g. yhfd3" spellcheck="false"></div>
         <div class="login-field"><label>Password <span style="color:var(--fire)">*</span></label><input type="password" id="ra-pw" placeholder="Min 8 chars, 1 upper, 1 number, 1 symbol"></div>
         <div class="login-field"><label>Department <span style="color:var(--fire)">*</span></label>
           <select id="ra-dept" style="background:var(--smoke);border:1.5px solid var(--steel);border-radius:8px;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;padding:12px 14px;outline:none;width:100%;appearance:none;">
@@ -385,7 +442,11 @@
       <button class="nav-tab" onclick="showView('profile')" id="tab-profile">Profile</button>
     </nav>
     <div class="header-right">
-      <div class="user-pill"><div class="role-dot" id="role-dot"></div><span id="session-label">—</span></div>
+      <div class="user-pill">
+        <div class="role-dot" id="role-dot"></div>
+        <span id="session-label">—</span>
+        <div class="sync-dot" title="Connected to Firebase"></div>
+      </div>
       <button class="btn-logout" onclick="doLogout()">Log Out</button>
     </div>
   </div>
@@ -405,7 +466,7 @@
 <div id="view-submit">
   <div class="hero">
     <h1>Submit a <em>Request</em></h1>
-    <p>Select your department and request type. All submissions are tracked.</p>
+    <p>Select your department and request type. All submissions are tracked in real time.</p>
     <span class="dept-label">Select Your Department</span>
     <div class="dept-selector">
       <button class="dept-btn" onclick="selectDept(this,'Yorktown Heights FD')" data-dept="Yorktown Heights FD">🚒 Yorktown Heights FD</button>
@@ -533,7 +594,7 @@
             <label class="radio-option"><input type="radio" name="knox_type" value="Other" onclick="handleOtherRadio(this,'knox')"><span class="radio-dot"></span>Other</label>
           </div>
           <div class="other-input-wrap" id="knox-other-wrap">
-            <input type="text" id="knox-other-input" placeholder="Please describe the Knox Box issue..." >
+            <input type="text" id="knox-other-input" placeholder="Please describe the Knox Box issue...">
           </div>
         </div>
         <div class="field field-full"><label>Property Address <span class="req">*</span></label><input type="text" name="address" placeholder="123 Main St, Yorktown Heights, NY 10598" required></div>
@@ -609,8 +670,9 @@
   <div class="add-user-form">
     <h3>+ Add New User</h3>
     <div class="add-user-grid">
-      <div class="field"><label>Username</label><input type="text" id="nu-user" placeholder="e.g. yhfd3"></div>
       <div class="field"><label>Full Name</label><input type="text" id="nu-name" placeholder="FF. John Doe"></div>
+      <div class="field"><label>Email Address</label><input type="email" id="nu-email" placeholder="user@email.com"></div>
+      <div class="field"><label>Username / Handle</label><input type="text" id="nu-user" placeholder="e.g. yhfd3"></div>
       <div class="field"><label>Password</label><input type="password" id="nu-pw" placeholder="Min 8 chars, 1 uppercase, 1 number, 1 symbol"></div>
       <div class="field"><label>Role</label><select id="nu-role"><option value="user">User</option><option value="admin">Admin</option></select></div>
       <div class="field"><label>Department</label><select id="nu-dept"><option value="Yorktown Heights FD">Yorktown Heights FD</option><option value="Lake Mohegan FD">Lake Mohegan FD</option></select></div>
@@ -626,7 +688,7 @@
     <div class="profile-avatar" id="profile-avatar-display"></div>
     <div class="profile-fields">
       <div class="field"><label>Full Name</label><input type="text" id="prof-name" placeholder="Your full name"></div>
-      <div class="field"><label>Email Address</label><input type="email" id="prof-email" placeholder="your@email.com"></div>
+      <div class="field"><label>Email Address</label><input type="email" id="prof-email" disabled style="opacity:0.45;cursor:not-allowed"></div>
       <div class="field"><label>Department</label>
         <select id="prof-dept" style="background:var(--smoke);border:1.5px solid var(--steel);border-radius:8px;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;padding:12px 14px;outline:none;width:100%;appearance:none;">
           <option value="Yorktown Heights FD">Yorktown Heights FD</option>
@@ -637,6 +699,8 @@
     </div>
     <div class="profile-divider">Change Password <span>(leave blank to keep current password)</span></div>
     <div class="profile-fields">
+      <div class="field"><label>Current Password</label><input type="password" id="prof-pw-current" placeholder="Required to change password"></div>
+      <div class="field"></div>
       <div class="field"><label>New Password</label><input type="password" id="prof-pw" placeholder="Min 8 chars, 1 upper, 1 number, 1 symbol"></div>
       <div class="field"><label>Confirm New Password</label><input type="password" id="prof-pw2" placeholder="Repeat new password"></div>
     </div>
@@ -673,14 +737,59 @@
   </div>
 </div>
 
-<footer class="footer" id="app-footer" style="display:none">Fire Inspector Portal &mdash; Town of Yorktown &mdash; Secure Internal System</footer>
+<footer class="footer" id="app-footer" style="display:none">Fire Inspector Portal &mdash; Town of Yorktown &mdash; Powered by Firebase</footer>
 
 <script>
-// === CRYPTO ===
-async function sha256(str) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+// ═══════════════════════════════════════════════════════════════════
+// FIRE INSPECTOR PORTAL — Firebase Edition
+// Auth:      Firebase Authentication (email/password)
+// Database:  Cloud Firestore
+//
+// Firestore Collections:
+//   submissions/        — all inspection, violation, knox tickets
+//   users/              — user profiles (role, dept, display name)
+//   pendingRequests/    — access requests awaiting admin approval
+// ═══════════════════════════════════════════════════════════════════
+
+// ── State ──────────────────────────────────────────────────────────
+let SESSION   = null;   // { uid, email, fullName, username, role, dept }
+let SUBS_CACHE = [];
+let USERS_CACHE = [];
+let PENDING_CACHE = [];
+let selectedDept = '';
+let currentFilter = 'all';
+let openTicketId = null;
+let pendingStatus = null;
+let _unsubSubs = null;  // Firestore real-time listener unsubscriber
+
+// ── Firestore helpers ──────────────────────────────────────────────
+const db  = () => window._db;
+const FB  = () => window._FB;
+
+const col  = name => FB().collection(db(), name);
+const dref = (colName, id) => FB().doc(db(), colName, id);
+
+// ── Constants ──────────────────────────────────────────────────────
+const STATUS_LABELS = { submitted:'Submitted', under_review:'Under Review', enforcement:'Enforcement Underway', completed:'Completed' };
+const STATUS_CLASS  = { submitted:'s-submitted', under_review:'s-under_review', enforcement:'s-enforcement', completed:'s-completed' };
+const TYPE_LABELS   = { inspection:'Inspection', violation:'Violation', knox:'Knox Box' };
+
+// ── Loading overlay ────────────────────────────────────────────────
+function showLoading(msg='Loading...') {
+  if (!SESSION) return;
+  let el = document.getElementById('loading-overlay');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'loading-overlay';
+    el.style.cssText = 'position:fixed;inset:0;background:rgba(17,18,20,0.7);backdrop-filter:blur(3px);z-index:800;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;';
+    el.innerHTML = '<div style="width:36px;height:36px;border:3px solid var(--steel);border-top-color:var(--fire);border-radius:50%;animation:spin 0.8s linear infinite"></div><p style="color:var(--fog);font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase">' + msg + '</p>';
+    document.head.insertAdjacentHTML('beforeend','<style>@keyframes spin{to{transform:rotate(360deg)}}</style>');
+    document.body.appendChild(el);
+  } else { el.querySelector('p').textContent=msg; el.style.display='flex'; }
 }
+function hideLoading() { const el=document.getElementById('loading-overlay'); if(el) el.style.display='none'; }
+
+// ── Password strength ──────────────────────────────────────────────
 function pwStrength(pw) {
   if (pw.length < 8) return 'Password must be at least 8 characters.';
   if (!/[A-Z]/.test(pw)) return 'Must contain at least one uppercase letter.';
@@ -689,280 +798,101 @@ function pwStrength(pw) {
   return null;
 }
 
-function hardReset() {
-  if (confirm('This will clear all stored portal data (users, submissions) and reset to defaults. Continue?')) {
-    localStorage.removeItem('fp_users');
-    localStorage.removeItem('fp_subs');
-    localStorage.removeItem('fp_locks');
-    sessionStorage.removeItem('fp_sess');
-    location.reload();
-  }
+// ── Reference number generator ────────────────────────────────────
+function generateRef(type) {
+  const prefix = {inspection:'INS',violation:'VIO',knox:'KNX'}[type]||'UNK';
+  const d = new Date();
+  const ymd = String(d.getFullYear()).slice(-2) + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
+  const rand = Math.floor(Math.random()*9000)+1000;
+  return `${prefix}-${ymd}-${rand}`;
 }
 
-// === DEFAULTS ===
-const DEFAULTS = [
-  {username:'avergo',  fullName:'Alex Vergo',       role:'admin', dept:'Yorktown Heights FD', pw:'Admin1234!'},
-];
-
-// === STATE ===
-let SESSION = null;
-let selectedDept = '';
-let currentFilter = 'all';
-let openTicketId = null;
-let pendingStatus = null;
-let SUBS_CACHE = []; // in-memory cache of submissions from Sheets
-
-// Lockout tracking stays local (per-device, intentional)
-const getLocks = () => JSON.parse(localStorage.getItem('fp_locks') || '{}');
-const saveLocks = l => localStorage.setItem('fp_locks', JSON.stringify(l));
-
-// User + pending cache (sourced from Sheets)
-let USERS_CACHE = [];
-let PENDING_CACHE = [];
-
-async function usersGetAll() {
-  const res = await sheetsRequest('getUsers');
-  if (res && res.users)   USERS_CACHE   = res.users;
-  if (res && res.pending) PENDING_CACHE = res.pending;
-  return { users: USERS_CACHE, pending: PENDING_CACHE };
-}
-async function userCreate(user) {
-  const res = await sheetsRequest('createUser', { user });
-  if (res && res.ok) USERS_CACHE.push(user);
-  return res && res.ok;
-}
-async function userUpdate(username, updates) {
-  const res = await sheetsRequest('updateUser', { username, updates });
-  if (res && res.ok) {
-    const idx = USERS_CACHE.findIndex(u => u.username === username);
-    if (idx >= 0) USERS_CACHE[idx] = { ...USERS_CACHE[idx], ...updates };
-  }
-  return res && res.ok;
-}
-async function userDelete(username) {
-  const res = await sheetsRequest('deleteUser', { username });
-  if (res && res.ok) USERS_CACHE = USERS_CACHE.filter(u => u.username !== username);
-  return res && res.ok;
-}
-async function pendingCreate(req) {
-  const res = await sheetsRequest('createPending', { req });
-  if (res && res.ok) PENDING_CACHE.push(req);
-  return res && res.ok;
-}
-async function pendingDelete(username) {
-  const res = await sheetsRequest('deletePending', { username });
-  if (res && res.ok) PENDING_CACHE = PENDING_CACHE.filter(p => p.username !== username);
-  return res && res.ok;
-}
-
-// ===================================================
-// GOOGLE SHEETS CONFIG
-// Paste your Apps Script Web App URL here after setup
-// ===================================================
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzxKQVLdfqvh2oHy_0_ntMtGh9vF2BhHRY2nGNjuTwh61FZTPolVM7oYHSMfbqUACr0/exec';
-
-async function sheetsRequest(action, payload = {}) {
-  if (SHEETS_URL === 'YOUR_APPS_SCRIPT_URL') {
-    console.warn('Sheets not configured.');
-    return null;
-  }
-  const body = JSON.stringify({ action, ...payload });
-  const url = SHEETS_URL + '?payload=' + encodeURIComponent(body);
+// ═══════════════════════════════════════════════════════════════════
+// AUTH CALLBACKS (called by Firebase module in <script type="module">)
+// ═══════════════════════════════════════════════════════════════════
+window._onAuthReady = async function(firebaseUser) {
+  // Load the user's profile from Firestore
   try {
-    const res = await fetch(url, {
-      method: 'GET',
-      redirect: 'follow',
-      credentials: 'omit',
-      cache: 'no-store',
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const text = await res.text();
-    const clean = text.trim().replace(/^[^{[]*/, ''); // strip any prefix garbage
-    return JSON.parse(clean);
-  } catch (err) {
-    console.error('Sheets request failed:', err);
-    return null;
-  }
-}
-
-async function sheetsGetAll() {
-  const res = await sheetsRequest('getAll');
-  if (res && res.data) { SUBS_CACHE = res.data; return res.data; }
-  return SUBS_CACHE;
-}
-
-async function sheetsCreate(data) {
-  const res = await sheetsRequest('create', { data });
-  if (res && res.data) { 
-    SUBS_CACHE.push(res.data);
-    return res.data; // returns with server-generated ref + id
-  }
-  return null;
-}
-
-async function sheetsUpdate(id, updates) {
-  const res = await sheetsRequest('update', { id, updates });
-  if (res && res.data) {
-    const idx = SUBS_CACHE.findIndex(s => s.id === id);
-    if (idx >= 0) SUBS_CACHE[idx] = res.data;
-    return res.data;
-  }
-  return null;
-}
-
-async function sheetsDelete(id) {
-  const res = await sheetsRequest('delete', { id });
-  if (res && res.ok) {
-    SUBS_CACHE = SUBS_CACHE.filter(s => s.id !== id);
-    return true;
-  }
-  return false;
-}
-
-// Loading state helpers
-function showLoading(msg = 'Loading...') {
-  // Never show overlay if login screen is still visible
-  if (!SESSION) return;
-  let el = document.getElementById('loading-overlay');
-  if (!el) {
-    el = document.createElement('div');
-    el.id = 'loading-overlay';
-    el.style.cssText = 'position:fixed;inset:0;background:rgba(17,18,20,0.7);backdrop-filter:blur(3px);z-index:800;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;';
-    el.innerHTML = '<div style="width:36px;height:36px;border:3px solid var(--steel);border-top-color:var(--fire);border-radius:50%;animation:spin 0.8s linear infinite"></div><p style="color:var(--fog);font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase">' + msg + '</p>';
-    document.head.insertAdjacentHTML('beforeend', '<style>@keyframes spin{to{transform:rotate(360deg)}}</style>');
-    document.body.appendChild(el);
-  } else {
-    el.querySelector('p').textContent = msg;
-    el.style.display = 'flex';
-  }
-}
-function hideLoading() {
-  const el = document.getElementById('loading-overlay');
-  if (el) el.style.display = 'none';
-}
-
-const STATUS_LABELS = {submitted:'Submitted', under_review:'Under Review', enforcement:'Enforcement Underway', completed:'Completed'};
-const STATUS_CLASS = {submitted:'s-submitted', under_review:'s-under_review', enforcement:'s-enforcement', completed:'s-completed'};
-const TYPE_LABELS = {inspection:'Inspection', violation:'Violation', knox:'Knox Box'};
-
-// === INIT ===
-async function init() {
-  // Check for existing valid session (skip Sheets call if already logged in)
-  const saved = sessionStorage.getItem('fp_sess');
-  if (saved) {
-    try {
-      const s = JSON.parse(saved);
-      const exp = await sha256(s.username + s.lt + 'fp_tok');
-      if (s.token === exp && Date.now() - s.la < 1800000) {
-        SESSION = s;
-        usersGetAll(); // load cache in background for admin functions
-        showApp();
-        return;
-      }
-    } catch(e) {}
-    sessionStorage.removeItem('fp_sess');
-  }
-  // Always ensure button is enabled and clean on load
-  const loginBtn = document.getElementById('login-btn');
-  if (loginBtn) { loginBtn.disabled = false; loginBtn.textContent = 'Sign In'; }
-  document.getElementById('login-error').textContent = '';
-  document.getElementById('login-error').classList.remove('show');
-  document.getElementById('lockout-msg').textContent = '';
-
-  // Wire up keyboard shortcuts — login happens on demand via doLogin()
-  document.getElementById('lu').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('lp').focus(); });
-  document.getElementById('lp').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-  document.getElementById('ra-pw').addEventListener('keydown', e => { if(e.key==='Enter') submitAccessRequest(); });
-}
-
-// === LOGIN ===
-async function doLogin() {
-  const username = document.getElementById('lu').value.trim().toLowerCase();
-  const password = document.getElementById('lp').value;
-  const errEl = document.getElementById('login-error');
-  const lockEl = document.getElementById('lockout-msg');
-  const btn = document.getElementById('login-btn');
-  errEl.classList.remove('show'); lockEl.textContent = '';
-
-  const locks = getLocks();
-  const lk = locks[username];
-  if (lk && lk.until > Date.now()) {
-    const m = Math.ceil((lk.until - Date.now()) / 60000);
-    lockEl.textContent = `Account locked. Try again in ${m} minute${m!==1?'s':''}.`;
-    btn.disabled = false; btn.textContent = 'Sign In';
-    return;
-  }
-  if (!username || !password) { errEl.textContent = 'Please enter username and password.'; errEl.classList.add('show'); return; }
-
-  btn.disabled = true; btn.textContent = 'Signing in...';
-
-  // Fetch users from Sheets with timeout protection
-  let fetchOk = false;
-  try {
-    await Promise.race([
-      usersGetAll().then(() => { fetchOk = true; }),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 12000))
-    ]);
-  } catch(e) {
-    errEl.textContent = 'Could not reach server. Check your internet connection and try again.';
-    errEl.classList.add('show');
-    btn.disabled = false; btn.textContent = 'Sign In';
-    return;
-  }
-
-  // Bootstrap admin if Users sheet is empty (first-time setup)
-  if (USERS_CACHE.length === 0) {
-    btn.textContent = 'First-time setup...';
-    try {
-      const adminHash = await sha256(DEFAULTS[0].pw);
-      await userCreate({ username: DEFAULTS[0].username, fullName: DEFAULTS[0].fullName, role: 'admin', dept: DEFAULTS[0].dept, pwHash: adminHash });
-      await usersGetAll();
-    } catch(e) {
-      errEl.textContent = 'Setup failed. Please check Apps Script deployment.';
-      errEl.classList.add('show');
-      btn.disabled = false; btn.textContent = 'Sign In';
+    const snap = await FB().getDoc(dref('users', firebaseUser.uid));
+    if (!snap.exists()) {
+      // User has a Firebase Auth account but no Firestore profile
+      // This shouldn't happen in normal flow; show error
+      document.getElementById('login-error').textContent = 'Account setup incomplete. Please contact an administrator.';
+      document.getElementById('login-error').classList.add('show');
+      await window._signOut();
       return;
     }
+    const profile = snap.data();
+    SESSION = {
+      uid:      firebaseUser.uid,
+      email:    firebaseUser.email,
+      fullName: profile.fullName || firebaseUser.email,
+      username: profile.username || firebaseUser.email.split('@')[0],
+      role:     profile.role || 'user',
+      dept:     profile.dept || ''
+    };
+    showApp();
+  } catch(e) {
+    console.error('Profile load error:', e);
+    document.getElementById('login-error').textContent = 'Failed to load profile. Please try again.';
+    document.getElementById('login-error').classList.add('show');
+    hideLoading();
   }
+};
 
-  const hash = await sha256(password);
-  const user = USERS_CACHE.find(u => u.username === username);
+window._onSignOut = function() {
+  SESSION = null;
+  if (_unsubSubs) { _unsubSubs(); _unsubSubs = null; }
+  document.getElementById('login-screen').classList.remove('hidden');
+  ['app-header','app-main','app-footer','mobile-nav'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.style.display = 'none';
+  });
+  const btn = document.getElementById('login-btn');
+  if (btn) { btn.disabled=false; btn.textContent='Sign In'; }
+};
 
-  console.log('Login debug | users in cache:', USERS_CACHE.length, '| user found:', !!user, '| hash match:', user ? user.pwHash === hash : 'n/a');
+// ═══════════════════════════════════════════════════════════════════
+// LOGIN / LOGOUT
+// ═══════════════════════════════════════════════════════════════════
+async function doLogin() {
+  const email    = document.getElementById('lu').value.trim();
+  const password = document.getElementById('lp').value;
+  const errEl    = document.getElementById('login-error');
+  const btn      = document.getElementById('login-btn');
+  errEl.classList.remove('show');
 
-  if (!user || user.pwHash !== hash) {
-    if (!locks[username]) locks[username] = {count:0, until:0};
-    locks[username].count++;
-    if (locks[username].count >= 5) {
-      locks[username].until = Date.now() + 900000;
-      locks[username].count = 0;
-      lockEl.textContent = 'Too many failed attempts. Locked for 15 minutes.';
-    }
-    saveLocks(locks);
-    errEl.textContent = 'Invalid username or password.'; errEl.classList.add('show');
-    btn.disabled = false; btn.textContent = 'Sign In';
-    document.getElementById('lp').value = ''; return;
+  if (!email || !password) { errEl.textContent='Please enter email and password.'; errEl.classList.add('show'); return; }
+
+  btn.disabled=true; btn.textContent='Signing in...';
+  try {
+    await window._signIn(email, password);
+    // _onAuthReady will fire automatically via onAuthStateChanged
+  } catch(e) {
+    let msg = 'Invalid email or password.';
+    if (e.code === 'auth/too-many-requests') msg = 'Too many failed attempts. Try again later.';
+    if (e.code === 'auth/user-disabled')     msg = 'This account has been disabled.';
+    errEl.textContent = msg; errEl.classList.add('show');
+    btn.disabled=false; btn.textContent='Sign In';
   }
-
-  if (locks[username]) { delete locks[username]; saveLocks(locks); }
-  const lt = Date.now().toString();
-  const token = await sha256(username + lt + 'fp_tok');
-  SESSION = {username: user.username, fullName: user.fullName, role: user.role, dept: user.dept, lt, token, la: Date.now()};
-  sessionStorage.setItem('fp_sess', JSON.stringify(SESSION));
-  showApp();
 }
 
-document.addEventListener('click', () => { if(SESSION){ SESSION.la=Date.now(); sessionStorage.setItem('fp_sess',JSON.stringify(SESSION)); }});
-setInterval(() => { if(SESSION && Date.now()-SESSION.la > 1800000) doLogout(); }, 60000);
+async function doLogout() {
+  if (_unsubSubs) { _unsubSubs(); _unsubSubs=null; }
+  await window._signOut();
+  location.reload();
+}
 
-function doLogout() { SESSION=null; sessionStorage.removeItem('fp_sess'); location.reload(); }
-
-// === APP ===
+// ═══════════════════════════════════════════════════════════════════
+// SHOW APP after successful auth
+// ═══════════════════════════════════════════════════════════════════
 function showApp() {
-  ['app-header','app-main','app-footer','mobile-nav'].forEach(id => document.getElementById(id).style.display='');
   document.getElementById('login-screen').classList.add('hidden');
+  ['app-header','app-main','app-footer','mobile-nav'].forEach(id => {
+    const el=document.getElementById(id); if(el) el.style.display='';
+  });
   document.getElementById('session-label').textContent = SESSION.fullName + ' (' + SESSION.username + ')';
   document.getElementById('role-dot').className = 'role-dot' + (SESSION.role==='admin'?' admin':'');
+
   if (SESSION.role === 'admin') {
     document.getElementById('tab-users').style.display = '';
     document.getElementById('mob-users').style.display = '';
@@ -972,32 +902,59 @@ function showApp() {
       b.disabled = true;
       if (b.dataset.dept === SESSION.dept) { b.classList.add('active'); selectedDept = SESSION.dept; }
     });
-    document.querySelectorAll('.dept-badge').forEach(b => { b.textContent = SESSION.dept; b.style.display = 'block'; });
+    document.querySelectorAll('.dept-badge').forEach(b => { b.textContent=SESSION.dept; b.style.display='block'; });
   }
   ['insp-sub','viol-sub','knox-sub'].forEach(id => { const el=document.getElementById(id); if(el) el.value=SESSION.fullName; });
+
+  // Start real-time submissions listener
+  startRealtimeListener();
   showView('submit');
 }
 
-// === NAV ===
+// ═══════════════════════════════════════════════════════════════════
+// REAL-TIME LISTENER (Firestore onSnapshot)
+// ═══════════════════════════════════════════════════════════════════
+function startRealtimeListener() {
+  if (_unsubSubs) _unsubSubs();
+  const q = FB().query(col('submissions'), FB().orderBy('timestamp', 'desc'));
+  _unsubSubs = FB().onSnapshot(q, snapshot => {
+    SUBS_CACHE = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    // Re-render if dashboard/archive is currently visible
+    const dash = document.getElementById('view-dashboard');
+    const arch = document.getElementById('view-archive');
+    if (dash && dash.style.display !== 'none') updateDashboard();
+    if (arch && arch.style.display !== 'none') updateArchive();
+  }, err => console.error('Snapshot error:', err));
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════════
 function showView(v) {
-  ['submit','dashboard','archive','users','profile'].forEach(id => { const el=document.getElementById('view-'+id); if(el) el.style.display = id===v?'block':'none'; });
+  ['submit','dashboard','archive','users','profile'].forEach(id => {
+    const el = document.getElementById('view-'+id);
+    if(el) el.style.display = id===v ? 'block' : 'none';
+  });
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   const at = document.getElementById('tab-'+v); if(at) at.classList.add('active');
   document.querySelectorAll('.mobile-nav-btn').forEach(t => t.classList.remove('active'));
   const mob = document.getElementById('mob-'+v); if(mob) mob.classList.add('active');
-  if(v==='dashboard') loadAndRenderDashboard();
-  if(v==='archive') loadAndRenderArchive();
-  if(v==='users') renderUsers();
-  if(v==='profile') loadProfile();
+  if (v==='dashboard') updateDashboard();
+  if (v==='archive')   updateArchive();
+  if (v==='users')     loadUsers();
+  if (v==='profile')   loadProfile();
 }
 
-// === FORMS ===
+// ═══════════════════════════════════════════════════════════════════
+// FORMS
+// ═══════════════════════════════════════════════════════════════════
 function selectDept(btn, dept) {
   selectedDept = dept;
   document.querySelectorAll('.dept-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.dept-badge').forEach(b => { b.textContent = dept; b.style.display='block'; });
+  document.querySelectorAll('.dept-badge').forEach(b => { b.textContent=dept; b.style.display='block'; });
 }
+
 function selectFormType(type) {
   if (!selectedDept) { alert('Please select your department first.'); return; }
   document.querySelectorAll('.form-type-card').forEach(c => c.classList.remove('active'));
@@ -1006,8 +963,9 @@ function selectFormType(type) {
   document.getElementById('form-'+type).classList.add('active');
   document.getElementById('form-'+type).scrollIntoView({behavior:'smooth',block:'start'});
 }
+
 function setSev(btn, type) {
-  btn.closest('.severity-group').querySelectorAll('.severity-btn').forEach(b => b.classList.remove('active'));
+  btn.closest('.severity-group').querySelectorAll('.severity-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('sev-'+type).value = btn.dataset.sev;
 }
@@ -1016,154 +974,154 @@ async function submitForm(e, type) {
   e.preventDefault();
   const form = e.target;
   if (!validateForm(form)) return;
-  if (type === 'violation') {
-    const checked = [...form.querySelectorAll('input[name="vt"]:checked')].map(c => c.value);
+  if (type==='violation') {
+    const checked = [...form.querySelectorAll('input[name="vt"]:checked')].map(c=>c.value);
     if (!checked.length) { alert('Please select at least one violation type.'); return; }
   }
+
   const fd = new FormData(form);
   const data = {};
   for (const [k,v] of fd.entries()) { if(k!=='vt') data[k]=v; }
 
-  // Merge "Other" free-text into the type fields
-  if (type === 'knox') {
-    const otherInput = document.getElementById('knox-other-input');
-    if (data.knox_type === 'Other' && otherInput && otherInput.value.trim()) {
-      data.knox_type = 'Other: ' + otherInput.value.trim();
-    }
+  // Handle "Other" free-text
+  if (type==='knox') {
+    const oi = document.getElementById('knox-other-input');
+    if (data.knox_type==='Other' && oi && oi.value.trim()) data.knox_type = 'Other: '+oi.value.trim();
   }
-  if (type === 'violation') {
-    const types = [...form.querySelectorAll('input[name="vt"]:checked')].map(c => c.value);
-    const otherInput = document.getElementById('viol-other-input');
-    const merged = types.map(t => t === 'Other' && otherInput && otherInput.value.trim() ? 'Other: ' + otherInput.value.trim() : t);
-    data.violation_type = merged.join(', ');
-  } else {
-    if (type === 'violation') data.violation_type = [...form.querySelectorAll('input[name="vt"]:checked')].map(c=>c.value).join(', ');
+  if (type==='violation') {
+    const types = [...form.querySelectorAll('input[name="vt"]:checked')].map(c=>c.value);
+    const oi = document.getElementById('viol-other-input');
+    data.violation_type = types.map(t => t==='Other'&&oi&&oi.value.trim() ? 'Other: '+oi.value.trim() : t).join(', ');
   }
 
-  data.type=type; data.department=selectedDept; data.timestamp=new Date().toISOString();
-  data.submittedByUser=SESSION.username; data.submittedByName=SESSION.fullName;
-  data.status='submitted'; data.archived=false;
-  data.changeLog=[{user:SESSION.username, time:new Date().toISOString(), desc:'Ticket submitted by '+SESSION.fullName}];
+  const ref = generateRef(type);
+  const doc = {
+    ref,
+    type,
+    department:      selectedDept,
+    status:          'submitted',
+    archived:        false,
+    timestamp:       new Date().toISOString(),
+    submittedByUid:  SESSION.uid,
+    submittedByUser: SESSION.username,
+    submittedByName: SESSION.fullName,
+    address:         data.address || '',
+    property_name:   data.property_name || '',
+    changeLog: [{ user:SESSION.username, time:new Date().toISOString(), desc:'Ticket submitted by '+SESSION.fullName }],
+    ...data
+  };
 
   showLoading('Submitting...');
-  const saved = await sheetsCreate(data);
-  hideLoading();
-
-  if (!saved) {
-    alert('Submission failed — could not reach the server. Please check your connection and try again.');
-    return;
+  try {
+    const docRef = await FB().addDoc(col('submissions'), doc);
+    doc.id = docRef.id;
+    hideLoading();
+    sendSubmissionEmail(doc);
+    const icons={inspection:'🏢',violation:'⚠️',knox:'🔑'};
+    const titles={inspection:'Inspection Requested!',violation:'Violation Filed!',knox:'Knox Request Submitted!'};
+    document.getElementById('si').textContent = icons[type];
+    document.getElementById('st').textContent = titles[type];
+    document.getElementById('sm').textContent = 'Your submission is now being tracked in real time.';
+    document.getElementById('sr').textContent = 'Reference: '+ref;
+    document.getElementById('success-overlay').classList.add('show');
+    form.reset();
+    document.querySelectorAll('.severity-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.dept-badge').forEach(b=>{b.textContent=selectedDept;b.style.display='block';});
+    const sm={inspection:'insp-sub',violation:'viol-sub',knox:'knox-sub'};
+    const sf=document.getElementById(sm[type]); if(sf) sf.value=SESSION.fullName;
+    ['knox-other-wrap','viol-other-wrap'].forEach(id=>{const w=document.getElementById(id);if(w)w.classList.remove('show');});
+  } catch(err) {
+    hideLoading();
+    console.error('Submit error:', err);
+    alert('Submission failed. Please check your connection and try again.');
   }
-
-  // Send notification email (silently, non-blocking)
-  sendSubmissionEmail(saved);
-
-  const icons={inspection:'🏢',violation:'⚠️',knox:'🔑'};
-  const titles={inspection:'Inspection Requested!',violation:'Violation Filed!',knox:'Knox Request Submitted!'};
-  document.getElementById('si').textContent=icons[type];
-  document.getElementById('st').textContent=titles[type];
-  document.getElementById('sm').textContent='Your submission is now being tracked.';
-  document.getElementById('sr').textContent='Reference: '+saved.ref;
-  document.getElementById('success-overlay').classList.add('show');
-
-  form.reset();
-  document.querySelectorAll('.severity-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.dept-badge').forEach(b=>{b.textContent=selectedDept;b.style.display='block';});
-  const sm={'inspection':'insp-sub','violation':'viol-sub','knox':'knox-sub'};
-  const sf=document.getElementById(sm[type]); if(sf) sf.value=SESSION.fullName;
 }
 
 function validateForm(form) {
   let ok=true;
-  form.querySelectorAll('[required]').forEach(f => { if(!f.value.trim()){f.classList.add('error');ok=false;setTimeout(()=>f.classList.remove('error'),3000);}});
+  form.querySelectorAll('[required]').forEach(f=>{if(!f.value.trim()){f.classList.add('error');ok=false;setTimeout(()=>f.classList.remove('error'),3000);}});
   return ok;
 }
+
 function resetForm(type) {
   document.getElementById('f-'+type).reset();
   if(type==='violation'){document.querySelectorAll('#violation-types input').forEach(c=>c.checked=false);document.querySelectorAll('.severity-btn').forEach(b=>b.classList.remove('active'));document.getElementById('sev-violation').value='';}
-  // Hide and clear Other inputs
-  ['knox','viol'].forEach(k => {
-    const wrap = document.getElementById(k+'-other-wrap');
-    const inp = document.getElementById(k+'-other-input');
-    if(wrap){wrap.classList.remove('show');}
+  ['knox','viol'].forEach(k=>{
+    const wrap=document.getElementById(k+'-other-wrap');
+    const inp=document.getElementById(k+'-other-input');
+    if(wrap) wrap.classList.remove('show');
     if(inp){inp.value='';inp.required=false;}
   });
-  const sm={'inspection':'insp-sub','violation':'viol-sub','knox':'knox-sub'};
+  const sm={inspection:'insp-sub',violation:'viol-sub',knox:'knox-sub'};
   const sf=document.getElementById(sm[type]); if(sf) sf.value=SESSION.fullName;
 }
-function closeSuccess(){document.getElementById('success-overlay').classList.remove('show');}
 
-// === DASHBOARD ===
-async function loadAndRenderDashboard() {
-  showLoading('Loading dashboard...');
-  await sheetsGetAll();
-  hideLoading();
-  updateDashboard();
-}
+function closeSuccess(){ document.getElementById('success-overlay').classList.remove('show'); }
 
+// ═══════════════════════════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════════════════════════
 function updateDashboard() {
   const allSubs = SUBS_CACHE;
-  const subs = allSubs.filter(s=>!s.archived);
+  const subs     = allSubs.filter(s=>!s.archived);
   const archived = allSubs.filter(s=>s.archived);
-  const vis = SESSION.role==='admin' ? subs : subs.filter(s=>s.department===SESSION.dept || s.submittedByUser===SESSION.username);
-  const visArchived = SESSION.role==='admin' ? archived : archived.filter(s=>s.department===SESSION.dept || s.submittedByUser===SESSION.username);
+  const vis        = SESSION.role==='admin' ? subs : subs.filter(s=>s.department===SESSION.dept||s.submittedByUid===SESSION.uid);
+  const visArchived= SESSION.role==='admin' ? archived : archived.filter(s=>s.department===SESSION.dept||s.submittedByUid===SESSION.uid);
   const c={submitted:0,under_review:0,enforcement:0};
-  vis.forEach(s=>{if(c[s.status]!==undefined)c[s.status]++;});
-  document.getElementById('st-total').textContent=vis.length;
-  document.getElementById('st-submitted').textContent=c.submitted;
-  document.getElementById('st-review').textContent=c.under_review;
-  document.getElementById('st-enforcement').textContent=c.enforcement;
-  document.getElementById('st-completed').textContent=visArchived.length;
+  vis.forEach(s=>{ if(c[s.status]!==undefined) c[s.status]++; });
+  document.getElementById('st-total').textContent       = vis.length;
+  document.getElementById('st-submitted').textContent   = c.submitted;
+  document.getElementById('st-review').textContent      = c.under_review;
+  document.getElementById('st-enforcement').textContent = c.enforcement;
+  document.getElementById('st-completed').textContent   = visArchived.length;
   renderTable(currentFilter, vis);
 }
+
 function filterDash(filter, btn) {
-  currentFilter=filter;
+  currentFilter = filter;
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const subs=SUBS_CACHE.filter(s=>!s.archived);
-  const vis=SESSION.role==='admin'?subs:subs.filter(s=>s.department===SESSION.dept||s.submittedByUser===SESSION.username);
-  renderTable(filter,vis);
+  const subs = SUBS_CACHE.filter(s=>!s.archived);
+  const vis  = SESSION.role==='admin' ? subs : subs.filter(s=>s.department===SESSION.dept||s.submittedByUid===SESSION.uid);
+  renderTable(filter, vis);
 }
+
 function renderTable(filter, data) {
-  const body=document.getElementById('records-body');
-  let rows=[...data].reverse();
-  if(filter!=='all'){
-    if(['inspection','violation','knox'].includes(filter)) rows=rows.filter(s=>s.type===filter);
+  const body = document.getElementById('records-body');
+  let rows = [...data]; // already ordered by timestamp desc from Firestore
+  if (filter!=='all') {
+    if (['inspection','violation','knox'].includes(filter)) rows=rows.filter(s=>s.type===filter);
     else rows=rows.filter(s=>s.status===filter);
   }
-  if(!rows.length){body.innerHTML='<tr><td colspan="7"><div class="empty-state"><div class="ei">📋</div><p>No submissions found.</p></div></td></tr>';return;}
-  body.innerHTML=rows.map(s=>{
-    const dt=new Date(s.timestamp).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    const canClick=SESSION.role==='admin'||s.submittedByUser===SESSION.username;
+  if (!rows.length) { body.innerHTML='<tr><td colspan="7"><div class="empty-state"><div class="ei">📋</div><p>No submissions found.</p></div></td></tr>'; return; }
+  body.innerHTML = rows.map(s=>{
+    const dt = new Date(s.timestamp).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    const canClick = SESSION.role==='admin' || s.submittedByUid===SESSION.uid;
     return `<tr ${canClick?`onclick="openTicket('${s.id}')"`:''}>
       <td><code style="font-size:0.78rem;color:var(--fire)">${s.ref||'—'}</code></td>
       <td><span class="type-badge ${s.type}">${TYPE_LABELS[s.type]||s.type}</span></td>
       <td style="color:var(--fog);font-size:0.82rem">${s.department||'—'}</td>
       <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.82rem">${s.address||'—'}</td>
-      <td style="font-size:0.82rem">${s.submittedByName||s.submitted_by||'—'}</td>
+      <td style="font-size:0.82rem">${s.submittedByName||'—'}</td>
       <td style="color:var(--mist);font-size:0.78rem;white-space:nowrap">${dt}</td>
       <td><span class="status-badge ${STATUS_CLASS[s.status]}">${STATUS_LABELS[s.status]||s.status}</span></td>
     </tr>`;
   }).join('');
 }
 
-// === ARCHIVE ===
-async function loadAndRenderArchive() {
-  showLoading('Loading archive...');
-  await sheetsGetAll();
-  hideLoading();
-  updateArchive();
-}
-
+// ═══════════════════════════════════════════════════════════════════
+// ARCHIVE
+// ═══════════════════════════════════════════════════════════════════
 function updateArchive() {
-  const subs=SUBS_CACHE.filter(s=>s.archived);
-  const vis=SESSION.role==='admin'?subs:subs.filter(s=>s.department===SESSION.dept||s.submittedByUser===SESSION.username);
-  const body=document.getElementById('archive-body');
-  if(!vis.length){body.innerHTML='<tr><td colspan="6"><div class="empty-state"><div class="ei">🗃️</div><p>No archived tickets yet.</p></div></td></tr>';return;}
-  body.innerHTML=[...vis].reverse().map(s=>{
-    const cl=s.changeLog||[];
-    const ce=cl.filter(l=>l.desc&&l.desc.includes('Completed')).pop();
-    const cd=ce?new Date(ce.time).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
-    const canClick=SESSION.role==='admin'||s.submittedByUser===SESSION.username;
+  const subs = SUBS_CACHE.filter(s=>s.archived);
+  const vis  = SESSION.role==='admin' ? subs : subs.filter(s=>s.department===SESSION.dept||s.submittedByUid===SESSION.uid);
+  const body = document.getElementById('archive-body');
+  if (!vis.length) { body.innerHTML='<tr><td colspan="6"><div class="empty-state"><div class="ei">🗃️</div><p>No archived tickets yet.</p></div></td></tr>'; return; }
+  body.innerHTML = vis.map(s=>{
+    const cl = s.changeLog||[];
+    const ce = cl.filter(l=>l.desc&&l.desc.includes('Completed')).pop();
+    const cd = ce ? new Date(ce.time).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+    const canClick = SESSION.role==='admin' || s.submittedByUid===SESSION.uid;
     return `<tr ${canClick?`onclick="openTicket('${s.id}')"`:''}>
       <td><code style="font-size:0.78rem;color:var(--green)">${s.ref||'—'}</code></td>
       <td><span class="type-badge ${s.type}">${TYPE_LABELS[s.type]||s.type}</span></td>
@@ -1175,36 +1133,34 @@ function updateArchive() {
   }).join('');
 }
 
-// === TICKET MODAL ===
+// ═══════════════════════════════════════════════════════════════════
+// TICKET MODAL
+// ═══════════════════════════════════════════════════════════════════
 function openTicket(id) {
-  const subs=SUBS_CACHE;
-  const t=subs.find(s=>s.id===id);
-  if(!t) return;
-  const canView=SESSION.role==='admin'||t.submittedByUser===SESSION.username;
-  if(!canView) return;
+  const t = SUBS_CACHE.find(s=>s.id===id);
+  if (!t) return;
+  const canView = SESSION.role==='admin' || t.submittedByUid===SESSION.uid;
+  if (!canView) return;
   openTicketId=id; pendingStatus=t.status;
 
   const typeFullLabels={inspection:'Building Inspection with FD Walkthrough',violation:'Code Violation',knox:'Knox Box Issues'};
-  document.getElementById('modal-title').textContent=typeFullLabels[t.type]+' — '+t.ref;
+  document.getElementById('modal-title').textContent = typeFullLabels[t.type]+' — '+t.ref;
 
-  const isAdmin=SESSION.role==='admin', isLocked=t.archived;
+  const isAdmin  = SESSION.role==='admin';
+  const isLocked = t.archived;
 
-  // Build fields
-  const f=(label,val)=>val?`<div class="mf"><label>${label}</label><p>${val}</p></div>`:'';
-  const ff=(label,val)=>val?`<div class="mf full"><label>${label}</label><p>${val}</p></div>`:'';
+  const f  = (label,val) => val ? `<div class="mf"><label>${label}</label><p>${val}</p></div>` : '';
+  const ff = (label,val) => val ? `<div class="mf full"><label>${label}</label><p>${val}</p></div>` : '';
+
   let fields = f('Reference #',t.ref)+f('Department',t.department)+f('Submitted By',t.submittedByName||t.submitted_by)+f('Date Submitted',new Date(t.timestamp).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}))+ff('Property Address',t.address)+f('Property Name',t.property_name);
-  if(t.type==='inspection'){fields+=f('Contact Name',t.contact_name)+f('Contact Phone',t.contact_phone)+f('Contact Email',t.contact_email)+f('Preferred Date',t.pref_date)+f('Preferred Time',t.pref_time)+f('Alternate Date',t.alt_date)+ff('Notes',t.notes);}
-  else if(t.type==='violation'){fields+=ff('Violation Type(s)',t.violation_type)+f('Date Observed',t.observed_date)+f('Time Observed',t.observed_time)+f('Severity',t.severity?t.severity.toUpperCase():'')+f('Contact Phone',t.contact_phone)+f('Contact Email',t.contact_email)+ff('Description',t.description)+ff('Immediate Action Taken',t.action_taken);}
-  else if(t.type==='knox'){fields+=f('Request Type',t.knox_type)+f('Box Location',t.box_location)+f('Emergency Contact',t.owner_name)+f('Contact Phone',t.owner_phone)+f('Contact Email',t.owner_email)+f('Preferred Service Date',t.pref_date)+ff('Keys / Access Items',t.key_list)+ff('Notes',t.notes)+f('Requesting Officer',t.submitted_by||t.submittedByName)+f('Officer Contact',t.officer_contact);}
+  if(t.type==='inspection'){ fields+=f('Contact Name',t.contact_name)+f('Contact Phone',t.contact_phone)+f('Contact Email',t.contact_email)+f('Preferred Date',t.pref_date)+f('Preferred Time',t.pref_time)+f('Alternate Date',t.alt_date)+ff('Notes',t.notes); }
+  else if(t.type==='violation'){ fields+=ff('Violation Type(s)',t.violation_type)+f('Date Observed',t.observed_date)+f('Time Observed',t.observed_time)+f('Severity',t.severity?t.severity.toUpperCase():'')+f('Contact Phone',t.contact_phone)+f('Contact Email',t.contact_email)+ff('Description',t.description)+ff('Immediate Action Taken',t.action_taken); }
+  else if(t.type==='knox'){ fields+=f('Request Type',t.knox_type)+f('Box Location',t.box_location)+f('Emergency Contact',t.owner_name)+f('Contact Phone',t.owner_phone)+f('Contact Email',t.owner_email)+f('Preferred Service Date',t.pref_date)+ff('Keys / Access Items',t.key_list)+ff('Notes',t.notes)+f('Requesting Officer',t.submitted_by||t.submittedByName)+f('Officer Contact',t.officer_contact); }
 
-  // Status section
-  // Show delete button for admins on non-archived tickets
-  const deleteBtn = document.getElementById('modal-delete-btn');
-  if (deleteBtn) deleteBtn.style.display = isAdmin ? '' : 'none';
-  const archiveBtn = document.getElementById('modal-archive-btn');
-  if (archiveBtn) archiveBtn.style.display = (isAdmin && !isLocked && t.status === 'completed') ? '' : 'none';
+  document.getElementById('modal-delete-btn').style.display  = isAdmin ? '' : 'none';
+  document.getElementById('modal-archive-btn').style.display = (isAdmin && !isLocked && t.status==='completed') ? '' : 'none';
 
-  const statusSection = isAdmin ? `
+  const statusSection = isAdmin && !isLocked ? `
     <div class="status-section">
       <h4>Workflow Status</h4>
       <div class="status-opts">
@@ -1216,10 +1172,9 @@ function openTicket(id) {
     </div>
   ` : `<div style="margin-bottom:18px"><span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--mist)">Status: </span><span class="status-badge ${STATUS_CLASS[t.status]}">${STATUS_LABELS[t.status]}</span></div>`;
 
-  // Log
-  const logHtml=buildLogHtml(t);
+  const logHtml = buildLogHtml(t);
 
-  document.getElementById('modal-body').innerHTML=`
+  document.getElementById('modal-body').innerHTML = `
     ${isLocked?'<div class="locked-banner" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:10px 14px;font-size:0.82rem;color:var(--green);margin-bottom:18px;">🗃️ This ticket is archived.</div>':''}
     <div class="modal-meta">
       <span class="type-badge ${t.type}">${typeFullLabels[t.type]}</span>
@@ -1243,63 +1198,65 @@ function openTicket(id) {
 }
 
 function pickStatus(status, btn) {
-  pendingStatus=status;
-  document.querySelectorAll('.status-opt').forEach(b=>{b.className='status-opt';});
+  pendingStatus = status;
+  document.querySelectorAll('.status-opt').forEach(b=>{ b.className='status-opt'; });
   btn.classList.add('cur-'+status);
 }
+
 async function saveStatus() {
-  if(!openTicketId||!pendingStatus) return;
-  const t=SUBS_CACHE.find(s=>s.id===openTicketId);
-  if(!t) return;
-  const old=t.status;
-  if(old===pendingStatus) return;
+  if (!openTicketId || !pendingStatus) return;
+  const t = SUBS_CACHE.find(s=>s.id===openTicketId);
+  if (!t || t.status===pendingStatus) return;
 
   const updatedLog = [...(t.changeLog||[])];
-  updatedLog.push({user:SESSION.username, time:new Date().toISOString(), desc:`Status changed from "${STATUS_LABELS[old]}" to "${STATUS_LABELS[pendingStatus]}"`});
+  updatedLog.push({ user:SESSION.username, time:new Date().toISOString(), desc:`Status changed from "${STATUS_LABELS[t.status]}" to "${STATUS_LABELS[pendingStatus]}"` });
 
-  const commentEl=document.getElementById('comment-input');
-  if(commentEl && commentEl.value.trim()) {
-    updatedLog.push({user:SESSION.username, time:new Date().toISOString(), desc:commentEl.value.trim(), isComment:true});
+  const commentEl = document.getElementById('comment-input');
+  if (commentEl && commentEl.value.trim()) {
+    updatedLog.push({ user:SESSION.username, time:new Date().toISOString(), desc:commentEl.value.trim(), isComment:true });
   }
 
   showLoading('Saving...');
-  const updated = await sheetsUpdate(t.id, { status: pendingStatus, changeLog: updatedLog });
-  hideLoading();
-  if (!updated) { alert('Failed to save — please try again.'); return; }
-  closeModal(); updateDashboard();
+  try {
+    await FB().updateDoc(dref('submissions', openTicketId), { status:pendingStatus, changeLog:updatedLog });
+    hideLoading();
+    closeModal(); updateDashboard();
+  } catch(err) {
+    hideLoading(); alert('Failed to save — please try again.');
+  }
 }
 
 async function addComment() {
-  if(!openTicketId) return;
-  const commentEl=document.getElementById('comment-input');
-  const text=commentEl?commentEl.value.trim():'';
-  if(!text) { commentEl.style.borderColor='var(--fire)'; setTimeout(()=>commentEl.style.borderColor='',2000); return; }
+  if (!openTicketId) return;
+  const commentEl = document.getElementById('comment-input');
+  const text = commentEl ? commentEl.value.trim() : '';
+  if (!text) { commentEl.style.borderColor='var(--fire)'; setTimeout(()=>commentEl.style.borderColor='',2000); return; }
 
-  const t=SUBS_CACHE.find(s=>s.id===openTicketId);
-  if(!t) return;
-  const updatedLog = [...(t.changeLog||[]), {user:SESSION.username, time:new Date().toISOString(), desc:text, isComment:true}];
+  const t = SUBS_CACHE.find(s=>s.id===openTicketId);
+  if (!t) return;
+  const updatedLog = [...(t.changeLog||[]), { user:SESSION.username, time:new Date().toISOString(), desc:text, isComment:true }];
 
   showLoading('Saving comment...');
-  const updated = await sheetsUpdate(t.id, { changeLog: updatedLog });
-  hideLoading();
-  if (!updated) { alert('Failed to save comment.'); return; }
-
-  // Refresh log in place
-  const logHtml=buildLogHtml(updated);
-  const logSection=document.querySelector('.change-log');
-  if(logSection) {
-    const h4=logSection.querySelector('h4');
-    const commentBox=logSection.querySelector('.comment-box');
-    [...logSection.children].forEach(c=>{ if(c!==h4&&c!==commentBox) c.remove(); });
-    const tmp=document.createElement('div');
-    tmp.innerHTML=logHtml;
-    [...tmp.children].forEach(c=>logSection.insertBefore(c,commentBox||null));
-  }
-  commentEl.value='';
+  try {
+    await FB().updateDoc(dref('submissions', openTicketId), { changeLog:updatedLog });
+    hideLoading();
+    commentEl.value='';
+    // Refresh log in modal (Firestore snapshot will update SUBS_CACHE automatically)
+    const updated = { ...t, changeLog:updatedLog };
+    const logHtml = buildLogHtml(updated);
+    const logSection = document.querySelector('.change-log');
+    if (logSection) {
+      const h4 = logSection.querySelector('h4');
+      const commentBox = logSection.querySelector('.comment-box');
+      [...logSection.children].forEach(c=>{ if(c!==h4&&c!==commentBox) c.remove(); });
+      const tmp = document.createElement('div'); tmp.innerHTML = logHtml;
+      [...tmp.children].forEach(c=>logSection.insertBefore(c,commentBox||null));
+    }
+  } catch(err) { hideLoading(); alert('Failed to save comment.'); }
 }
 
 function buildLogHtml(t) {
-  if(!t.changeLog||!t.changeLog.length) return '<p class="log-empty">No changes logged yet.</p>';
+  if (!t.changeLog||!t.changeLog.length) return '<p class="log-empty">No changes logged yet.</p>';
   return t.changeLog.map(l=>`<div class="log-entry${l.isComment?' log-comment':''}">
     <span class="log-time">${new Date(l.time).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'})}</span>
     <span class="log-user">${l.user}</span>
@@ -1308,279 +1265,172 @@ function buildLogHtml(t) {
 }
 
 async function archiveTicket() {
-  if(!openTicketId) return;
-  const t=SUBS_CACHE.find(s=>s.id===openTicketId);
-  if(!t) return;
-  if(!confirm('Move this ticket to the Archive? It will be locked and read-only.')) return;
-  const updatedLog = [...(t.changeLog||[]), {user:SESSION.username, time:new Date().toISOString(), desc:'Ticket archived by '+SESSION.username+'.'}];
+  if (!openTicketId) return;
+  const t = SUBS_CACHE.find(s=>s.id===openTicketId);
+  if (!t || !confirm('Move this ticket to the Archive? It will be locked and read-only.')) return;
+  const updatedLog = [...(t.changeLog||[]), { user:SESSION.username, time:new Date().toISOString(), desc:'Ticket archived by '+SESSION.username+'.' }];
   showLoading('Archiving...');
-  const updated = await sheetsUpdate(t.id, { archived: true, changeLog: updatedLog });
-  hideLoading();
-  if (!updated) { alert('Failed to archive ticket.'); return; }
-  closeModal();
-  updateDashboard();
-  updateArchive();
+  try {
+    await FB().updateDoc(dref('submissions', openTicketId), { archived:true, changeLog:updatedLog });
+    hideLoading(); closeModal(); updateDashboard(); updateArchive();
+  } catch(err) { hideLoading(); alert('Failed to archive ticket.'); }
 }
 
 async function deleteTicket() {
-  if(!openTicketId) return;
-  const t=SUBS_CACHE.find(s=>s.id===openTicketId);
-  if(!t) return;
-  const archiveNote = t.archived ? '\n\nThis ticket is archived.' : '';
-  if(!confirm(`Permanently delete ticket ${t.ref}?${archiveNote}\n\nThis cannot be undone.`)) return;
+  if (!openTicketId) return;
+  const t = SUBS_CACHE.find(s=>s.id===openTicketId);
+  if (!t || !confirm(`Permanently delete ticket ${t.ref}?\n\nThis cannot be undone.`)) return;
   showLoading('Deleting...');
-  const ok = await sheetsDelete(t.id);
-  hideLoading();
-  if (!ok) { alert('Failed to delete ticket.'); return; }
-  closeModal();
-  updateDashboard();
-  updateArchive();
+  try {
+    await FB().deleteDoc(dref('submissions', openTicketId));
+    hideLoading(); closeModal(); updateDashboard(); updateArchive();
+  } catch(err) { hideLoading(); alert('Failed to delete ticket.'); }
 }
+
 function closeModal() { document.getElementById('ticket-modal').classList.remove('show'); openTicketId=null; pendingStatus=null; }
-document.getElementById('ticket-modal').addEventListener('click', function(e){if(e.target===this)closeModal();});
+document.getElementById('ticket-modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
-// === EXPORT ===
+// ═══════════════════════════════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════════════════════════════
 function exportCSV() {
-  const subs=SUBS_CACHE.filter(s=>!s.archived);
-  const vis=SESSION.role==='admin'?subs:subs.filter(s=>s.department===SESSION.dept||s.submittedByUser===SESSION.username);
-  if(!vis.length){alert('No active submissions to export.');return;}
-  const hdrs=['Ref','Type','Department','Address','Property','Submitted By','Date','Status','Violation Types','Severity','Notes'];
-  const rows=vis.map(s=>[s.ref,s.type,s.department,s.address,s.property_name,s.submittedByName||s.submitted_by,s.timestamp?new Date(s.timestamp).toLocaleDateString():'',s.status,s.violation_type||'',s.severity||'',s.notes||s.description||''].map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(','));
-  const blob=new Blob([[hdrs.join(','),...rows].join('\n')],{type:'text/csv'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='fire-inspector-'+new Date().toISOString().split('T')[0]+'.csv'; a.click();
+  const subs = SUBS_CACHE.filter(s=>!s.archived);
+  const vis  = SESSION.role==='admin' ? subs : subs.filter(s=>s.department===SESSION.dept||s.submittedByUid===SESSION.uid);
+  if (!vis.length) { alert('No active submissions to export.'); return; }
+  const hdrs = ['Ref','Type','Department','Address','Property','Submitted By','Date','Status','Violation Types','Severity','Notes'];
+  const rows = vis.map(s=>[s.ref,s.type,s.department,s.address,s.property_name,s.submittedByName,s.timestamp?new Date(s.timestamp).toLocaleDateString():'',s.status,s.violation_type||'',s.severity||'',s.notes||s.description||''].map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(','));
+  const blob = new Blob([[hdrs.join(','),...rows].join('\n')],{type:'text/csv'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='fire-inspector-'+new Date().toISOString().split('T')[0]+'.csv'; a.click();
 }
 
-// === USERS ===
-async function renderUsers() {
+// ═══════════════════════════════════════════════════════════════════
+// USER MANAGEMENT (Admin only)
+// ═══════════════════════════════════════════════════════════════════
+async function loadUsers() {
   showLoading('Loading users...');
-  await usersGetAll();
+  try {
+    const snap = await FB().getDocs(col('users'));
+    USERS_CACHE = snap.docs.map(d=>({uid:d.id,...d.data()}));
+    const pSnap = await FB().getDocs(col('pendingRequests'));
+    PENDING_CACHE = pSnap.docs.map(d=>({id:d.id,...d.data()}));
+  } catch(e) { console.error(e); }
   hideLoading();
   renderPending();
-  document.getElementById('users-grid').innerHTML=USERS_CACHE.map(u=>`
+  renderUsers();
+}
+
+function renderUsers() {
+  document.getElementById('users-grid').innerHTML = USERS_CACHE.map(u=>`
     <div class="user-card">
-      <div class="user-card-top"><h4>${u.fullName}</h4><span class="role-badge ${u.role}">${u.role}</span></div>
-      <p>@${u.username} &mdash; ${u.dept}</p>
+      <div class="user-card-top"><h4>${u.fullName||u.username}</h4><span class="role-badge ${u.role}">${u.role}</span></div>
+      <p>@${u.username} &mdash; ${u.dept||'—'}</p>
+      <p style="font-size:0.75rem;color:var(--steel);margin-bottom:8px">${u.email||''}</p>
       <div class="user-card-actions">
-        <button class="btn-sm" onclick="resetPw('${u.username}')">Reset PW</button>
-        ${u.username!==SESSION.username?`<button class="btn-sm danger" onclick="removeUser('${u.username}')">Remove</button>`:''}
+        ${u.uid!==SESSION.uid?`<button class="btn-sm danger" onclick="removeUser('${u.uid}','${u.email}')">Remove</button>`:'<span style="font-size:0.72rem;color:var(--mist)">Current user</span>'}
       </div>
     </div>`).join('');
 }
+
 async function addUser() {
-  const username=document.getElementById('nu-user').value.trim().toLowerCase();
-  const fullName=document.getElementById('nu-name').value.trim();
-  const pw=document.getElementById('nu-pw').value;
-  const role=document.getElementById('nu-role').value;
-  const dept=document.getElementById('nu-dept').value;
-  if(!username||!fullName||!pw){alert('Please fill in all required fields.');return;}
-  const pe=pwStrength(pw); if(pe){alert(pe);return;}
-  if(USERS_CACHE.find(u=>u.username===username)){alert('Username already exists.');return;}
-  showLoading('Adding user...');
-  const ok = await userCreate({username, fullName, role, dept, pwHash: await sha256(pw)});
-  hideLoading();
-  if(!ok){alert('Failed to add user.');return;}
-  renderUsers();
-  ['nu-user','nu-name','nu-pw'].forEach(id=>document.getElementById(id).value='');
-}
-async function resetPw(username) {
-  const pw=prompt(`Set new password for ${username}:\n(Min 8 chars, 1 uppercase, 1 number, 1 special char)`);
-  if(!pw) return;
-  const pe=pwStrength(pw); if(pe){alert(pe);return;}
-  showLoading('Updating password...');
-  const ok = await userUpdate(username, { pwHash: await sha256(pw) });
-  hideLoading();
-  if(ok){ alert(`Password updated for ${username}.`); }
-  else { alert('Failed to update password.'); }
-}
-function removeUser(username) {
-  if(!confirm(`Remove user "${username}"? This cannot be undone.`)) return;
-  saveUsers(getUsers().filter(u=>u.username!==username));
-  renderUsers();
-}
+  const fullName = document.getElementById('nu-name').value.trim();
+  const email    = document.getElementById('nu-email').value.trim();
+  const username = document.getElementById('nu-user').value.trim().toLowerCase();
+  const pw       = document.getElementById('nu-pw').value;
+  const role     = document.getElementById('nu-role').value;
+  const dept     = document.getElementById('nu-dept').value;
 
-// ===================================================
-// PROFILE
-// ===================================================
-function loadProfile() {
-  const u = USERS_CACHE.find(u => u.username === SESSION.username) || {};
-  document.getElementById('prof-name').value     = u.fullName || SESSION.fullName || '';
-  document.getElementById('prof-email').value    = u.email    || '';
-  document.getElementById('prof-username').value = SESSION.username;
-  document.getElementById('prof-pw').value       = '';
-  document.getElementById('prof-pw2').value      = '';
-  const dept = document.getElementById('prof-dept');
-  if (dept) dept.value = u.dept || SESSION.dept || '';
-  const initials = (u.fullName || SESSION.fullName || '?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  document.getElementById('profile-avatar-display').textContent = initials;
-  document.getElementById('profile-msg').style.display = 'none';
-}
+  if (!fullName||!email||!username||!pw) { alert('Please fill in all required fields.'); return; }
+  const pe = pwStrength(pw); if(pe) { alert(pe); return; }
 
-async function saveProfile() {
-  const fullName = document.getElementById('prof-name').value.trim();
-  const email    = document.getElementById('prof-email').value.trim();
-  const dept     = document.getElementById('prof-dept').value;
-  const pw       = document.getElementById('prof-pw').value;
-  const pw2      = document.getElementById('prof-pw2').value;
-  const msg      = document.getElementById('profile-msg');
-
-  const showMsg = (text, ok) => {
-    msg.textContent = text;
-    msg.style.cssText = 'display:block;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-top:8px;border:1px solid ' + (ok ? 'rgba(16,185,129,0.3)' : 'rgba(232,50,26,0.3)') + ';background:' + (ok ? 'rgba(16,185,129,0.15)' : 'rgba(232,50,26,0.15)') + ';color:' + (ok ? 'var(--green)' : 'var(--fire)') + ';';
-  };
-
-  if (!fullName) { showMsg('Full name is required.', false); return; }
-
-  const updates = { fullName, email, dept };
-
-  if (pw || pw2) {
-    if (pw !== pw2) { showMsg('Passwords do not match.', false); return; }
-    const pe = pwStrength(pw); if (pe) { showMsg(pe, false); return; }
-    updates.pwHash = await sha256(pw);
-  }
-
-  showLoading('Saving profile...');
-  const ok = await userUpdate(SESSION.username, updates);
-  hideLoading();
-
-  if (!ok) { showMsg('Failed to save. Please try again.', false); return; }
-
-  SESSION.fullName = fullName;
-  SESSION.dept = dept;
-  sessionStorage.setItem('fp_sess', JSON.stringify(SESSION));
-  document.getElementById('session-label').textContent = SESSION.fullName + ' (' + SESSION.username + ')';
-  ['insp-sub','viol-sub','knox-sub'].forEach(id => { const el=document.getElementById(id); if(el) el.value=SESSION.fullName; });
-  const idx = USERS_CACHE.findIndex(u => u.username === SESSION.username);
-  if (idx >= 0) USERS_CACHE[idx] = { ...USERS_CACHE[idx], ...updates };
-  document.getElementById('profile-avatar-display').textContent = fullName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  document.getElementById('prof-pw').value  = '';
-  document.getElementById('prof-pw2').value = '';
-  showMsg('Profile saved successfully!', true);
-}
-
-// ===================================================
-// EMAILJS CONFIGURATION
-// Fill in your keys from emailjs.com to enable emails.
-// ===================================================
-const EMAILJS_CONFIG = {
-  publicKey:      'sKwiCAKKNZTCW6SuQ',
-  serviceId:      'service_urx6h07',
-  templateId:     'template_cg5oxeo',
-  inspectorEmail: 'alexander.vergo@gmail.com',
-};
-
-if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
-  emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
-}
-
-async function sendSubmissionEmail(data) {
-  if (EMAILJS_CONFIG.publicKey === 'YOUR_PUBLIC_KEY') {
-    console.log('EmailJS not configured — skipping email.');
-    return;
-  }
-  const typeLabels = {
-    inspection: 'Building Inspection with FD Walkthrough',
-    violation: 'Code Violation',
-    knox: 'Knox Box Issues'
-  };
-  const typeName = typeLabels[data.type] || data.type;
-  const submittedAt = new Date(data.timestamp).toLocaleString('en-US', {
-    month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit'
-  });
-
-  let details = '';
-  details += 'Reference #: ' + data.ref + '\n';
-  details += 'Type: ' + typeName + '\n';
-  details += 'Department: ' + data.department + '\n';
-  details += 'Submitted By: ' + data.submittedByName + ' (@' + data.submittedByUser + ')\n';
-  details += 'Date/Time: ' + submittedAt + '\n\n';
-  details += 'Property Address: ' + (data.address || '—') + '\n';
-  if (data.property_name) details += 'Property Name: ' + data.property_name + '\n';
-
-  if (data.type === 'inspection') {
-    if (data.contact_name)  details += 'Contact: ' + data.contact_name + '\n';
-    if (data.contact_phone) details += 'Phone: ' + data.contact_phone + '\n';
-    if (data.contact_email) details += 'Email: ' + data.contact_email + '\n';
-    if (data.pref_date)     details += 'Preferred Date: ' + data.pref_date + '\n';
-    if (data.pref_time)     details += 'Preferred Time: ' + data.pref_time + '\n';
-    if (data.alt_date)      details += 'Alternate Date: ' + data.alt_date + '\n';
-    if (data.notes)         details += '\nNotes:\n' + data.notes + '\n';
-  } else if (data.type === 'violation') {
-    if (data.violation_type) details += 'Violation Type(s): ' + data.violation_type + '\n';
-    if (data.severity)       details += 'Severity: ' + data.severity.toUpperCase() + '\n';
-    if (data.observed_date)  details += 'Date Observed: ' + data.observed_date + '\n';
-    if (data.observed_time)  details += 'Time Observed: ' + data.observed_time + '\n';
-    if (data.owner)          details += 'Owner / Responsible Party: ' + data.owner + '\n';
-    if (data.contact_phone)  details += 'Contact Phone: ' + data.contact_phone + '\n';
-    if (data.contact_email)  details += 'Contact Email: ' + data.contact_email + '\n';
-    if (data.description)    details += '\nDescription:\n' + data.description + '\n';
-    if (data.action_taken)   details += '\nImmediate Action Taken:\n' + data.action_taken + '\n';
-  } else if (data.type === 'knox') {
-    if (data.knox_type)    details += 'Request Type: ' + data.knox_type + '\n';
-    if (data.box_location) details += 'Box Location: ' + data.box_location + '\n';
-    if (data.owner_name)   details += 'Emergency Contact: ' + data.owner_name + '\n';
-    if (data.owner_phone)  details += 'Phone: ' + data.owner_phone + '\n';
-    if (data.owner_email)  details += 'Email: ' + data.owner_email + '\n';
-    if (data.pref_date)    details += 'Preferred Service Date: ' + data.pref_date + '\n';
-    if (data.key_list)     details += '\nKeys / Access Items:\n' + data.key_list + '\n';
-    if (data.notes)        details += '\nNotes:\n' + data.notes + '\n';
-  }
-
-  const params = {
-    to_email:        EMAILJS_CONFIG.inspectorEmail,
-    reply_to:        data.contact_email || data.owner_email || '',
-    subject:         '[' + data.ref + '] New ' + typeName + ' — ' + data.department,
-    ref_number:      data.ref,
-    submission_type: typeName,
-    department:      data.department,
-    submitted_by:    data.submittedByName,
-    address:         data.address || '—',
-    submitted_at:    submittedAt,
-    full_details:    details,
-  };
-
+  showLoading('Creating user...');
   try {
-    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, params);
-    console.log('Notification email sent.');
-  } catch (err) {
-    console.warn('EmailJS error (submission was still saved):', err);
+    // Create Firebase Auth user
+    const cred = await window._createUser(email, pw);
+    // Save profile in Firestore
+    await FB().setDoc(dref('users', cred.user.uid), {
+      fullName, email, username, role, dept,
+      createdAt: new Date().toISOString()
+    });
+    hideLoading();
+    alert(`User ${fullName} created successfully.`);
+    ['nu-name','nu-email','nu-user','nu-pw'].forEach(id=>document.getElementById(id).value='');
+    loadUsers();
+  } catch(err) {
+    hideLoading();
+    let msg = 'Failed to create user.';
+    if (err.code==='auth/email-already-in-use') msg = 'That email address is already in use.';
+    alert(msg);
   }
 }
 
+async function removeUser(uid, email) {
+  if (!confirm(`Remove user ${email}? This will delete their profile. Their Firebase Auth account must be removed separately in the Firebase Console.\n\nContinue?`)) return;
+  showLoading('Removing...');
+  try {
+    await FB().deleteDoc(dref('users', uid));
+    hideLoading(); loadUsers();
+  } catch(err) { hideLoading(); alert('Failed to remove user.'); }
+}
 
-// === OTHER FIELD HANDLERS ===
-function handleOtherRadio(radio, formKey) {
-  const wrap = document.getElementById(formKey + '-other-wrap');
-  const input = document.getElementById(formKey + '-other-input');
-  if (!wrap || !input) return;
-  if (radio.value === 'Other') {
-    wrap.classList.add('show');
-    input.required = true;
-    input.focus();
-  } else {
-    wrap.classList.remove('show');
-    input.required = false;
-    input.value = '';
+// ── Pending Requests ─────────────────────────────────────────────
+function renderPending() {
+  const section = document.getElementById('pending-section');
+  const list    = document.getElementById('pending-list');
+  const badge   = document.getElementById('pending-count');
+  if (!PENDING_CACHE.length) { section.style.display='none'; return; }
+  section.style.display='';
+  badge.textContent = PENDING_CACHE.length;
+  list.innerHTML = PENDING_CACHE.map(p=>`
+    <div class="pending-card">
+      <div class="pending-info">
+        <h4>${p.fullName}</h4>
+        <p>@${p.username} &mdash; ${p.email} &mdash; ${p.dept} &mdash; Requested ${new Date(p.requestedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</p>
+      </div>
+      <div class="pending-actions">
+        <button class="btn-approve" onclick="approveRequest('${p.id}')">Approve</button>
+        <button class="btn-deny" onclick="denyRequest('${p.id}')">Deny</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function approveRequest(pendingId) {
+  const req = PENDING_CACHE.find(p=>p.id===pendingId);
+  if (!req) return;
+  showLoading('Approving...');
+  try {
+    // Create Firebase Auth account
+    const cred = await window._createUser(req.email, req.password);
+    // Create Firestore profile
+    await FB().setDoc(dref('users', cred.user.uid), {
+      fullName: req.fullName,
+      email:    req.email,
+      username: req.username,
+      role:     'user',
+      dept:     req.dept,
+      createdAt: new Date().toISOString()
+    });
+    // Delete pending request
+    await FB().deleteDoc(dref('pendingRequests', pendingId));
+    hideLoading(); loadUsers();
+  } catch(err) {
+    hideLoading();
+    let msg = 'Failed to approve request.';
+    if (err.code==='auth/email-already-in-use') msg = 'That email is already registered.';
+    alert(msg);
   }
 }
 
-function handleOtherCheck(checkbox) {
-  const wrap = document.getElementById('viol-other-wrap');
-  const input = document.getElementById('viol-other-input');
-  if (!wrap || !input) return;
-  if (checkbox.checked) {
-    wrap.classList.add('show');
-    input.required = true;
-    input.focus();
-  } else {
-    wrap.classList.remove('show');
-    input.required = false;
-    input.value = '';
-  }
+async function denyRequest(pendingId) {
+  if (!confirm('Deny and remove this access request?')) return;
+  showLoading('Removing...');
+  try {
+    await FB().deleteDoc(dref('pendingRequests', pendingId));
+    hideLoading(); loadUsers();
+  } catch(err) { hideLoading(); alert('Failed to deny request.'); }
 }
 
-
-
-// === PENDING REQUESTS ===
+// ── Access Request (unauthenticated) ────────────────────────────
 function showRequestPanel() {
   document.getElementById('login-panel').classList.add('hide');
   document.getElementById('request-panel').classList.add('show');
@@ -1594,77 +1444,167 @@ function showLoginPanel() {
 
 async function submitAccessRequest() {
   const name     = document.getElementById('ra-name').value.trim();
+  const email    = document.getElementById('ra-email').value.trim();
   const username = document.getElementById('ra-user').value.trim().toLowerCase();
   const pw       = document.getElementById('ra-pw').value;
   const dept     = document.getElementById('ra-dept').value;
   const errEl    = document.getElementById('request-error');
   errEl.classList.remove('show');
 
-  if (!name || !username || !pw) { errEl.textContent='Please fill in all fields.'; errEl.classList.add('show'); return; }
-  const pe = pwStrength(pw); if (pe) { errEl.textContent=pe; errEl.classList.add('show'); return; }
+  if (!name||!email||!username||!pw) { errEl.textContent='Please fill in all fields.'; errEl.classList.add('show'); return; }
+  const pe = pwStrength(pw); if(pe) { errEl.textContent=pe; errEl.classList.add('show'); return; }
 
-  // Reload from Sheets to check latest usernames
-  showLoading('Checking...');
-  await usersGetAll();
-  hideLoading();
+  try {
+    // Check if username is taken
+    const snap = await FB().getDocs(FB().query(col('users'), FB().where('username','==',username)));
+    if (!snap.empty) { errEl.textContent='That username is already taken.'; errEl.classList.add('show'); return; }
+    const pSnap = await FB().getDocs(FB().query(col('pendingRequests'), FB().where('username','==',username)));
+    if (!pSnap.empty) { errEl.textContent='A request for that username is already pending.'; errEl.classList.add('show'); return; }
 
-  if (USERS_CACHE.find(u => u.username === username)) { errEl.textContent='That username is already taken.'; errEl.classList.add('show'); return; }
-  if (PENDING_CACHE.find(p => p.username === username)) { errEl.textContent='A request for that username is already pending.'; errEl.classList.add('show'); return; }
+    // Store pending request (password stored in plaintext temporarily — admin reviews and creates the account)
+    await FB().addDoc(col('pendingRequests'), {
+      fullName:    name,
+      email,
+      username,
+      password:    pw,   // stored temporarily; cleared when admin approves/denies
+      dept,
+      requestedAt: new Date().toISOString()
+    });
 
-  const pwHash = await sha256(pw);
-  showLoading('Submitting request...');
-  const ok = await pendingCreate({ username, fullName: name, dept, pwHash, requestedAt: new Date().toISOString() });
-  hideLoading();
-
-  if (!ok) { errEl.textContent='Failed to submit request. Please try again.'; errEl.classList.add('show'); return; }
-  document.getElementById('request-form-wrap').style.display = 'none';
-  document.getElementById('request-success').classList.add('show');
+    document.getElementById('request-form-wrap').style.display = 'none';
+    document.getElementById('request-success').classList.add('show');
+  } catch(err) {
+    console.error(err);
+    errEl.textContent = 'Failed to submit request. Please try again.';
+    errEl.classList.add('show');
+  }
 }
 
-function renderPending() {
-  const section = document.getElementById('pending-section');
-  const list    = document.getElementById('pending-list');
-  const badge   = document.getElementById('pending-count');
-
-  if (!PENDING_CACHE.length) { section.style.display='none'; return; }
-  section.style.display = '';
-  badge.textContent = PENDING_CACHE.length;
-
-  list.innerHTML = PENDING_CACHE.map((p,i) => `
-    <div class="pending-card">
-      <div class="pending-info">
-        <h4>${p.fullName}</h4>
-        <p>@${p.username} &mdash; ${p.dept} &mdash; Requested ${new Date(p.requestedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</p>
-      </div>
-      <div class="pending-actions">
-        <button class="btn-approve" onclick="approveRequest('${p.username}')">Approve</button>
-        <button class="btn-deny" onclick="denyRequest('${p.username}')">Deny</button>
-      </div>
-    </div>
-  `).join('');
+// ═══════════════════════════════════════════════════════════════════
+// PROFILE
+// ═══════════════════════════════════════════════════════════════════
+async function loadProfile() {
+  try {
+    const snap = await FB().getDoc(dref('users', SESSION.uid));
+    const u = snap.exists() ? snap.data() : {};
+    document.getElementById('prof-name').value     = u.fullName || SESSION.fullName || '';
+    document.getElementById('prof-email').value    = u.email    || SESSION.email    || '';
+    document.getElementById('prof-username').value = u.username || SESSION.username || '';
+    const dept = document.getElementById('prof-dept');
+    if(dept) dept.value = u.dept || SESSION.dept || '';
+    const initials = (u.fullName||SESSION.fullName||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('profile-avatar-display').textContent = initials;
+    document.getElementById('profile-msg').style.display='none';
+  } catch(e) { console.error('Profile load error:', e); }
 }
 
-async function approveRequest(username) {
-  const req = PENDING_CACHE.find(p => p.username === username);
-  if (!req) return;
-  showLoading('Approving...');
-  const ok = await userCreate({ username: req.username, fullName: req.fullName, role: 'user', dept: req.dept, pwHash: req.pwHash });
-  if (ok) await pendingDelete(req.username);
-  hideLoading();
-  if (!ok) { alert('Failed to approve request.'); return; }
-  renderUsers();
+async function saveProfile() {
+  const fullName = document.getElementById('prof-name').value.trim();
+  const dept     = document.getElementById('prof-dept').value;
+  const pwCur    = document.getElementById('prof-pw-current').value;
+  const pw       = document.getElementById('prof-pw').value;
+  const pw2      = document.getElementById('prof-pw2').value;
+  const msg      = document.getElementById('profile-msg');
+
+  const showMsg = (text, ok) => {
+    msg.textContent=text; msg.style.display='block';
+    msg.style.cssText='display:block;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-top:8px;border:1px solid '+(ok?'rgba(16,185,129,0.3)':'rgba(232,50,26,0.3)')+';background:'+(ok?'rgba(16,185,129,0.15)':'rgba(232,50,26,0.15)')+';color:'+(ok?'var(--green)':'var(--fire)')+';';
+  };
+
+  if (!fullName) { showMsg('Full name is required.', false); return; }
+
+  showLoading('Saving profile...');
+  try {
+    // Update Firestore profile
+    const updates = { fullName, dept };
+    await FB().updateDoc(dref('users', SESSION.uid), updates);
+    SESSION.fullName = fullName;
+    SESSION.dept = dept;
+    document.getElementById('session-label').textContent = SESSION.fullName + ' (' + SESSION.username + ')';
+    ['insp-sub','viol-sub','knox-sub'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=SESSION.fullName; });
+    document.getElementById('profile-avatar-display').textContent = fullName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+
+    // Change password if requested
+    if (pw || pw2 || pwCur) {
+      if (!pwCur) { hideLoading(); showMsg('Current password required to change password.', false); return; }
+      if (pw !== pw2) { hideLoading(); showMsg('New passwords do not match.', false); return; }
+      const pe = pwStrength(pw); if(pe) { hideLoading(); showMsg(pe, false); return; }
+      try {
+        await window._reauth(SESSION.email, pwCur);
+        await window._updatePw(pw);
+      } catch(e) {
+        hideLoading();
+        showMsg(e.code==='auth/wrong-password' ? 'Current password is incorrect.' : 'Failed to update password.', false);
+        return;
+      }
+      document.getElementById('prof-pw-current').value='';
+      document.getElementById('prof-pw').value='';
+      document.getElementById('prof-pw2').value='';
+    }
+
+    hideLoading();
+    showMsg('Profile saved successfully!', true);
+  } catch(err) {
+    hideLoading();
+    showMsg('Failed to save profile. Please try again.', false);
+  }
 }
 
-async function denyRequest(username) {
-  if (!confirm('Deny and remove this access request?')) return;
-  showLoading('Removing...');
-  await pendingDelete(username);
-  hideLoading();
-  renderPending();
+// ═══════════════════════════════════════════════════════════════════
+// FORM FIELD HELPERS
+// ═══════════════════════════════════════════════════════════════════
+function handleOtherRadio(radio, formKey) {
+  const wrap  = document.getElementById(formKey+'-other-wrap');
+  const input = document.getElementById(formKey+'-other-input');
+  if (!wrap||!input) return;
+  if (radio.value==='Other') { wrap.classList.add('show'); input.required=true; input.focus(); }
+  else { wrap.classList.remove('show'); input.required=false; input.value=''; }
 }
 
+function handleOtherCheck(checkbox) {
+  const wrap  = document.getElementById('viol-other-wrap');
+  const input = document.getElementById('viol-other-input');
+  if (!wrap||!input) return;
+  if (checkbox.checked) { wrap.classList.add('show'); input.required=true; input.focus(); }
+  else { wrap.classList.remove('show'); input.required=false; input.value=''; }
+}
 
-init();
+// Keyboard shortcuts
+document.getElementById('lu').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('lp').focus(); });
+document.getElementById('lp').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+document.getElementById('ra-pw').addEventListener('keydown', e=>{ if(e.key==='Enter') submitAccessRequest(); });
+
+// ═══════════════════════════════════════════════════════════════════
+// EMAILJS NOTIFICATION
+// Fill in your keys from emailjs.com
+// ═══════════════════════════════════════════════════════════════════
+const EMAILJS_CONFIG = {
+  publicKey:      'YOUR_PUBLIC_KEY',
+  serviceId:      'YOUR_SERVICE_ID',
+  templateId:     'YOUR_TEMPLATE_ID',
+  inspectorEmail: 'inspector@yorktownny.gov',
+};
+if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
+  emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+}
+
+async function sendSubmissionEmail(data) {
+  if (EMAILJS_CONFIG.publicKey==='YOUR_PUBLIC_KEY') return;
+  const typeLabels = { inspection:'Building Inspection with FD Walkthrough', violation:'Code Violation', knox:'Knox Box Issues' };
+  const typeName   = typeLabels[data.type]||data.type;
+  const submittedAt= new Date(data.timestamp).toLocaleString('en-US',{month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
+  let details = `Reference #: ${data.ref}\nType: ${typeName}\nDepartment: ${data.department}\nSubmitted By: ${data.submittedByName}\nDate/Time: ${submittedAt}\n\nProperty Address: ${data.address||'—'}\n`;
+  if (data.property_name) details+=`Property Name: ${data.property_name}\n`;
+  try {
+    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+      to_email: EMAILJS_CONFIG.inspectorEmail,
+      subject: `[${data.ref}] New ${typeName} — ${data.department}`,
+      ref_number: data.ref, submission_type: typeName,
+      department: data.department, submitted_by: data.submittedByName,
+      address: data.address||'—', submitted_at: submittedAt, full_details: details,
+    });
+  } catch(err) { console.warn('EmailJS error:', err); }
+}
 </script>
 </body>
 </html>
