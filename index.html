@@ -443,9 +443,9 @@
           <select name="pref_time"><option value="">— Flexible —</option><option>8:00 AM – 10:00 AM</option><option>10:00 AM – 12:00 PM</option><option>12:00 PM – 2:00 PM</option><option>2:00 PM – 4:00 PM</option><option>4:00 PM – 6:00 PM</option></select>
         </div>
         <div class="field"><label>Alternate Date</label><input type="date" name="alt_date"></div>
-        <div class="field"><label>Contact Name <span class="req">*</span></label><input type="text" name="contact_name" placeholder="John Smith" required></div>
-        <div class="field"><label>Contact Phone <span class="req">*</span></label><input type="tel" name="contact_phone" placeholder="(914) 555-0100" required></div>
-        <div class="field"><label>Contact Email</label><input type="email" name="contact_email" placeholder="john@example.com"></div>
+        <div class="field"><label>Fire Department Contact Name <span class="req">*</span></label><input type="text" name="contact_name" placeholder="John Smith" required></div>
+        <div class="field"><label>Fire Department Contact Phone <span class="req">*</span></label><input type="tel" name="contact_phone" placeholder="(914) 555-0100" required></div>
+        <div class="field"><label>Fire Department Contact Email</label><input type="email" name="contact_email" placeholder="john@example.com"></div>
         <div class="field field-full"><label>Additional Notes</label><textarea name="notes" placeholder="Gate codes, access instructions, areas of concern..."></textarea></div>
         <div class="field field-full"><label>Submitting Officer / Member</label><input type="text" name="submitted_by" id="insp-sub" placeholder="FF. Jane Doe"></div>
       </div>
@@ -467,7 +467,8 @@
       <div class="form-grid">
         <div class="field field-full"><label>Property Address <span class="req">*</span></label><input type="text" name="address" placeholder="123 Main St, Yorktown Heights, NY 10598" required></div>
         <div class="field"><label>Property Name / Business</label><input type="text" name="property_name" placeholder="ABC Commercial Plaza"></div>
-        <div class="field"><label>Owner / Responsible Party</label><input type="text" name="owner" placeholder="Property owner or manager"></div>
+        <div class="field"><label>Owner / Responsible Party — Name</label><input type="text" name="owner" placeholder="Property owner or manager name"></div>
+        <div class="field"><label>Owner / Responsible Party — Phone or Email</label><input type="text" name="owner_contact" placeholder="(914) 555-0100 or email@example.com"></div>
         <div class="field field-full"><label>Violation Type(s) <span class="req">*</span></label>
           <div class="multi-check-group" id="violation-types">
             <label class="multi-check-item"><input type="checkbox" name="vt" value="Blocked Exit / Egress"><span class="check-box"></span><span class="check-label">Blocked Exit / Egress</span></label>
@@ -500,10 +501,23 @@
           <input type="hidden" name="severity" id="sev-violation">
         </div>
         <div class="field field-full"><label>Violation Description <span class="req">*</span></label><textarea name="description" placeholder="Describe the violation in detail: location within property, specific conditions observed, any immediate danger..." required style="min-height:110px;"></textarea></div>
-        <div class="field"><label>Reporting Officer <span class="req">*</span></label><input type="text" name="submitted_by" id="viol-sub" placeholder="FF. Jane Doe" required></div>
-        <div class="field"><label>Contact Phone</label><input type="tel" name="contact_phone" placeholder="(914) 555-0100"></div>
-        <div class="field"><label>Contact Email</label><input type="email" name="contact_email" placeholder="officer@fire.gov"></div>
+        <div class="field field-full" style="border-top:1px solid var(--steel);padding-top:18px;margin-top:4px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--fog);margin-bottom:14px">Reporting Officer Information</div>
+        </div>
+        <div class="field"><label>Reporting Officer Name <span class="req">*</span></label><input type="text" name="submitted_by" id="viol-sub" placeholder="FF. Jane Doe" required></div>
+        <div class="field"><label>Reporting Officer Phone</label><input type="tel" name="contact_phone" placeholder="(914) 555-0100"></div>
+        <div class="field"><label>Reporting Officer Email</label><input type="email" name="contact_email" placeholder="officer@yorktownny.gov"></div>
         <div class="field field-full"><label>Immediate Action Taken</label><textarea name="action_taken" placeholder="e.g. Verbal warning issued, owner notified, area secured..."></textarea></div>
+        <div class="field field-full">
+          <label>Photo Evidence <span style="color:var(--mist);font-weight:400;text-transform:none;letter-spacing:0">(optional — select one or more)</span></label>
+          <div style="background:var(--smoke);border:1.5px dashed var(--steel);border-radius:8px;padding:18px;text-align:center;cursor:pointer;transition:border-color 0.2s" onclick="document.getElementById('viol-photos').click()" id="photo-drop-zone">
+            <div style="font-size:1.5rem;margin-bottom:6px">📷</div>
+            <div style="font-size:0.82rem;color:var(--fog)">Click to select photos</div>
+            <div style="font-size:0.72rem;color:var(--mist);margin-top:3px">JPG, PNG, HEIC — max 5 files</div>
+          </div>
+          <input type="file" id="viol-photos" name="photos" accept="image/*" multiple style="display:none" onchange="handlePhotoSelect(this)">
+          <div id="photo-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"></div>
+        </div>
       </div>
       <div class="form-actions">
         <button type="button" class="btn-reset" onclick="resetForm('violation')">Clear</button>
@@ -1027,6 +1041,13 @@ async function submitForm(e, type) {
     if (type === 'violation') data.violation_type = [...form.querySelectorAll('input[name="vt"]:checked')].map(c=>c.value).join(', ');
   }
 
+  // Attach photo filenames if any (actual files stored client-side only — names logged for reference)
+  if (type === 'violation') {
+    const photoInput = document.getElementById('viol-photos');
+    if (photoInput && photoInput.files.length) {
+      data.photo_filenames = [...photoInput.files].map(f => f.name).join(', ');
+    }
+  }
   data.type=type; data.department=selectedDept; data.timestamp=new Date().toISOString();
   data.submittedByUser=SESSION.username; data.submittedByName=SESSION.fullName;
   data.status='submitted'; data.archived=false;
@@ -1066,7 +1087,7 @@ function validateForm(form) {
 }
 function resetForm(type) {
   document.getElementById('f-'+type).reset();
-  if(type==='violation'){document.querySelectorAll('#violation-types input').forEach(c=>c.checked=false);document.querySelectorAll('.severity-btn').forEach(b=>b.classList.remove('active'));document.getElementById('sev-violation').value='';}
+  if(type==='violation'){document.querySelectorAll('#violation-types input').forEach(c=>c.checked=false);document.querySelectorAll('.severity-btn').forEach(b=>b.classList.remove('active'));document.getElementById('sev-violation').value='';const vp=document.getElementById('viol-photos');if(vp)vp.value='';const pp=document.getElementById('photo-preview');if(pp)pp.innerHTML='';const dz=document.getElementById('photo-drop-zone');if(dz)dz.style.borderColor='var(--steel)';}
   // Hide and clear Other inputs
   ['knox','viol'].forEach(k => {
     const wrap = document.getElementById(k+'-other-wrap');
@@ -1181,7 +1202,7 @@ function openTicket(id) {
   const ff=(label,val)=>val?`<div class="mf full"><label>${label}</label><p>${val}</p></div>`:'';
   let fields = f('Reference #',t.ref)+f('Department',t.department)+f('Submitted By',t.submittedByName||t.submitted_by)+f('Date Submitted',new Date(t.timestamp).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}))+ff('Property Address',t.address)+f('Property Name',t.property_name);
   if(t.type==='inspection'){fields+=f('Contact Name',t.contact_name)+f('Contact Phone',t.contact_phone)+f('Contact Email',t.contact_email)+f('Preferred Date',t.pref_date)+f('Preferred Time',t.pref_time)+f('Alternate Date',t.alt_date)+ff('Notes',t.notes);}
-  else if(t.type==='violation'){fields+=ff('Violation Type(s)',t.violation_type)+f('Date Observed',t.observed_date)+f('Time Observed',t.observed_time)+f('Severity',t.severity?t.severity.toUpperCase():'')+f('Contact Phone',t.contact_phone)+f('Contact Email',t.contact_email)+ff('Description',t.description)+ff('Immediate Action Taken',t.action_taken);}
+  else if(t.type==='violation'){fields+=ff('Violation Type(s)',t.violation_type)+f('Date Observed',t.observed_date)+f('Time Observed',t.observed_time)+f('Severity',t.severity?t.severity.toUpperCase():'')+f('Owner / Responsible Party',t.owner)+f('Owner Contact',t.owner_contact)+f('Reporting Officer',t.submitted_by||t.submittedByName)+f('Officer Phone',t.contact_phone)+f('Officer Email',t.contact_email)+ff('Description',t.description)+ff('Immediate Action Taken',t.action_taken);}
   else if(t.type==='knox'){fields+=f('Request Type',t.knox_type)+f('Box Location',t.box_location)+f('Emergency Contact',t.owner_name)+f('Contact Phone',t.owner_phone)+f('Contact Email',t.owner_email)+f('Preferred Service Date',t.pref_date)+ff('Keys / Access Items',t.key_list)+ff('Notes',t.notes)+f('Requesting Officer',t.submitted_by||t.submittedByName)+f('Officer Contact',t.officer_contact);}
 
   // Status section
@@ -1505,8 +1526,9 @@ async function sendSubmissionEmail(data) {
     if (data.observed_date)  details += 'Date Observed: ' + data.observed_date + '\n';
     if (data.observed_time)  details += 'Time Observed: ' + data.observed_time + '\n';
     if (data.owner)          details += 'Owner / Responsible Party: ' + data.owner + '\n';
-    if (data.contact_phone)  details += 'Contact Phone: ' + data.contact_phone + '\n';
-    if (data.contact_email)  details += 'Contact Email: ' + data.contact_email + '\n';
+    if (data.owner_contact)  details += 'Owner Contact: ' + data.owner_contact + '\n';
+    if (data.contact_phone)  details += 'Reporting Officer Phone: ' + data.contact_phone + '\n';
+    if (data.contact_email)  details += 'Reporting Officer Email: ' + data.contact_email + '\n';
     if (data.description)    details += '\nDescription:\n' + data.description + '\n';
     if (data.action_taken)   details += '\nImmediate Action Taken:\n' + data.action_taken + '\n';
   } else if (data.type === 'knox') {
@@ -1542,6 +1564,29 @@ async function sendSubmissionEmail(data) {
   }
 }
 
+
+// === PHOTO HANDLING ===
+function handlePhotoSelect(input) {
+  const preview = document.getElementById('photo-preview');
+  const zone = document.getElementById('photo-drop-zone');
+  const files = [...input.files].slice(0, 5);
+  preview.innerHTML = files.map((f, i) => {
+    const url = URL.createObjectURL(f);
+    return `<div style="position:relative;width:80px;height:80px">
+      <img src="${url}" style="width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid var(--steel)">
+      <button type="button" onclick="removePhoto(${i})" style="position:absolute;top:-6px;right:-6px;background:var(--fire);border:none;color:#fff;border-radius:50%;width:18px;height:18px;font-size:0.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
+    </div>`;
+  }).join('');
+  if (zone) zone.style.borderColor = files.length ? 'var(--green)' : 'var(--steel)';
+}
+
+function removePhoto(index) {
+  const input = document.getElementById('viol-photos');
+  const dt = new DataTransfer();
+  [...input.files].forEach((f, i) => { if (i !== index) dt.items.add(f); });
+  input.files = dt.files;
+  handlePhotoSelect(input);
+}
 
 // === OTHER FIELD HANDLERS ===
 function handleOtherRadio(radio, formKey) {
@@ -1613,8 +1658,34 @@ async function submitAccessRequest() {
   hideLoading();
 
   if (!ok) { errEl.textContent='Failed to submit request. Please try again.'; errEl.classList.add('show'); return; }
+  // Email admin about new access request
+  sendAccessRequestEmail({ fullName: name, username, dept });
   document.getElementById('request-form-wrap').style.display = 'none';
   document.getElementById('request-success').classList.add('show');
+}
+
+async function sendAccessRequestEmail(req) {
+  if (!EMAILJS_CONFIG.publicKey || EMAILJS_CONFIG.publicKey === 'YOUR_PUBLIC_KEY') return;
+  try {
+    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+      to_email:        'alexander.vergo@gmail.com',
+      reply_to:        '',
+      subject:         '[Access Request] ' + req.fullName + ' — ' + req.dept,
+      ref_number:      'ACCESS-REQUEST',
+      submission_type: 'User Access Request',
+      department:      req.dept,
+      submitted_by:    req.fullName,
+      address:         '—',
+      submitted_at:    new Date().toLocaleString('en-US',{month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}),
+      full_details:    'New access request submitted:
+
+Full Name: ' + req.fullName + '
+Username: @' + req.username + '
+Department: ' + req.dept + '
+
+Log in as admin to approve or deny.',
+    });
+  } catch(e) { console.warn('Access request email failed:', e); }
 }
 
 function renderPending() {
