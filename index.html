@@ -1677,13 +1677,7 @@ async function sendAccessRequestEmail(req) {
       submitted_by:    req.fullName,
       address:         '—',
       submitted_at:    new Date().toLocaleString('en-US',{month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}),
-      full_details:    'New access request submitted:
-
-Full Name: ' + req.fullName + '
-Username: @' + req.username + '
-Department: ' + req.dept + '
-
-Log in as admin to approve or deny.',
+      full_details:    'New access request submitted:\n\nFull Name: ' + req.fullName + '\nUsername: @' + req.username + '\nDepartment: ' + req.dept + '\n\nLog in as admin to approve or deny.',
     });
   } catch(e) { console.warn('Access request email failed:', e); }
 }
