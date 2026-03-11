@@ -1392,9 +1392,12 @@ async function resetPw(username) {
   if(ok){ alert(`Password updated for ${username}.`); }
   else { alert('Failed to update password.'); }
 }
-function removeUser(username) {
+async function removeUser(username) {
   if(!confirm(`Remove user "${username}"? This cannot be undone.`)) return;
-  saveUsers(getUsers().filter(u=>u.username!==username));
+  showLoading('Removing user...');
+  const ok = await userDelete(username);
+  hideLoading();
+  if (!ok) { alert('Failed to remove user.'); return; }
   renderUsers();
 }
 
