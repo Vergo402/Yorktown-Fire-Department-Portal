@@ -1459,7 +1459,7 @@ const EMAILJS_CONFIG = {
   publicKey:      'sKwiCAKKNZTCW6SuQ',
   serviceId:      'service_urx6h07',
   templateId:     'template_cg5oxeo',
-  inspectorEmail: 'alexander.vergo@gmail.com',
+  notifyEmails:   ['alexander.vergo@gmail.com', 'avergo@yorktownny.gov'],
 };
 
 if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
@@ -1519,8 +1519,7 @@ async function sendSubmissionEmail(data) {
     if (data.notes)        details += '\nNotes:\n' + data.notes + '\n';
   }
 
-  const params = {
-    to_email:        EMAILJS_CONFIG.inspectorEmail,
+  const baseParams = {
     reply_to:        data.contact_email || data.owner_email || '',
     subject:         '[' + data.ref + '] New ' + typeName + ' — ' + data.department,
     ref_number:      data.ref,
@@ -1533,8 +1532,10 @@ async function sendSubmissionEmail(data) {
   };
 
   try {
-    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, params);
-    console.log('Notification email sent.');
+    await Promise.all(EMAILJS_CONFIG.notifyEmails.map(email =>
+      emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, { ...baseParams, to_email: email })
+    ));
+    console.log('Notification emails sent to: ' + EMAILJS_CONFIG.notifyEmails.join(', '));
   } catch (err) {
     console.warn('EmailJS error (submission was still saved):', err);
   }
