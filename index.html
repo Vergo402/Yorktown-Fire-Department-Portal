@@ -899,7 +899,7 @@ async function init() {
       const s = JSON.parse(saved);
       const exp = await sha256(s.username + s.lt + 'fp_tok');
       if (s.token === exp && Date.now() - s.la < 1800000) {
-        SESSION = s;
+        SESSION = s; if (!SESSION.email) SESSION.email = '';
         usersGetAll(); // load cache in background for admin functions
         showApp();
         return;
@@ -992,7 +992,7 @@ async function doLogin() {
   if (locks[username]) { delete locks[username]; saveLocks(locks); }
   const lt = Date.now().toString();
   const token = await sha256(username + lt + 'fp_tok');
-  SESSION = {username: user.username, fullName: user.fullName, role: user.role, dept: user.dept, lt, token, la: Date.now()};
+  SESSION = {username: user.username, fullName: user.fullName, role: user.role, dept: user.dept, email: user.email||'', lt, token, la: Date.now()};
   sessionStorage.setItem('fp_sess', JSON.stringify(SESSION));
   showApp();
 }
@@ -1018,6 +1018,9 @@ function showApp() {
   const heroLabel = document.getElementById('hero-dept-label');
   if (heroLabel) heroLabel.textContent = '🚒 ' + SESSION.dept;
   ['insp-sub','viol-sub','knox-sub'].forEach(id => { const el=document.getElementById(id); if(el) el.value=SESSION.fullName; });
+  // Auto-fill officer email fields from session profile
+  const _emailFields = ['contact_email_insp','contact_email_viol','contact_email_knox'];
+  document.querySelectorAll('input[name="contact_email"]').forEach(el => { el.value = SESSION.email || ''; });
   showView('submit');
 }
 
@@ -1498,6 +1501,9 @@ async function saveProfile() {
   if (!fullName) { showMsg('Full name is required.', false); return; }
 
   const updates = { fullName, email, dept };
+  // Keep session in sync so email auto-fill stays current
+  if (SESSION) { SESSION.email = email; sessionStorage.setItem('fp_sess', JSON.stringify(SESSION)); }
+  document.querySelectorAll('input[name="contact_email"]').forEach(el => { el.value = email; });
 
   if (pw || pw2) {
     if (pw !== pw2) { showMsg('Passwords do not match.', false); return; }
@@ -1520,6 +1526,9 @@ async function saveProfile() {
   if (heroLabel) heroLabel.textContent = '🚒 ' + dept;
   document.querySelectorAll('.dept-badge').forEach(b => { b.textContent = dept; });
   ['insp-sub','viol-sub','knox-sub'].forEach(id => { const el=document.getElementById(id); if(el) el.value=SESSION.fullName; });
+  // Auto-fill officer email fields from session profile
+  const _emailFields = ['contact_email_insp','contact_email_viol','contact_email_knox'];
+  document.querySelectorAll('input[name="contact_email"]').forEach(el => { el.value = SESSION.email || ''; });
   const idx = USERS_CACHE.findIndex(u => u.username === SESSION.username);
   if (idx >= 0) USERS_CACHE[idx] = { ...USERS_CACHE[idx], ...updates };
   document.getElementById('profile-avatar-display').textContent = fullName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
