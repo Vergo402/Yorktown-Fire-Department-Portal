@@ -258,9 +258,13 @@
   @media (max-width: 768px) {
     .form-panel { padding: 20px 16px; } .main { padding: 20px 14px 80px; }
     .nav-tabs { display: none; }
-
+    .mobile-nav { display: flex !important; }
     body { padding-bottom: 60px; }
   }
+  .mobile-nav { display: none; gap: 0; border-top: 1px solid var(--steel); position: fixed; bottom: 0; left: 0; right: 0; background: var(--ash); z-index: 100; }
+  .mobile-nav-btn { flex: 1; background: none; border: none; color: var(--mist); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 9px 4px 13px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: color 0.2s; }
+  .mobile-nav-btn .mob-icon { font-size: 1.1rem; }
+  .mobile-nav-btn.active { color: var(--fire); }
   .btn-delete { background: none; border: 1px solid rgba(232,50,26,0.4); color: var(--fire); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
   .btn-delete:hover { background: rgba(232,50,26,0.1); border-color: var(--fire); }
   .comment-box { margin-top: 14px; }
@@ -990,12 +994,13 @@ function doLogout() { SESSION=null; sessionStorage.removeItem('fp_sess'); locati
 
 // === APP ===
 function showApp() {
-  ['app-header','app-main','app-footer'].forEach(id => document.getElementById(id).style.display='');
+  ['app-header','app-main','app-footer','mobile-nav'].forEach(id => document.getElementById(id).style.display='');
   document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('session-label').textContent = SESSION.fullName + ' (' + SESSION.username + ')';
   document.getElementById('role-dot').className = 'role-dot' + (SESSION.role==='admin'?' admin':'');
   if (SESSION.role === 'admin') {
     document.getElementById('tab-users').style.display = '';
+    document.getElementById('mob-users').style.display = '';
   }
   // Always set dept from session profile
   selectedDept = SESSION.dept;
@@ -1014,6 +1019,8 @@ function showView(v) {
   ['submit','dashboard','archive','users','profile'].forEach(id => { const el=document.getElementById('view-'+id); if(el) el.style.display = id===v?'block':'none'; });
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   const at = document.getElementById('tab-'+v); if(at) at.classList.add('active');
+  document.querySelectorAll('.mobile-nav-btn').forEach(t => t.classList.remove('active'));
+  const mob = document.getElementById('mob-'+v); if(mob) mob.classList.add('active');
   if(v==='dashboard') loadAndRenderDashboard();
   if(v==='archive') loadAndRenderArchive();
   if(v==='users') { if(SESSION && SESSION.role==='admin') renderUsers(); else showView('submit'); return; }
@@ -1775,5 +1782,13 @@ async function denyRequest(username) {
 
 init();
 </script>
+
+<nav class="mobile-nav" id="mobile-nav" style="display:none">
+  <button class="mobile-nav-btn active" id="mob-submit" onclick="showView('submit')"><span class="mob-icon">📋</span>Submit</button>
+  <button class="mobile-nav-btn" id="mob-dashboard" onclick="showView('dashboard')"><span class="mob-icon">📊</span>Dashboard</button>
+  <button class="mobile-nav-btn" id="mob-archive" onclick="showView('archive')"><span class="mob-icon">🗃️</span>Archive</button>
+  <button class="mobile-nav-btn" id="mob-users" onclick="showView('users')" style="display:none"><span class="mob-icon">👥</span>Users</button>
+  <button class="mobile-nav-btn" id="mob-profile" onclick="showView('profile')"><span class="mob-icon">👤</span>Profile</button>
+</nav>
 </body>
 </html>
