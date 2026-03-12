@@ -372,6 +372,7 @@
         <div class="login-field"><label>Full Name <span style="color:var(--fire)">*</span></label><input type="text" id="ra-name" placeholder="FF. Jane Doe"></div>
         <div class="login-field"><label>Requested Username <span style="color:var(--fire)">*</span></label><input type="text" id="ra-user" placeholder="e.g. yhfd3" spellcheck="false"></div>
         <div class="login-field"><label>Password <span style="color:var(--fire)">*</span></label><input type="password" id="ra-pw" placeholder="Min 8 chars, 1 upper, 1 number, 1 symbol"></div>
+        <div class="login-field"><label>Email Address <span style="color:var(--fire)">*</span></label><input type="email" id="ra-email" placeholder="your@email.com"></div>
         <div class="login-field"><label>Department <span style="color:var(--fire)">*</span></label>
           <select id="ra-dept" style="background:var(--smoke);border:1.5px solid var(--steel);border-radius:8px;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;padding:12px 14px;outline:none;width:100%;appearance:none;">
             <option value="Yorktown Heights FD">Yorktown Heights FD</option>
@@ -645,6 +646,7 @@
     <div class="add-user-grid">
       <div class="field"><label>Username</label><input type="text" id="nu-user" placeholder="e.g. yhfd3"></div>
       <div class="field"><label>Full Name</label><input type="text" id="nu-name" placeholder="FF. John Doe"></div>
+      <div class="field"><label>Email Address</label><input type="email" id="nu-email" placeholder="user@email.com"></div>
       <div class="field"><label>Password</label><input type="password" id="nu-pw" placeholder="Min 8 chars, 1 uppercase, 1 number, 1 symbol"></div>
       <div class="field"><label>Role</label><select id="nu-role"><option value="user">User</option><option value="admin">Admin</option></select></div>
       <div class="field"><label>Department</label><select id="nu-dept"><option value="Yorktown Heights FD">Yorktown Heights FD</option><option value="Lake Mohegan FD">Lake Mohegan FD</option><option value="Yorktown Building Dept">Yorktown Building Dept</option></select></div>
@@ -1417,6 +1419,7 @@ async function renderUsers() {
     <div class="user-card">
       <div class="user-card-top"><h4>${u.fullName}</h4><span class="role-badge ${u.role}">${u.role}</span></div>
       <p>@${u.username} &mdash; ${u.dept}</p>
+      ${u.email ? `<p style="color:var(--fog);font-size:0.8rem;margin-bottom:8px">✉️ ${u.email}</p>` : '<p style="color:var(--steel);font-size:0.78rem;font-style:italic;margin-bottom:8px">No email on file</p>'}
       <div class="user-card-actions">
         <button class="btn-sm" onclick="resetPw('${u.username}')">Reset PW</button>
         ${u.username!==SESSION.username?`<button class="btn-sm danger" onclick="removeUser('${u.username}')">Remove</button>`:''}
@@ -1426,6 +1429,7 @@ async function renderUsers() {
 async function addUser() {
   const username=document.getElementById('nu-user').value.trim().toLowerCase();
   const fullName=document.getElementById('nu-name').value.trim();
+  const email=document.getElementById('nu-email').value.trim();
   const pw=document.getElementById('nu-pw').value;
   const role=document.getElementById('nu-role').value;
   const dept=document.getElementById('nu-dept').value;
@@ -1433,11 +1437,11 @@ async function addUser() {
   const pe=pwStrength(pw); if(pe){alert(pe);return;}
   if(USERS_CACHE.find(u=>u.username===username)){alert('Username already exists.');return;}
   showLoading('Adding user...');
-  const ok = await userCreate({username, fullName, role, dept, pwHash: await sha256(pw)});
+  const ok = await userCreate({username, fullName, email, role, dept, pwHash: await sha256(pw)});
   hideLoading();
   if(!ok){alert('Failed to add user.');return;}
   renderUsers();
-  ['nu-user','nu-name','nu-pw'].forEach(id=>document.getElementById(id).value='');
+  ['nu-user','nu-name','nu-email','nu-pw'].forEach(id=>document.getElementById(id).value='');
 }
 async function resetPw(username) {
   const pw=prompt(`Set new password for ${username}:\n(Min 8 chars, 1 uppercase, 1 number, 1 special char)`);
@@ -1696,7 +1700,7 @@ async function submitAccessRequest() {
   const errEl    = document.getElementById('request-error');
   errEl.classList.remove('show');
 
-  if (!name || !username || !pw) { errEl.textContent='Please fill in all fields.'; errEl.classList.add('show'); return; }
+  if (!name || !username || !pw || !email) { errEl.textContent='Please fill in all fields.'; errEl.classList.add('show'); return; }
   const pe = pwStrength(pw); if (pe) { errEl.textContent=pe; errEl.classList.add('show'); return; }
 
   // Reload from Sheets to check latest usernames
@@ -1709,7 +1713,7 @@ async function submitAccessRequest() {
 
   const pwHash = await sha256(pw);
   showLoading('Submitting request...');
-  const ok = await pendingCreate({ username, fullName: name, dept, pwHash, requestedAt: new Date().toISOString() });
+  const ok = await pendingCreate({ username, fullName: name, dept, email, pwHash, requestedAt: new Date().toISOString() });
   hideLoading();
 
   if (!ok) { errEl.textContent='Failed to submit request. Please try again.'; errEl.classList.add('show'); return; }
@@ -1732,7 +1736,7 @@ async function sendAccessRequestEmail(req) {
       submitted_by:    req.fullName,
       address:         '—',
       submitted_at:    new Date().toLocaleString('en-US',{month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}),
-      full_details:    'New access request submitted:\n\nFull Name: ' + req.fullName + '\nUsername: @' + req.username + '\nDepartment: ' + req.dept + '\n\nLog in as admin to approve or deny.',
+      full_details:    'New access request submitted:\n\nFull Name: ' + req.fullName + '\nUsername: @' + req.username + '\nEmail: ' + (email||'—') + '\nDepartment: ' + req.dept + '\n\nLog in as admin to approve or deny.',
     });
   } catch(e) { console.warn('Access request email failed:', e); }
 }
@@ -1764,7 +1768,7 @@ async function approveRequest(username) {
   const req = PENDING_CACHE.find(p => p.username === username);
   if (!req) return;
   showLoading('Approving...');
-  const ok = await userCreate({ username: req.username, fullName: req.fullName, role: 'user', dept: req.dept, pwHash: req.pwHash });
+  const ok = await userCreate({ username: req.username, fullName: req.fullName, role: 'user', dept: req.dept, email: req.email||'', pwHash: req.pwHash });
   if (ok) await pendingDelete(req.username);
   hideLoading();
   if (!ok) { alert('Failed to approve request.'); return; }
