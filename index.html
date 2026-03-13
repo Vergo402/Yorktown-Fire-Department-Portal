@@ -491,12 +491,12 @@
     <div class="rr-section">
       <span class="rr-field-label">📍 Property Address <span style="color:var(--fire)">*</span></span>
       <div class="rr-addr-row">
-        <input type="text" id="rr-address" placeholder="123 Main St, Yorktown Heights" autocomplete="street-address"
+        <input type="text" id="rapid-address" placeholder="123 Main St, Yorktown Heights" autocomplete="street-address"
           style="background:var(--smoke);border:1.5px solid var(--steel);border-radius:8px;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;padding:14px;outline:none;width:100%;transition:border-color 0.2s"
           oninput="this.style.borderColor='var(--blue)'">
-        <button class="rr-gps-btn" id="rr-gps-btn" onclick="rrGetGPS()" title="Use my location">📡 GPS</button>
+        <button class="rr-gps-btn" id="gps-btn-rapid" onclick="gpsAutoFill('rapid')" title="Use my location">📡 GPS</button>
       </div>
-      <div id="rr-gps-status" style="font-size:0.75rem;color:var(--mist);margin-top:5px;min-height:16px"></div>
+      <div id="gps-status-rapid" style="font-size:0.75rem;color:var(--mist);margin-top:5px;min-height:16px"></div>
     </div>
 
     <div class="rr-section">
@@ -592,7 +592,7 @@
       <div class="form-grid">
         <div class="field field-full"><label>Property Address <span class="req">*</span></label>
           <div class="rr-addr-row">
-            <input type="text" name="address" id="viol-address" placeholder="123 Main St, Yorktown Heights, NY 10598" required style="background:var(--smoke);border:1.5px solid var(--steel);border-radius:8px;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;padding:12px 14px;outline:none;width:100%;transition:border-color 0.2s">
+            <input type="text" name="address" id="violation-address" placeholder="123 Main St, Yorktown Heights, NY 10598" required style="background:var(--smoke);border:1.5px solid var(--steel);border-radius:8px;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;padding:12px 14px;outline:none;width:100%;transition:border-color 0.2s">
             <button type="button" class="rr-gps-btn" id="gps-btn-violation" onclick="gpsAutoFill('violation')" title="Use my location">📡 GPS</button>
           </div>
           <div id="gps-status-violation" style="font-size:0.75rem;color:var(--mist);margin-top:4px;min-height:14px"></div>
@@ -2080,42 +2080,6 @@ function rrToggleVT(btn) {
   }
 }
 
-function rrGetGPS() {
-  const btn = document.getElementById('rr-gps-btn');
-  const status = document.getElementById('rr-gps-status');
-  if (!navigator.geolocation) { status.textContent = 'GPS not available on this device.'; return; }
-  btn.classList.add('locating');
-  btn.textContent = '⏳ Locating...';
-  status.textContent = 'Getting location...';
-  navigator.geolocation.getCurrentPosition(async pos => {
-    const { latitude: lat, longitude: lng } = pos.coords;
-    status.textContent = 'Resolving address...';
-    try {
-      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
-      const json = await res.json();
-      const a = json.address || {};
-      const addr = [
-        (a.house_number ? a.house_number + ' ' : '') + (a.road || ''),
-        a.city || a.town || a.village || a.county || '',
-        (a.state_abbr || a.state || 'NY'),
-        (a.postcode || '')
-      ].filter(Boolean).join(', ');
-      document.getElementById('rr-address').value = addr;
-      document.getElementById('rr-address').style.borderColor = 'var(--green)';
-      btn.classList.remove('locating'); btn.classList.add('located');
-      btn.textContent = '✅ GPS';
-      status.textContent = '📍 Location captured';
-    } catch(e) {
-      btn.classList.remove('locating');
-      btn.textContent = '📡 GPS';
-      status.textContent = 'Could not resolve address. Enter manually.';
-    }
-  }, err => {
-    btn.classList.remove('locating');
-    btn.textContent = '📡 GPS';
-    status.textContent = 'Location access denied. Enter address manually.';
-  }, { enableHighAccuracy: true, timeout: 10000 });
-}
 
 function rrHandlePhotos(input) {
   rrPhotoFiles = [...rrPhotoFiles, ...Array.from(input.files)].slice(0,5);
@@ -2140,8 +2104,8 @@ function rrRemovePhoto(i) {
 }
 
 function resetRapidReport() {
-  document.getElementById('rr-address').value = '';
-  document.getElementById('rr-address').style.borderColor = 'var(--steel)';
+  document.getElementById('rapid-address').value = '';
+  document.getElementById('rapid-address').style.borderColor = 'var(--steel)';
   document.getElementById('rr-notes').value = '';
   document.getElementById('rr-notes').style.borderColor = 'var(--steel)';
   document.getElementById('rr-gps-btn').className = 'rr-gps-btn';
@@ -2157,10 +2121,10 @@ function resetRapidReport() {
 async function submitRapidReport() {
   const errEl = document.getElementById('rr-error');
   errEl.classList.remove('show');
-  const address = document.getElementById('rr-address').value.trim();
+  const address = document.getElementById('rapid-address').value.trim();
   const notes   = document.getElementById('rr-notes').value.trim();
 
-  if (!address) { errEl.textContent = 'Address is required.'; errEl.classList.add('show'); document.getElementById('rr-address').focus(); return; }
+  if (!address) { errEl.textContent = 'Address is required.'; errEl.classList.add('show'); document.getElementById('rapid-address').focus(); return; }
   if (rrSelectedVT.length === 0) { errEl.textContent = 'Select at least one violation type.'; errEl.classList.add('show'); return; }
 
   // Determine highest severity
